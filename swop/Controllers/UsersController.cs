@@ -63,7 +63,7 @@ namespace swop.Controllers
             {
                 db.Users.Add(user);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("../HomePage/Index");
             }
 
             return View(user);
@@ -147,7 +147,7 @@ namespace swop.Controllers
                     Session["User"] = email;
                     Session["UserType"] = user.UserType;
                     //return Json(true, JsonRequestBehavior.AllowGet);
-                    return RedirectToAction("Index"); 
+                    return RedirectToAction("../HomePage/Index"); 
                 }
             //return Json(false, JsonRequestBehavior.AllowGet);
             return RedirectToAction("../Home/Index");
