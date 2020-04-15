@@ -23,16 +23,27 @@ namespace swop.Controllers
         // GET: Users/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
+            if (IsUserLogged())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
+                if (UserExists(id))
+                {
+                    User user = db.Users.Find(id);
+                    return View(user);
+                }
                 return HttpNotFound();
             }
-            return View(user);
+            return View("Error");
+            /*    if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                User user = db.Users.Find(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(user);
+                */
         }
 
         // GET: Users/Create
@@ -144,7 +155,7 @@ namespace swop.Controllers
                 {
                     Session["Logged"] = true;
                     //Session["UserId"] = user.Id;
-                    Session["User"] = email;
+                    Session["UserEmail"] = email;
                     Session["UserType"] = user.UserType;
                     //return Json(true, JsonRequestBehavior.AllowGet);
                     return RedirectToAction("../HomePage/Index"); 
@@ -155,24 +166,60 @@ namespace swop.Controllers
 
         public ActionResult Logout()
         {
-            Session["UserId"] = null;
+            //Session["UserId"] = null;
             Session["Logged"] = false;
-            Session["User"] = null;
+            Session["UserEmail"] = null;
             Session["UserType"] = null;
             return RedirectToAction("Index", "Home");
         }
 
-        public JsonResult IsLogged()
+        //Permissions check functions
+        private bool IsUserLogged()
         {
-            if (Session["Logged"] == null || (bool)Session["Logged"] == false)
-                return Json(false, JsonRequestBehavior.AllowGet);
-
-            var logInfo = new
-            {
-                UserName = Session["User"],
-                //IsAdmin = Session["IsAdmin"]
-            };
-            return Json(logInfo, JsonRequestBehavior.AllowGet);
+            if (Session["Logged"] == null)
+                return false;
+            return (bool)Session["Logged"];
         }
+
+        private bool IsUserAdmin()
+        {
+            if (IsUserLogged())
+                return (int)Session["UserType"] == 1;
+            return false;
+        }
+
+        private bool IsAllowedToEdit(string id)
+        {
+            if (IsUserLogged())
+            {
+                if (IsUserAdmin())
+                    return true;
+                else
+                    return (Session["UserEmail"].Equals(id));
+            }
+            return false;
+        }
+        private bool UserExists(string id)
+        {
+            User user = db.Users.Find(id);
+            if (user == null)
+                return false;
+            return true;
+        }
+
+        /*      
+         *      public JsonResult IsLogged()
+                {
+                    if (Session["Logged"] == null || (bool)Session["Logged"] == false)
+                        return Json(false, JsonRequestBehavior.AllowGet);
+
+                    var logInfo = new
+                    {
+                        UserEmail= Session["UserEmail"],
+                        //IsAdmin = Session["IsAdmin"]
+                    };
+                    return Json(logInfo, JsonRequestBehavior.AllowGet);
+                }
+                */
     }
 }
