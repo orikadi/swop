@@ -159,6 +159,10 @@
     <Compile Include="Migrations\202004121218446_InitialModel.designer.cs">
       <DependentUpon>202004121218446_InitialModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004151418282_AddUserId.cs" />
+    <Compile Include="Migrations\202004151418282_AddUserId.designer.cs">
+      <DependentUpon>202004151418282_AddUserId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\SwopContext.cs" />
     <Compile Include="Models\User.cs" />
@@ -227,6 +231,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202004121218446_InitialModel.resx">
       <DependentUpon>202004121218446_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004151418282_AddUserId.resx">
+      <DependentUpon>202004151418282_AddUserId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
