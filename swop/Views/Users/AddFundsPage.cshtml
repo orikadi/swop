@@ -1,0 +1,47 @@
+﻿@model swop.Models.User
+
+@{
+    ViewBag.Title = "Add Funds";
+}
+
+<form method="post">
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            @Html.DisplayNameFor(model => model.Balance)
+            @Html.DisplayFor(model => model.Balance)
+        </div>
+        <div class="form-group">
+            <input type="number" id="FundsInput" name="quantity" min="0">
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Add Funds" class="btn btn-default" id="AddFundsButton" onclick="AddFunds()" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<script>
+        function AddFunds() {
+            var funds = $("#FundsInput").val();
+            $.ajax({
+                type: "GET",
+                url: "/Users/AddFunds",
+                data: {
+                    toAdd: funds
+                },
+            dataType: "json",
+                success: function (data) {
+                    if (data)
+                        window.location = ('@Url.Action("AddFundsPage", "Users", null)')
+                    else alert("Input a number between 0 to 10000");
+                },
+                error: function (xhr, status, error) {
+                    alert("Problem adding funds");
+                }
+            });
+        }
+</script>
+

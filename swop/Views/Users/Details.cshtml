@@ -34,13 +34,19 @@
             @Html.DisplayFor(model => model.DateOfBirth)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Balance)
-        </dt>
+        @if ((bool)Session["Logged"]) //only admin/same user can see balance
+    {
+        if ((int)Session["userId"] == Model.UserId || (int)Session["UserType"] == 1)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Balance)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Balance)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Balance)
+            </dd>
+    }
+}
 
         <dt>
             @Html.DisplayNameFor(model => model.Password)
@@ -49,15 +55,17 @@
         <dd>
             @Html.DisplayFor(model => model.Password)
         </dd>
+        <div> <img src="@Model.UserPicture" alt="https://www.pngitem.com/pimgs/m/508-5087336_person-man-user-account-profile-employee-profile-template.png"></div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UserPicture)
-        </dt>
+        <!--
+         <dt>
+             @Html.DisplayNameFor(model => model.UserPicture)
+         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.UserPicture)
-        </dd>
-
+         <dd>
+             @Html.DisplayFor(model => model.UserPicture)
+         </dd>
+    -->
         <dt>
             @Html.DisplayNameFor(model => model.UserType)
         </dt>
@@ -90,13 +98,16 @@
             @Html.DisplayFor(model => model.Address)
         </dd>
 
+        <div> <img src="@Model.ApartmentPicture" alt="https://cdn.clipart.email/4ae8243aed069cdabf0516fb35fefb88_house-outline-template-free-clipart-images-clipartandscrap_1266-1182.jpeg"></div>
+   <!--
         <dt>
             @Html.DisplayNameFor(model => model.ApartmentPicture)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ApartmentPicture)
+                @Html.DisplayFor(model => model.ApartmentPicture)
         </dd>
+    -->
 
         <dt>
             @Html.DisplayNameFor(model => model.ApartmentDescription)
@@ -116,7 +127,33 @@
 
     </dl>
 </div>
+@if ((bool)Session["Logged"])
+{
+    if ((int)Session["userId"] == Model.UserId || (int)Session["UserType"] == 1)
+    {
+        <form method="post">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <input style="" type="button" value="Add Funds" class="btn btn-default" id="AddFundsButton" onclick=" MoveToAddFunds()" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    }
+}
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Email }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if ((bool)Session["Logged"]) // show edit button if admin or personal profile
+    {
+        if ((int)Session["userId"] == Model.UserId || (int)Session["UserType"] == 1)
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.UserId })
+        }
+    }
 </p>
+
+<script>
+   function MoveToAddFunds(){
+       window.location = ('@Url.Action("AddFundsPage", "Users", null)');
+    }
+</script>

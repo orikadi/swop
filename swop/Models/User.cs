@@ -13,7 +13,7 @@ namespace swop.Models
 
         [DataType(DataType.EmailAddress)]
         [Required]
-        public string Email { get; set; } //id
+        public string Email { get; set; }
 
         [Display(Name = "First Name")]
         [Required]

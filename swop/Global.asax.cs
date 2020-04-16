@@ -18,7 +18,7 @@ namespace swop
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
-        /*
+        
         protected void Session_Start(object sender, EventArgs e)
         {
             if (Session["Logged"] == null)
@@ -26,6 +26,6 @@ namespace swop
                 Session["Logged"] = false;
             }
         }
-        */
+        
     }
 }
