@@ -212,6 +212,8 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\Users\AddFundsPage.cshtml" />
+    <Content Include="Views\UserSearch.cshtml" />
+    <Content Include="Views\Users\SearchUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

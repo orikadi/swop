@@ -16,18 +16,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("SWoP", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("SWoP", "Index", "HomePage", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             @if ((bool)Session["Logged"])
             {
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "HomePage")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("My Profile", "Details", "Users", new { id = (int)Session["UserId"] }, null)</li>
+                    <li>@Html.ActionLink("Search User", "SearchUser", "Users")</li>
                     <li>@Html.ActionLink("Logout", "Logout", "Users")</li>
-
                 </ul>
             </div>
             }

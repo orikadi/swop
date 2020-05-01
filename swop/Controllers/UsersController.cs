@@ -254,6 +254,21 @@ namespace swop.Controllers
             return Json(false, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult SearchUser(string email = "", string fName = "", string lName = "")
+        {
+            if (!IsUserLogged())
+                return RedirectToAction("Index", "Home");
+            List<User> uList = new List<User>();
+            foreach(User user in db.Users)
+            {
+                if(user.Email.Contains(email) && user.FirstName.Contains(fName) && user.LastName.Contains(lName))
+                {
+                    uList.Add(user);
+                }
+            }
+            return View(uList);
+        }
+
         //Permissions check functions
         private bool IsUserLogged()
         {
@@ -287,6 +302,8 @@ namespace swop.Controllers
                 return false;
             return true;
         }
+
+
 
         /*      
          *      public JsonResult IsLogged()
