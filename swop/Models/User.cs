@@ -59,6 +59,9 @@ namespace swop.Models
         [Display(Name = "Apartment Price Per Night")]
         [Required]
         public double ApartmentPrice { get; set; } //price per night
-
+        
+        //Requests and cycles
+        public ICollection<Request> Requests { get; set; }
+        public virtual ICollection<UserCycle> UserCycles { get; set; } //many to many
     }
 }

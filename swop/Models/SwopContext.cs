@@ -9,5 +9,8 @@ namespace swop.Models
     public class SwopContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Request> Requests { get; set; }
+        public DbSet<Cycle> Cycles { get; set; }
+        public DbSet<UserCycle> UserCycles { get; set; }
     }
 }
