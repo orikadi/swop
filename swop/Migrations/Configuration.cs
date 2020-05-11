@@ -4,6 +4,7 @@
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Data.Entity.Validation;
     using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<swop.Models.SwopContext>
@@ -15,10 +16,8 @@
 
         protected override void Seed(swop.Models.SwopContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
-            //  to avoid creating duplicate seed data.
+            Trunicate(context);
+            AddUsers(context);
         }
 
         private void Trunicate(SwopContext context)
@@ -57,6 +56,83 @@
 
             //SaveChanges
             context.SaveChanges();
+        }
+        
+
+
+        public void AddUsers(SwopContext context)
+        {
+            context.Users.AddOrUpdate(x => x.UserId, new User()
+            {
+                Email = "lior@gmail.com",
+                FirstName = "Lior",
+                LastName = "Liorson",
+                DateOfBirth = new DateTime(1980, 12, 12),
+                Balance = 1000.0,
+                Password = "123",
+                UserPicture = "",
+                UserType = 1,
+                Country = "Israel",
+                City = "Petah Tikva",
+                Address = "Petah Tikva St",
+                ApartmentPicture = "https://media.discordapp.net/attachments/707248831779176528/709380556290523217/Z.png",
+                ApartmentDescription = "its k i guess",
+                ApartmentPrice = 3.0
+            });
+            context.Users.AddOrUpdate(x => x.UserId, new User()
+            {
+                Email = "ori@gmail.com",
+                FirstName = "Ori",
+                LastName = "Orison",
+                DateOfBirth = new DateTime(1980, 12, 12),
+                Balance = 1000.0,
+                Password = "123",
+                UserPicture = "",
+                UserType = 1,
+                Country = "Spain",
+                City = "Barcelona",
+                Address = "Barcelona St",
+                ApartmentPicture = "http://hadastal.art/wp-content/uploads/2017/06/Liors-Secret-Place11.jpg",
+                ApartmentDescription = "its k i guess",
+                ApartmentPrice = 3.0
+            });
+            context.Users.AddOrUpdate(x => x.UserId, new User()
+            {
+                Email = "Yoav@gmail.com",
+                FirstName = "Yoav",
+                LastName = "Yoavson",
+                DateOfBirth = new DateTime(1980, 12, 12),
+                Balance = 1000.0,
+                Password = "123",
+                UserPicture = "",
+                UserType = 1,
+                Country = "Hungary",
+                City = "Budapest",
+                Address = "Budapest St",
+                ApartmentPicture = "http://hadastal.art/wp-content/uploads/2017/06/Liors-Secret-Place11.jpg",
+                ApartmentDescription = "its k i guess",
+                ApartmentPrice = 3.0
+            });
+
+            context.Users.AddOrUpdate(x => x.UserId, new User()
+            {
+                Email = "Neil@gmail.com",
+                FirstName = "Neil",
+                LastName = "Neilson",
+                DateOfBirth = new DateTime(1980, 12, 12),
+                Balance = 1000.0,
+                Password = "123",
+                UserPicture = "",
+                UserType = 1,
+                Country = "Canada",
+                City = "Toronto",
+                Address = "Toronto St",
+                ApartmentPicture = "http://hadastal.art/wp-content/uploads/2017/06/Liors-Secret-Place11.jpg",
+                ApartmentDescription = "its k i guess",
+                ApartmentPrice = 3.0
+            });
+            context.SaveChanges();
+
         }
     }
 }
