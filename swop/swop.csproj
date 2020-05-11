@@ -155,6 +155,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Graphs\Graph.cs" />
+    <Compile Include="Graphs\Vertex.cs" />
     <Compile Include="Migrations\202004121218446_InitialModel.cs" />
     <Compile Include="Migrations\202004121218446_InitialModel.designer.cs">
       <DependentUpon>202004121218446_InitialModel.cs</DependentUpon>
@@ -174,6 +176,9 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserCycle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requests\DateRange.cs" />
+    <Compile Include="Requests\Request.cs" />
+    <Compile Include="Requests\RequestHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
