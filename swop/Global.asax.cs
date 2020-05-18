@@ -16,8 +16,9 @@ namespace swop
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            Load_RequestHandler();
         }
-
+        
         
         protected void Session_Start(object sender, EventArgs e)
         {
@@ -26,6 +27,11 @@ namespace swop
                 Session["Logged"] = false;
             }
         }
-        
+
+        private void Load_RequestHandler()
+        {
+            //load requests from db
+        }
+
     }
 }

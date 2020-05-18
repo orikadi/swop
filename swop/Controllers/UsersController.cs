@@ -269,6 +269,17 @@ namespace swop.Controllers
             return View(uList);
         }
 
+        public ActionResult RequestCycleSearch(int? id)
+        {
+             if ((Session["Logged"].Equals(true)))
+             {
+                 int userId = (int)Session["UserId"];
+                 User user = db.Users.Find(userId);
+                 return View(user);
+             }
+             return RedirectToAction("Error");
+        }
+
         //Permissions check functions
         private bool IsUserLogged()
         {

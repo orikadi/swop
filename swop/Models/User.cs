@@ -8,6 +8,7 @@ namespace swop.Models
 {
     public class User
     {
+        //add rating
         [Key]
         public int UserId { get; set; }
 

@@ -9,7 +9,6 @@ namespace swop.Models
 {
     public class Request
     {
-
         [Key]
         public int RequestId { get; set; }
         [ForeignKey("User")]

@@ -1,4 +1,4 @@
-﻿namespace swop.Requests
+﻿/*namespace swop.Requests
 {
     class Request
     {
@@ -36,3 +36,4 @@
         }
     }
 }
+*/
