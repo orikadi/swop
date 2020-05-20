@@ -31,6 +31,8 @@ namespace swop
         private void Load_RequestHandler()
         {
             //load requests from db
+            //get instance of request handler and load all of the requests into the handler without updating the database
+
         }
 
     }

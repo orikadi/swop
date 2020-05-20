@@ -32,11 +32,11 @@ namespace swop.Requests
         //find all relevant requests and add to memory
         public void AddRequest(Request request, bool updateDb)
         {
-            List<Request> reqList = Get_All_CoRequests(request);
+            List<Request> reqList = Get_All_CoRequests(request, true);
             //Add the request to all applicable dates
             foreach (Request r in reqList)
             {
-                GetGraph(Get_DateRange_String(r)).AddVertex(r.User.UserId.ToString(), r.From, r.To);
+                GetGraph(Get_DateRange_String(r)).AddVertex(r.UserId.ToString(), r.From, r.To); //changed r.user.userid to r.userid
                 if (updateDb)
                 {
                     addRequestToDb(r);
@@ -57,22 +57,25 @@ namespace swop.Requests
                 };
                 db.Cycles.Add(c);
                 //save changes so added cycle gets an id? if so need to re-update the c object so it'll have its id
-                List<UserCycle> userCycles = new List<UserCycle>(); //list to save in cycle
+                //List<UserCycle> userCycles = new List<UserCycle>(); //list to save in cycle
                 foreach (string userId in cycle) //add usercycle for every user in cycle
                 {
+                    int userIdInt = Int32.Parse(userId);
                     UserCycle uc = new UserCycle()
                     {
-                        UserId = Int32.Parse(userId),
-                        User = db.Users.Find(userId), //needed?
+                        UserId = userIdInt,
+                        User = db.Users.Find(userIdInt), //needed?
                         CycleId = c.CycleId,
                         Cycle = db.Cycles.Find(c.CycleId), //needed?
                         IsLocked = false
                     };
                     db.UserCycles.Add(uc);
-                    userCycles.Add(uc);
+                    //userCycles.Add(uc);
                 }
-                c.UserCycles = userCycles; //update cycle's usercycles
-                db.Entry(c).Property("UserCycles").IsModified = true; 
+                //c.UserCycles = userCycles; //update cycle's usercycles
+                //might need to re-add uc
+                
+                //db.Entry(c).Property("UserCycles").IsModified = true; 
             }
             db.Requests.Add(r);
             db.SaveChanges();
@@ -87,18 +90,26 @@ namespace swop.Requests
         //filter cycles for user in request parameter
         private List<List<string>> filterCyclesForUser(List<List<string>> cycles, Request r)
         {
-            string userIdS = r.User.UserId.ToString();
+            string userIdS = r.UserId.ToString(); //changed r.user.userid to r.userid
             return (from cycle in cycles where cycle.Contains(userIdS) select cycle).ToList();
         }
 
-        public void DeleteRequest(Request request) //because of success or failure? add boolean to determine for request state
+        //deletes a request
+        //delete every cycle that contains the user
+        //request's user -> go through all usercycles, save all cycles to a list.
+        //go through cycle list -> delete all user cycles inside, and then delete the cycle
+        //change request state according to bool parameter
+        public void DeleteRequest(Request request, bool didSucceed)
         {
-            List<Request> reqList = Get_All_CoRequests(request);
+            List<Request> reqList = new List<Request>(); //actual requests from db
+            //get all requests from db that have the same userId and 'ongoing' state
+            reqList = (from dbReq in db.Requests where dbReq.UserId == request.UserId && dbReq.State == 0 select dbReq).ToList();
+            //delete corresponding vertexes from graphs
             foreach (Request r in reqList)
             {
-                GetGraph(Get_DateRange_String(r)).DeleteVertex(r.User.UserId.ToString(), r.From, r.To);
+                GetGraph(Get_DateRange_String(r)).DeleteVertex(r.UserId.ToString(), r.From, r.To); //changed r.user.userid to r.userid
             }
-            List<Cycle> cycles = new List<Cycle>();
+            List<Cycle> cycles = new List<Cycle>(); //might change to set
             int userId = request.UserId;
             foreach (UserCycle uc in db.UserCycles)
             {
@@ -109,20 +120,19 @@ namespace swop.Requests
             }
             foreach (Cycle cycle in cycles)
             {
-                foreach (UserCycle uc in cycle.UserCycles) //removing while iterating? ok because its db?
+                foreach (UserCycle uc in cycle.UserCycles.ToList())
                 {
                     db.UserCycles.Remove(uc);
                 }
                 db.Cycles.Remove(cycle);
             }
-            request.State = 2; //1 completed 2 failed
-            db.Entry(request).Property("State").IsModified = true;
+            foreach(Request r in reqList)
+            {
+                if (didSucceed && r.RequestId == request.RequestId) r.State = 1;
+                else r.State = 2;
+                db.Entry(r).Property("State").IsModified = true;
+            } 
             db.SaveChanges();
-            //delete every cycle that contains the user
-            //request's user -> go through all usercycles, save all cycles to a list.
-            //go through cycle list -> delete all user cycles inside, and then delete the cycle
-            //in the end - delete request (or change request state)
-            //remember to savechanges
         }
 
         public List<List<string>> FindCycles(DateTime s, DateTime e)
@@ -143,7 +153,8 @@ namespace swop.Requests
     
 
         //finds all relative requests in a range of 2 days
-        public List<Request> Get_All_CoRequests(Request req)
+        //add boolean thats marks if we should consider today
+        public List<Request> Get_All_CoRequests(Request req, bool compareToday)
         {
             List<Request> reqList = new List<Request>();
             for (int i = SUB_DAYS; i <= ADD_DAYS; i++)
@@ -152,7 +163,7 @@ namespace swop.Requests
                 {
                     DateTime s = req.Start.AddDays(i);
                     DateTime e = req.End.AddDays(j);
-                    if (DateTime.Compare(s, e) <= 0 && DateTime.Compare(s, DateTime.Today) >= 0)
+                    if (DateTime.Compare(s, e) <= 0 && (!compareToday || DateTime.Compare(s, DateTime.Today) >= 0))
                         reqList.Add(Copy_Request_With_New_Date(req, s, e));
                 }
             }

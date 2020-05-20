@@ -1,6 +1,7 @@
 ﻿namespace swop.Migrations
 {
     using swop.Models;
+    using swop.Requests;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -9,6 +10,7 @@
 
     internal sealed class Configuration : DbMigrationsConfiguration<swop.Models.SwopContext>
     {
+
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
@@ -18,6 +20,7 @@
         {
             Trunicate(context);
             AddUsers(context);
+            AddRequests(context);
         }
 
         private void Trunicate(SwopContext context)
@@ -57,28 +60,26 @@
             //SaveChanges
             context.SaveChanges();
         }
-        
 
-
-        public void AddUsers(SwopContext context)
+        public void AddRequests(SwopContext context)
         {
-            context.Users.AddOrUpdate(x => x.UserId, new User()
-            {
-                Email = "lior@gmail.com",
-                FirstName = "Lior",
-                LastName = "Liorson",
-                DateOfBirth = new DateTime(1980, 12, 12),
-                Balance = 1000.0,
-                Password = "123",
-                UserPicture = "",
-                UserType = 1,
-                Country = "Israel",
-                City = "Petah Tikva",
-                Address = "Petah Tikva St",
-                ApartmentPicture = "https://media.discordapp.net/attachments/707248831779176528/709380556290523217/Z.png",
-                ApartmentDescription = "its k i guess",
-                ApartmentPrice = 3.0
-            });
+            //adding user object to new request doesnt work
+            Request r1 = new Request { UserId = 1, From = "Israel-PetahTikva", To = "Spain-Barcelona", Start = new DateTime(2020, 10, 1), End = new DateTime(2020, 10, 1), State = 0 };
+            RequestHandler.Instance.AddRequest(r1, true);
+            RequestHandler.Instance.AddRequest(new Request { UserId = 2, From = "Spain-Barcelona", To = "Hungary-Budapest", Start = new DateTime(2020, 10, 1), End = new DateTime(2020, 10, 1), State = 0 }, true);
+            RequestHandler.Instance.AddRequest(new Request { UserId = 3, From = "Hungary-Budapest", To = "Canada-Toronto", Start = new DateTime(2020, 10, 1), End = new DateTime(2020, 10, 1), State = 0 }, true);
+            RequestHandler.Instance.AddRequest(new Request { UserId = 4, From = "Canada-Toronto", To = "Israel-PetahTikva", Start = new DateTime(2020, 10, 1), End = new DateTime(2020, 10, 1), State = 0 }, true);
+            RequestHandler.Instance.AddRequest(new Request { UserId = 5, From = "Israel-PetahTikva", To = "Spain-Barcelona", Start = new DateTime(2020, 10, 1), End = new DateTime(2020, 10, 1), State = 0 },true);
+            context.SaveChanges();
+
+            Request req = context.Requests.Find(r1.UserId);
+            RequestHandler.Instance.DeleteRequest(r1, false);
+            context.SaveChanges();
+        }
+        
+            public void AddUsers(SwopContext context)
+        {
+           
             context.Users.AddOrUpdate(x => x.UserId, new User()
             {
                 Email = "ori@gmail.com",
@@ -128,6 +129,40 @@
                 City = "Toronto",
                 Address = "Toronto St",
                 ApartmentPicture = "http://hadastal.art/wp-content/uploads/2017/06/Liors-Secret-Place11.jpg",
+                ApartmentDescription = "its k i guess",
+                ApartmentPrice = 3.0
+            });
+            context.Users.AddOrUpdate(x => x.UserId, new User()
+            {
+                Email = "lior@gmail.com",
+                FirstName = "Lior",
+                LastName = "Liorson",
+                DateOfBirth = new DateTime(1980, 12, 12),
+                Balance = 1000.0,
+                Password = "123",
+                UserPicture = "",
+                UserType = 1,
+                Country = "Israel",
+                City = "Petah Tikva",
+                Address = "Petah Tikva St",
+                ApartmentPicture = "https://media.discordapp.net/attachments/707248831779176528/709380556290523217/Z.png",
+                ApartmentDescription = "its k i guess",
+                ApartmentPrice = 3.0
+            });
+            context.Users.AddOrUpdate(x => x.UserId, new User()
+            {
+                Email = "IsraelIsraeli@gmail.com",
+                FirstName = "Israel",
+                LastName = "Israeli",
+                DateOfBirth = new DateTime(1980, 12, 12),
+                Balance = 1000.0,
+                Password = "123",
+                UserPicture = "",
+                UserType = 1,
+                Country = "Israel",
+                City = "Petah Tikva",
+                Address = "Petah Tikva St",
+                ApartmentPicture = "https://media.discordapp.net/attachments/707248831779176528/709380556290523217/Z.png",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
