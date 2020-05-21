@@ -17,36 +17,54 @@ Please write the country and city names accurately.
             <label> City </label>
             <input type="text" id="CityInput">
         </div>
+
+        <div class="form-group">
+            <label for="start">Start date:</label>
+            <input type="date" id="start" name="trip-start"
+                   value="2020-05-21"
+                   min="2020-05-21"> <!--change to current date somehow -->
+        </div>
+        <div class="form-group">
+            <label for="end">End date:</label>
+            <input type="date" id="end" name="trip-end"
+                   value="2020-05-21"
+                   min="2020-05-21">
+        </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="button" value="Request Search" class="btn btn-default" id="AddFundsButton" onclick="AddFunds()" />
+                <input type="button" value="Request Search" class="btn btn-default" id="RequestSearchButton" onclick="SendRequest()" />
             </div>
         </div>
     </div>
 </form>
 
-<!--
+
 <script>
-        function AddFunds() {
-            var funds = $("#FundsInput").val();
+        function SendRequest() {
+            var destination = $("#CountryInput").val() + "-" + $("#CityInput").val();
+            var sDate = $("#start").val();
+            var eDate = $("#end").val();
             $.ajax({
                 type: "GET",
-                url: "/Users/AddFunds",
+                url: "/Users/SearchRequest",
                 data: {
-                    toAdd: funds
+                    dest: destination,
+                    start: sDate,
+                    end: eDate
                 },
             dataType: "json",
                 success: function (data) {
                     if (data)
-                        window.location = ('@Url.Action("AddFundsPage", "Users", null)')
-                    else alert("Input a number between 0 to 10000");
+                        window.location = ('@Url.Action("About", "Home", null)') //homepage might be wrong
+                    else alert("You already have an active request, cancel it if you want to input a new one");
                 },
                 error: function (xhr, status, error) {
-                    alert("Problem adding funds");
+                    alert("Error requesting search");
                 }
             });
         }
 </script>
-    -->
+  
 
 

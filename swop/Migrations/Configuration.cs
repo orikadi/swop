@@ -10,7 +10,6 @@
 
     internal sealed class Configuration : DbMigrationsConfiguration<swop.Models.SwopContext>
     {
-
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;

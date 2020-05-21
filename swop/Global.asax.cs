@@ -1,4 +1,6 @@
-﻿using System;
+﻿using swop.Requests;
+using swop.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -28,12 +30,18 @@ namespace swop
             }
         }
 
+        //load requests from db
+        //get instance of request handler and load all of the requests into the handler without updating the database
         private void Load_RequestHandler()
         {
-            //load requests from db
-            //get instance of request handler and load all of the requests into the handler without updating the database
-
+            SwopContext db = new SwopContext();
+            RequestHandler requestHandler = RequestHandler.Instance;
+            List<Request> reqList = new List<Request>();
+            reqList = (from req in db.Requests where req.State == 0 select req).ToList();
+            foreach (Request r in reqList)
+            {
+                requestHandler.AddRequest(r, false);
+            }
         }
-
     }
 }

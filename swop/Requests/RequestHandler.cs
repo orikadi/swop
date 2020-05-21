@@ -84,7 +84,6 @@ namespace swop.Requests
              after foreach add request to db
              remember to saveChanges()
              * */
-
         }
 
         //filter cycles for user in request parameter
@@ -107,7 +106,7 @@ namespace swop.Requests
             //delete corresponding vertexes from graphs
             foreach (Request r in reqList)
             {
-                GetGraph(Get_DateRange_String(r)).DeleteVertex(r.UserId.ToString(), r.From, r.To); //changed r.user.userid to r.userid
+                GetGraph(Get_DateRange_String(r)).DeleteVertex(r.UserId.ToString(), r.From, r.To);
             }
             List<Cycle> cycles = new List<Cycle>(); //might change to set
             int userId = request.UserId;

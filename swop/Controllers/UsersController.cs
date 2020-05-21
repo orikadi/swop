@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using swop.Models;
+using swop.Requests;
 
 namespace swop.Controllers
 {
@@ -278,6 +279,23 @@ namespace swop.Controllers
                  return View(user);
              }
              return RedirectToAction("Error");
+        }
+
+        public JsonResult SearchRequest(string dest, string start, string end)
+        {
+            //CHECK IF DATE IS NOT OLDER THAN TODAY
+            int? userId = (int)Session["UserId"];
+            User user = db.Users.Find(userId);
+            //check if has an active request already
+            if (!db.Requests.Where(r => (r.UserId == userId && r.State == 0)).Any())
+            {
+                int[] sDate = Array.ConvertAll(start.Split('-'), s => int.Parse(s));
+                int[] eDate = Array.ConvertAll(end.Split('-'), s => int.Parse(s));
+                Request r = new Request{ UserId = user.UserId, From = user.Country + "-" + user.City, To = dest, Start = new DateTime(sDate[0], sDate[1], sDate[2]), End = new DateTime(eDate[0], eDate[1], eDate[2]), State = 0 };
+                RequestHandler.Instance.AddRequest(r, true);
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            return Json(false, JsonRequestBehavior.AllowGet);
         }
 
         //Permissions check functions
