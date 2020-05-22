@@ -41,10 +41,27 @@ Please write the country and city names accurately.
 
 
 <script>
-        function SendRequest() {
+    function SendRequest() {
+
             var destination = $("#CountryInput").val() + "-" + $("#CityInput").val();
             var sDate = $("#start").val();
             var eDate = $("#end").val();
+
+            //set min date possible 
+            var today = new Date();
+            var dd = today.getDate();
+             var mm = today.getMonth() + 1; //January is 0!
+             var yyyy = today.getFullYear();
+             if (dd < 10) {
+                    dd = '0' + dd
+             }
+             if (mm < 10) {
+                    mm = '0' + mm
+             }
+
+             today = yyyy + '-' + mm + '-' + dd;
+             document.getElementById("start").setAttribute("min", today);
+             document.getElementById("end").setAttribute("min", today);
             $.ajax({
                 type: "GET",
                 url: "/Users/SearchRequest",
