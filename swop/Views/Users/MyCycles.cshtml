@@ -1,0 +1,40 @@
+﻿
+@model IEnumerable<swop.Models.Cycle>
+
+@{
+    ViewBag.Title = "My Cycles";
+}
+
+<h2>My Cycles</h2>
+Destination: <!-- get user destination destination-->
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Start)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.End)
+        </th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Start)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.End)
+        </td>
+        <!--
+        <td>
+             Html.ActionLink("Details", "Details", new { id = item. })
+        </td>
+       -->
+    </tr>
+    }
+</table>
+
+
+

@@ -270,6 +270,7 @@ namespace swop.Controllers
             return View(uList);
         }
 
+        //cycle search page
         public ActionResult RequestCycleSearch(int? id)
         {
              if ((Session["Logged"].Equals(true)))
@@ -283,7 +284,6 @@ namespace swop.Controllers
 
         public JsonResult SearchRequest(string dest, string start, string end)
         {
-            //CHECK IF DATE IS NOT OLDER THAN TODAY
             int? userId = (int)Session["UserId"];
             User user = db.Users.Find(userId);
             //check if has an active request already
@@ -297,6 +297,22 @@ namespace swop.Controllers
             }
             return Json(false, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult MyCycles(int? id)
+        {
+            if ((Session["Logged"].Equals(true)))
+            {
+                int userId = (int)Session["UserId"];
+                User user = db.Users.Find(userId);
+                //go through usercycles, collect the cycle ids of the usercycles with same userid as this user
+                List<int> cycleIds;
+                cycleIds = db.UserCycles.Where(uc => uc.UserId == userId).Select(uc => uc.CycleId).ToList();
+                return View(db.Cycles.Where(c => cycleIds.Contains(c.CycleId)).ToList());
+            }
+            return RedirectToAction("Error");
+        }
+
+
 
         //Permissions check functions
         private bool IsUserLogged()
