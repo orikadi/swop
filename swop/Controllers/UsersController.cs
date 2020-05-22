@@ -200,8 +200,6 @@ namespace swop.Controllers
             base.Dispose(disposing);
         }
 
-        //added
-
         public ActionResult Login(string email, string password)
         {
             foreach (User user in db.Users)
@@ -211,6 +209,10 @@ namespace swop.Controllers
                     Session["UserId"] = user.UserId;
                     Session["UserEmail"] = email;
                     Session["UserType"] = user.UserType;
+                    //check if has an active request
+                    if (db.Requests.Where(r => (r.UserId == user.UserId && r.State == 0)).Any())
+                        Session["HasActiveRequest"] = true;
+                    else Session["HasActiveRequest"] = false;
                     //return Json(true, JsonRequestBehavior.AllowGet); 
                     return RedirectToAction("../HomePage/Index"); 
                 }
@@ -224,6 +226,7 @@ namespace swop.Controllers
             Session["Logged"] = false;
             Session["UserEmail"] = null;
             Session["UserType"] = null;
+            Session["HasActiveRequest"] = null;
             return RedirectToAction("Index", "Home");
         }
         //adding funds to user
@@ -293,6 +296,7 @@ namespace swop.Controllers
                 int[] eDate = Array.ConvertAll(end.Split('-'), s => int.Parse(s));
                 Request r = new Request{ UserId = user.UserId, From = user.Country + "-" + user.City, To = dest, Start = new DateTime(sDate[0], sDate[1], sDate[2]), End = new DateTime(eDate[0], eDate[1], eDate[2]), State = 0 };
                 RequestHandler.Instance.AddRequest(r, true);
+                Session["HasActiveRequest"] = true;
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
             return Json(false, JsonRequestBehavior.AllowGet);

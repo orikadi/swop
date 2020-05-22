@@ -23,8 +23,15 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("My Profile", "Details", "Users", new { id = (int)Session["UserId"] }, null)</li>
-                    <li>@Html.ActionLink("Cycle Search", "RequestCycleSearch", "Users")</li>
-                    <li>@Html.ActionLink("My Cycles", "MyCycles", "Users")</li>
+                    
+                    @if ((bool)Session["HasActiveRequest"])
+                    {
+                        <li>@Html.ActionLink("My Cycles", "MyCycles", "Users")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Cycle Search", "RequestCycleSearch", "Users")</li> 
+                    }
                     <li>@Html.ActionLink("Search User", "SearchUser", "Users")</li>
                     <li>@Html.ActionLink("Logout", "Logout", "Users")</li>
                 </ul>
