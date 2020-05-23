@@ -18,88 +18,34 @@
         </p>
     </div>
     <div class="col-md-4">
-        <h2>Sign-Up</h2>
-        @using (Html.BeginForm("Create", "Users"))
-        {
-            <div class="form-group">
-                @Html.LabelFor(m => m.Email)
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.FirstName)
-                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.LastName)
-                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Password)
-                @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.UserPicture, new { @class = "col-md-2 control-label" })
-                @Html.TextBoxFor(m => m.UserPicture, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.DateOfBirth, new { @class = "col-md-2 control-label" })
-                @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Country, new { @class = "col-md-2 control-label" })
-                @Html.TextBoxFor(m => m.Country, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.City, new { @class = "col-md-2 control-label" })
-                @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
-                @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.ApartmentDescription, new { @class = "col-md-2 control-label" })
-                @Html.TextBoxFor(m => m.ApartmentDescription, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.ApartmentPrice, new { @class = "col-md-2 control-label" })
-                @Html.TextBoxFor(m => m.ApartmentPrice, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.ApartmentPicture, new { @class = "col-md-2 control-label" })
-                @Html.TextBoxFor(m => m.ApartmentPicture, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" class="btn btn-default" value="Register" />
-                </div>
-            </div>
-        }
+        <h2>
+            @Html.ActionLink("Sign-Up", "Create", "Users")
+        </h2>
     </div>
-    <div class="col-md-4">
-        <h2>Log-In</h2>
-        @using (Html.BeginForm("Login", "Users"))
-        {
-            <div class="form-group">
-                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-4">
+            <h2>Log-In</h2>
+            @using (Html.BeginForm("Login", "Users"))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
 
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
 
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-
-                @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
-
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" class="btn btn-default" value="Login" />
                 </div>
-            </div>
-        }
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+
+                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-default" value="Login" />
+                    </div>
+                </div>
+            }
+        </div>
     </div>
-</div>
 <!--TODO: if already signed in automaticly move to the next page (can use the "isLoged" method)-->
 
 <!--<script>
