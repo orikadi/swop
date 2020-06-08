@@ -63,12 +63,12 @@
         public void AddRequests(SwopContext context)
         {
             //adding user object to new request doesnt work
-            Request r1 = new Request { UserId = 1, From = "Israel-PetahTikva", To = "Spain-Barcelona", Start = new DateTime(2020, 10, 1), End = new DateTime(2020, 10, 1), State = 0 };
-            RequestHandler.Instance.AddRequest(r1, true);
-            RequestHandler.Instance.AddRequest(new Request { UserId = 2, From = "Spain-Barcelona", To = "Hungary-Budapest", Start = new DateTime(2020, 10, 1), End = new DateTime(2020, 10, 1), State = 0 }, true);
-            RequestHandler.Instance.AddRequest(new Request { UserId = 3, From = "Hungary-Budapest", To = "Canada-Toronto", Start = new DateTime(2020, 10, 1), End = new DateTime(2020, 10, 1), State = 0 }, true);
-            RequestHandler.Instance.AddRequest(new Request { UserId = 4, From = "Canada-Toronto", To = "Israel-PetahTikva", Start = new DateTime(2020, 10, 1), End = new DateTime(2020, 10, 1), State = 0 }, true);
-            RequestHandler.Instance.AddRequest(new Request { UserId = 5, From = "Israel-PetahTikva", To = "Spain-Barcelona", Start = new DateTime(2020, 10, 1), End = new DateTime(2020, 10, 1), State = 0 },true);
+            RequestHandler.Instance.AddRequest(new Request { UserId = 1, From = "Spain-Barcelona", To = "Hungary-Budapest", Start = new DateTime(2020, 10, 1), End = new DateTime(2020, 10, 1), State = 0 }, true);
+            RequestHandler.Instance.AddRequest(new Request { UserId = 2, From = "Hungary-Budapest", To = "Canada-Toronto", Start = new DateTime(2020, 10, 1), End = new DateTime(2020, 10, 1), State = 0 }, true);
+            RequestHandler.Instance.AddRequest(new Request { UserId = 3, From = "Canada-Toronto", To = "Israel-Petah Tikva", Start = new DateTime(2020, 10, 1), End = new DateTime(2020, 10, 1), State = 0 }, true);
+            RequestHandler.Instance.AddRequest(new Request { UserId = 4, From = "Israel-Petah Tikva", To = "Spain-Barcelona", Start = new DateTime(2020, 10, 1), End = new DateTime(2020, 10, 1), State = 0 }, true);
+            Request r1 = new Request { UserId = 5, From = "Israel-Petah Tikva", To = "Spain-Barcelona", Start = new DateTime(2020, 10, 1), End = new DateTime(2020, 10, 1), State = 0 };
+            RequestHandler.Instance.AddRequest(r1,true);
             context.SaveChanges();
 
             RequestHandler.Instance.AddRequest(new Request { UserId = 6, From = "Israel-Jerusalem", To = "Italy-Sardinia", Start = new DateTime(2021, 8, 13), End = new DateTime(2021, 8, 17), State = 0 }, true);
@@ -158,7 +158,7 @@
             });
             context.Users.AddOrUpdate(x => x.UserId, new User()
             {
-                Email = "Yoav@gmail.com",
+                Email = "yoav@gmail.com",
                 FirstName = "Yoav",
                 LastName = "Yoavson",
                 DateOfBirth = new DateTime(1980, 12, 12),
@@ -176,7 +176,7 @@
 
             context.Users.AddOrUpdate(x => x.UserId, new User()
             {
-                Email = "Neil@gmail.com",
+                Email = "neil@gmail.com",
                 FirstName = "Neil",
                 LastName = "Neilson",
                 DateOfBirth = new DateTime(1980, 12, 12),
@@ -210,7 +210,7 @@
             });
             context.Users.AddOrUpdate(x => x.UserId, new User()
             {
-                Email = "IsraelIsraeli@gmail.com",
+                Email = "israel@gmail.com",
                 FirstName = "Israel",
                 LastName = "Israeli",
                 DateOfBirth = new DateTime(1980, 12, 12),

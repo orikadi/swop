@@ -1,40 +1,70 @@
 ﻿
-@model IEnumerable<swop.Models.Cycle>
+@model swop.ViewModels.CyclesForUser
 
 @{
     ViewBag.Title = "My Cycles";
 }
-
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script type="text/javascript">
+    function percentageComplete(cid) {
+        $.ajax({
+            type: "GET",
+            url: "/Cycles/PercentageComplete",
+            data: {
+                id: cid
+            },
+            dataType: "json",
+            success: function (data) {
+                //document.write(data)
+                //return data+""
+                $("#percentageBox_"+cid).text(data + "%");
+            },
+            error: function (xhr, status, error) {
+                return "cycleid is null" //temp
+            }
+        });
+    }
+</script>
 <h2>My Cycles</h2>
-Destination: <!-- get user destination destination-->
+
+<div>
+    Destination: @Html.DisplayFor(model => model.user.Requests.Where(r => r.State == 0).First().To)
+</div>
+@Html.ActionLink("Delete Search Request", "DeleteRequest", "Users")
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Start)
+            @Html.DisplayNameFor(model => model.cycles[0].Start)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.End)
+            @Html.DisplayNameFor(model => model.cycles[0].End)
         </th>
+
+        <th>Completed</th>
     </tr>
 
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.cycles)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Start)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.End)
-        </td>
-        <!--
-        <td>
-             Html.ActionLink("Details", "Details", new { id = item. })
-        </td>
-       -->
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Start)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.End)
+            </td>
+            <td id="percentageBox_@item.CycleId">
+                <script> percentageComplete(@item.CycleId) </script>
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", "Cycles", new { id = item.CycleId }, null)
+            </td>
+
+        </tr>
     }
 </table>
+
+
 
 
 

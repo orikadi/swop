@@ -34,6 +34,7 @@ namespace swop
         //get instance of request handler and load all of the requests into the handler without updating the database
         private void Load_RequestHandler()
         {
+            //add corequest usage boolean
             SwopContext db = new SwopContext();
             RequestHandler requestHandler = RequestHandler.Instance;
             List<Request> reqList = new List<Request>();

@@ -20,7 +20,12 @@ namespace swop.Graphs
         public void AddEdge(string user,Vertex to)
         {
             if(Edges.ContainsKey(to))
-                Edges[to].Add(user);
+            {
+                if (!Edges[to].Contains(user))
+                {
+                    Edges[to].Add(user);
+                }
+            }    
             else
             {
                 Edges.Add(to,new List<string>());

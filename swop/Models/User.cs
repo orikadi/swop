@@ -62,7 +62,7 @@ namespace swop.Models
         public double ApartmentPrice { get; set; } //price per night
         
         //Requests and cycles
-        public ICollection<Request> Requests { get; set; }
+        public ICollection<Request> Requests { get; set; } //virtual??
         public virtual ICollection<UserCycle> UserCycles { get; set; } //many to many
     }
 }

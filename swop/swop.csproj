@@ -149,6 +149,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CyclesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\RequestsController.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Requests\DateRangeFormer.cs" />
     <Compile Include="Requests\RequestFormer.cs" />
     <Compile Include="Requests\RequestHandler.cs" />
+    <Compile Include="ViewModels\CyclesForUser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -233,6 +235,11 @@
     <Content Include="Views\Requests\Index.cshtml" />
     <Content Include="Views\Users\RequestCycleSearch.cshtml" />
     <Content Include="Views\Users\MyCycles.cshtml" />
+    <Content Include="Views\Cycles\Create.cshtml" />
+    <Content Include="Views\Cycles\Delete.cshtml" />
+    <Content Include="Views\Cycles\Details.cshtml" />
+    <Content Include="Views\Cycles\Edit.cshtml" />
+    <Content Include="Views\Cycles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -32,7 +32,15 @@ namespace swop.Requests
         //find all relevant requests and add to memory
         public void AddRequest(Request request, bool updateDb)
         {
-            List<Request> reqList = Get_All_CoRequests(request, true);
+            List<Request> reqList;
+            if (updateDb) //if request isnt new (is brought up from db) -> dont call corequests, so you dont get overpopulation (corequests of corequests of original request)
+            {
+                reqList = Get_All_CoRequests(request, true);
+            }  
+           else
+           {
+                reqList = new List<Request> { request };
+           }
             //Add the request to all applicable dates
             foreach (Request r in reqList)
             {
@@ -130,7 +138,7 @@ namespace swop.Requests
                 if (didSucceed && r.RequestId == request.RequestId) r.State = 1;
                 else r.State = 2;
                 db.Entry(r).Property("State").IsModified = true;
-            } 
+            }
             db.SaveChanges();
         }
 

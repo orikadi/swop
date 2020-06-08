@@ -8,13 +8,13 @@ using System.Web;
 using System.Web.Mvc;
 using swop.Models;
 using swop.Requests;
+using swop.ViewModels;
 
 namespace swop.Controllers
 {
     public class UsersController : Controller
     {
         private SwopContext db = new SwopContext();
-
         // GET: Users
         public ActionResult Index()
         {
@@ -296,6 +296,8 @@ namespace swop.Controllers
                 int[] eDate = Array.ConvertAll(end.Split('-'), s => int.Parse(s));
                 Request r = new Request{ UserId = user.UserId, From = user.Country + "-" + user.City, To = dest, Start = new DateTime(sDate[0], sDate[1], sDate[2]), End = new DateTime(eDate[0], eDate[1], eDate[2]), State = 0 };
                 RequestHandler.Instance.AddRequest(r, true);
+                //RequestHandler.Instance.FindCycles(r.Start, r.End);
+                //db.SaveChanges();//check
                 Session["HasActiveRequest"] = true;
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
@@ -307,15 +309,28 @@ namespace swop.Controllers
             if ((Session["Logged"].Equals(true)))
             {
                 int userId = (int)Session["UserId"];
-                User user = db.Users.Find(userId);
+                User user = db.Users.Where(u => u.UserId == userId).Include(u => u.Requests).First();
                 //go through usercycles, collect the cycle ids of the usercycles with same userid as this user
                 List<int> cycleIds;
                 cycleIds = db.UserCycles.Where(uc => uc.UserId == userId).Select(uc => uc.CycleId).ToList();
-                return View(db.Cycles.Where(c => cycleIds.Contains(c.CycleId)).ToList());
+                CyclesForUser userCycles = new CyclesForUser(user, db.Cycles.Where(c => cycleIds.Contains(c.CycleId)).ToList());
+                //BUG: user's Requests obj is null
+                return View(userCycles);
+                //return View(db.Cycles.Where(c => cycleIds.Contains(c.CycleId)).ToList());
             }
             return RedirectToAction("Error");
         }
-
+        
+        public ActionResult DeleteRequest(int? id)
+        {
+            int userId = (int)Session["UserId"];
+            //get an ongoing request
+            Request req = db.Requests.Where(r => (r.UserId == userId && r.State == 0)).First();
+            //delete request
+            RequestHandler.Instance.DeleteRequest(req, false);
+            Session["HasActiveRequest"] = false;
+            return RedirectToAction("../HomePage/Index");
+        }
 
 
         //Permissions check functions
