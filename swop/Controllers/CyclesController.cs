@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using swop.Models;
+using swop.ViewModels;
 
 namespace swop.Controllers
 {
@@ -21,20 +22,40 @@ namespace swop.Controllers
         }
 
         // GET: Cycles/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? cid, int? uid)
         {
-            if (id == null)
+            if (cid == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cycle cycle = db.Cycles.Find(id);
+            Cycle cycle = db.Cycles.Find(cid);
             if (cycle == null)
             {
                 return HttpNotFound();
             }
+            User user = db.Users.Find(uid);
 
+            //find user's host and guest by comparing residences with destinations
+            Request userReq = db.Requests.Where(r => (r.UserId == user.UserId && r.State == 0)).First();
+            string userDest = userReq.To; //got user destination through an active request
+            string userResidence = user.Country + "-" + user.City;
+          
+            User host = new User(), guest = new User();
+            foreach (UserCycle uc in cycle.UserCycles) //might need to include usercycles through linq
+            {
+                User ucUser = db.Users.Find(uc.UserId); //uc.User is null so ucUser is utilized
+                Request req = db.Requests.Where(r => (r.UserId == ucUser.UserId && r.State == 0)).First();
+                string dest = req.To;
+                string residence = ucUser.Country + "-" + ucUser.City;
+                if (residence == userDest)
+                    host = ucUser;
+                if (userResidence == dest)
+                    guest = ucUser;
+            }
 
-            return View(cycle);
+            CycleInfoForUser cycleInfo = new CycleInfoForUser(user, guest, host, cycle);
+            //stopped here. change view to fit cycleinfoforuser
+            return View(cycleInfo);
         }
 
         // GET: Cycles/Create

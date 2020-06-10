@@ -181,6 +181,7 @@
     <Compile Include="Requests\DateRangeFormer.cs" />
     <Compile Include="Requests\RequestFormer.cs" />
     <Compile Include="Requests\RequestHandler.cs" />
+    <Compile Include="ViewModels\CycleInfoForUser.cs" />
     <Compile Include="ViewModels\CyclesForUser.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -195,6 +196,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -240,6 +242,7 @@
     <Content Include="Views\Cycles\Details.cshtml" />
     <Content Include="Views\Cycles\Edit.cshtml" />
     <Content Include="Views\Cycles\Index.cshtml" />
+    <Content Include="Views\Users\AddFundsPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

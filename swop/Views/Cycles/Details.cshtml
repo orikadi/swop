@@ -1,4 +1,4 @@
-﻿@model swop.Models.Cycle
+﻿@model swop.ViewModels.CycleInfoForUser
 
 @{
     ViewBag.Title = "Details";
@@ -15,8 +15,6 @@
             },
             dataType: "json",
             success: function (data) {
-                //document.write(data)
-                //return data+""
                 $("#percentageBox").text(data + "%");
             },
             error: function (xhr, status, error) {
@@ -28,35 +26,93 @@
 
 
 <h2>Details</h2>
-
+<hr />
 <div>
-    <h4>Cycle</h4>
-    <hr />
+    <h4>Cycle Info</h4>
+
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Start)
+            @Html.DisplayNameFor(model => model.cycle.Start)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Start)
+            @Html.DisplayFor(model => model.cycle.Start)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.End)
+            @Html.DisplayNameFor(model => model.cycle.End)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.End)
+            @Html.DisplayFor(model => model.cycle.End)
         </dd>
         <dt>
             Completed
         </dt>
         <dd id="percentageBox">
-            <script>percentageComplete(@Model.CycleId)</script>
+            <script>percentageComplete(@Model.cycle.CycleId)</script>
         </dd>
     </dl>
+
+    <h4>Your Host</h4>
+    
+    <dl class="dl-horizontal">
+        <dt>
+            Name:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.host.FirstName)  @Html.DisplayFor(model => model.host.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.host.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.host.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.host.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.host.Email)
+        </dd>
+
+        <!-- add rating here -->
+
+        <dt>
+            Price per night:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.host.ApartmentPrice)
+        </dd>
+
+        @Html.ActionLink("View Profile", "Details", "Users", new { id = Model.host.UserId }, null)
+    </dl>
+
+
+
+    <h4>Your Guest</h4>
+   
+    <dl class="dl-horizontal">
+        <dt>
+            Name:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.guest.FirstName)  @Html.DisplayFor(model => model.guest.LastName)
+        </dd>
+
+        @Html.ActionLink("View Profile", "Details", "Users", new { id = Model.guest.UserId }, null)
+    </dl>
+
+
+
+
+
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CycleId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
