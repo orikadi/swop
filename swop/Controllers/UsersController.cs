@@ -318,10 +318,21 @@ namespace swop.Controllers
                 //go through usercycles, collect the cycle ids of the usercycles with same userid as this user
                 List<int> cycleIds;
                 cycleIds = db.UserCycles.Where(uc => uc.UserId == userId).Select(uc => uc.CycleId).ToList();
-                CyclesForUser userCycles = new CyclesForUser(user, db.Cycles.Where(c => cycleIds.Contains(c.CycleId)).ToList());
-                //BUG: user's Requests obj is null
-                return View(userCycles);
-                //return View(db.Cycles.Where(c => cycleIds.Contains(c.CycleId)).ToList());
+
+                List<Cycle> cycles = db.Cycles.Where(c => cycleIds.Contains(c.CycleId)).ToList();
+                //if theres a locked in cycle, differentiate it and remove it from the cycles list
+                if (Session["LockedInCycleID"] != null && Session["LockedInCycleID"].ToString() != "") 
+                {
+                    Cycle lockedCycle = db.Cycles.Find(Int32.Parse(Session["LockedInCycleID"].ToString()));
+                    cycles.Remove(lockedCycle);
+                    CyclesForUser userCycles = new CyclesForUser(user, cycles, lockedCycle);
+                    return View(userCycles);
+                }
+                else
+                {
+                    CyclesForUser userCycles = new CyclesForUser(user, cycles, null);
+                    return View(userCycles);
+                }
             }
             return RedirectToAction("Error");
         }

@@ -15,10 +15,10 @@
             },
             dataType: "json",
             success: function (data) {
-                $("#percentageBox_"+cid).text(data + "%");
+                $("#percentageBox_" + cid).text(data + "%");
             },
             error: function (xhr, status, error) {
-                return "cycleid is null" //temp
+                return "error retrieving cycle id"
             }
         });
     }
@@ -33,6 +33,41 @@
 
 
 <!-- ADD CURRENTLY LOCKED CHAIN-->
+@if (Session["LockedInCycleID"] != null && Session["LockedInCycleID"].ToString() != "")
+{
+    <h4>Currently Locked In Cycle</h4>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.lockedCycle.Start)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lockedCycle.End)
+            </th>
+
+            <th>Completed</th>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.lockedCycle.Start)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.lockedCycle.End)
+            </td>
+            <td id="percentageBox_@Model.lockedCycle.CycleId">
+                <script> percentageComplete(@Model.lockedCycle.CycleId) </script>
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", "Cycles", new { cid = Model.lockedCycle.CycleId, uid = Model.user.UserId }, null)
+            </td>
+
+        </tr>
+
+    </table>
+}
+
+
 <table class="table">
     <tr>
         <th>
