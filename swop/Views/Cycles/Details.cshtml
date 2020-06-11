@@ -22,6 +22,94 @@
             }
         });
     }
+
+
+    function totalCost() {
+        $.ajax({
+            type: "GET",
+            url: "/Cycles/TotalCost",
+            data: {
+                cid: @Model.cycle.CycleId,
+                ppn: @Model.host.ApartmentPrice //price per night
+            },
+            dataType: "json",
+            success: function (data) {
+                $("#totalCostBox").text(data);
+            },
+            error: function (xhr, status, error) {
+                return "cycleid is null" //temp
+            }
+        });
+    }
+
+    function lockIn() {
+        //check if has enough funds to lock in
+        var funds = @Model.user.Balance;
+        var tc = document.getElementById("totalCostBox").textContent;
+        if (funds >= tc) {
+            $.ajax({
+                type: "GET",
+                url: "/Cycles/LockIn",
+                data: {
+                    cid: @Model.cycle.CycleId,
+                    uid: @Model.user.UserId
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data) {
+                        setSessionLock(@Model.cycle.CycleId.ToString());
+                        if (data == "1") { //cycle is now complete
+                            //do something
+                        }
+                    }
+                    else alert("You are already locked into a cycle.")
+
+                },
+                error: function (xhr, status, error) {
+                    return "an error has occurred"
+                }
+            });
+        }
+        else alert("Not enough funds to lock in to this cycle");
+    }
+
+    function lockOut() {
+        
+            $.ajax({
+                type: "GET",
+                url: "/Cycles/LockOut",
+                data: {
+                    cid: @Model.cycle.CycleId,
+                    uid: @Model.user.UserId
+                },
+                dataType: "json",
+                success: function (data) {
+                    setSessionLock("");
+                },
+                error: function (xhr, status, error) {
+                    return "an error has occurred"
+                }
+            });
+    }
+
+    //set server session to s (cid or empty string)
+    function setSessionLock(s) {
+        $.ajax({
+            type: "GET",
+            url: "/Cycles/SetSessionLock",
+            data: {
+                cid: s
+            },
+            dataType: "json",
+            success: function (data) {
+                location.reload() //reload page
+            },
+            error: function (xhr, status, error) {
+                return "error occurred while trying to set session lock state"
+            }
+        });
+    }
+
 </script>
 
 
@@ -55,10 +143,10 @@
     </dl>
 
     <h4>Your Host</h4>
-    
+
     <dl class="dl-horizontal">
         <dt>
-            Name:
+            Name
         </dt>
 
         <dd>
@@ -84,11 +172,19 @@
         <!-- add rating here -->
 
         <dt>
-            Price per night:
+            Price per night
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.host.ApartmentPrice)
+        </dd>
+
+        <dt>
+            Total Cost
+        </dt>
+
+        <dd id="totalCostBox">
+            <script>totalCost()</script>
         </dd>
 
         @Html.ActionLink("View Profile", "Details", "Users", new { id = Model.host.UserId }, null)
@@ -97,10 +193,10 @@
 
 
     <h4>Your Guest</h4>
-   
+
     <dl class="dl-horizontal">
         <dt>
-            Name:
+            Name
         </dt>
 
         <dd>
@@ -110,9 +206,31 @@
         @Html.ActionLink("View Profile", "Details", "Users", new { id = Model.guest.UserId }, null)
     </dl>
 
-
-
-
+    <!-- if has an active request: show lock out button, else show lock in button -->
+    @if ((string)Session["LockedInCycleID"] == Model.cycle.CycleId.ToString())
+    {
+        <form method="post">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <input style="color:red" type="button" value="Lock Out" class="btn btn-default" id="LockOutButton" onclick="lockOut()" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    }
+    else
+    {
+        <form method="post">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <input style="color:green" type="button" value="Lock In" class="btn btn-default" id="LockInButton" onclick="lockIn()" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    }
 
 </div>
 

@@ -209,14 +209,18 @@ namespace swop.Controllers
                     Session["UserId"] = user.UserId;
                     Session["UserEmail"] = email;
                     Session["UserType"] = user.UserType;
+                    Session["HasActiveRequest"] = false;
+                    //Session["LockedIn"] = false;  // scrapped infavor of LockedInCycleID
                     //check if has an active request
                     if (db.Requests.Where(r => (r.UserId == user.UserId && r.State == 0)).Any())
+                    {
                         Session["HasActiveRequest"] = true;
-                    else Session["HasActiveRequest"] = false;
-                    //return Json(true, JsonRequestBehavior.AllowGet); 
+                        //check if user is locked into a cycle and if so get the cycle id
+                        if (db.UserCycles.Where(uc => uc.UserId == user.UserId && uc.IsLocked).Any())
+                            Session["LockedInCycleID"] = db.UserCycles.Where(uc => uc.UserId == user.UserId && uc.IsLocked).First().CycleId.ToString();
+                    }
                     return RedirectToAction("../HomePage/Index"); 
                 }
-            //return Json(false, JsonRequestBehavior.AllowGet);
             return RedirectToAction("../Home/Index");
         }
 
@@ -227,6 +231,7 @@ namespace swop.Controllers
             Session["UserEmail"] = null;
             Session["UserType"] = null;
             Session["HasActiveRequest"] = null;
+            Session["LockedInCycleID"] = null;
             return RedirectToAction("Index", "Home");
         }
         //adding funds to user

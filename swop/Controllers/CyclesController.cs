@@ -52,9 +52,8 @@ namespace swop.Controllers
                 if (userResidence == dest)
                     guest = ucUser;
             }
-
+            
             CycleInfoForUser cycleInfo = new CycleInfoForUser(user, guest, host, cycle);
-            //stopped here. change view to fit cycleinfoforuser
             return View(cycleInfo);
         }
 
@@ -166,5 +165,83 @@ namespace swop.Controllers
             double percent = (lockedCount / ucs.Count) * 100;
             return Json(percent, JsonRequestBehavior.AllowGet);
         }
+
+
+        //locking into a cycle (after funds were validated)
+        public JsonResult LockIn(int? cid, int? uid)
+        {
+            Cycle cycle = db.Cycles.Find(cid);
+            User user = db.Users.Find(uid);
+            if (user == null || cycle == null)
+            {
+                //return 0?
+                //return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            //check if user is already locked into a cycle
+            if (db.UserCycles.Where(uc => uc.UserId == user.UserId && uc.IsLocked).Any())
+            {
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+            //get user cycle and change lock state to true
+            UserCycle userCycle = db.UserCycles.Where(uc => uc.CycleId == cycle.CycleId && uc.UserId == user.UserId).First();
+            userCycle.IsLocked = true;
+            db.Entry(userCycle).Property("IsLocked").IsModified = true;
+            db.SaveChanges();
+            //check if cycle is now complete and return the right indicator
+            if (IsCycleComplete(cycle))
+            {
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+            return Json(2, JsonRequestBehavior.AllowGet);
+        }
+
+        //locking out of a cycle
+        public JsonResult LockOut(int? cid, int? uid)
+        {
+            Cycle cycle = db.Cycles.Find(cid);
+            User user = db.Users.Find(uid);
+            if (user == null || cycle == null)
+            {
+                //return 0?
+                //return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            //get user cycle and change lock state to false
+            UserCycle userCycle = db.UserCycles.Where(uc => uc.CycleId == cycle.CycleId && uc.UserId == user.UserId).First();
+            userCycle.IsLocked = false;
+            db.Entry(userCycle).Property("IsLocked").IsModified = true;
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        //calculates total cost by date range and price per night
+        public JsonResult TotalCost(int? cid, double ppn)
+        {
+            Cycle cycle = db.Cycles.Find(cid);
+            if (cycle == null)
+            {
+                //do something
+            }
+            double totalCost = ((cycle.End - cycle.Start).TotalDays+1) * ppn;
+            return Json(totalCost.ToString(), JsonRequestBehavior.AllowGet);
+        }
+        //checks if all usercycles in cycle are locked in
+        private bool IsCycleComplete(Cycle cycle)
+        {
+            List<UserCycle> ucs = db.UserCycles.Where(uc => uc.CycleId == cycle.CycleId).ToList();
+            foreach (UserCycle uc in ucs)
+            {
+                if (!uc.IsLocked)
+                    return false;
+            }
+            return true;
+        }
+
+        //set session's LockedInCycleID to cid or empty string
+        public JsonResult SetSessionLock(string cid)
+        {
+            Session["LockedInCycleID"] = cid;
+            return Json(1,JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

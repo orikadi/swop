@@ -15,8 +15,6 @@
             },
             dataType: "json",
             success: function (data) {
-                //document.write(data)
-                //return data+""
                 $("#percentageBox_"+cid).text(data + "%");
             },
             error: function (xhr, status, error) {

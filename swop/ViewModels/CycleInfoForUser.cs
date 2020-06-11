@@ -11,6 +11,7 @@ namespace swop.ViewModels
     {
         public User user, guest, host;
         public Cycle cycle;
+
         public CycleInfoForUser(User user, User guest, User host, Cycle cycle)
         {
             this.user = user;
