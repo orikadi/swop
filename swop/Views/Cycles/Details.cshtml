@@ -15,6 +15,15 @@
             },
             dataType: "json",
             success: function (data) {
+                if (data <= 33) {
+                    document.getElementById("percentageBox").style.color = "red"
+                }
+                else if (data <= 66) {
+                    document.getElementById("percentageBox").style.color = "orange"
+                }
+                else {
+                    document.getElementById("percentageBox").style.color = "green"
+                }
                 $("#percentageBox").text(data + "%");
             },
             error: function (xhr, status, error) {
@@ -56,9 +65,9 @@
                 },
                 dataType: "json",
                 success: function (data) {
-                    if (data) {
+                    if (data) { // 0-already locked in, 1-cycle complete, 2-normal lock in
                         setSessionLock(@Model.cycle.CycleId.ToString());
-                        if (data == "1") { //cycle is now complete
+                        if (data == 1) { //cycle is now complete
                             //do something
                         }
                     }

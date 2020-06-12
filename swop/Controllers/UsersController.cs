@@ -321,6 +321,9 @@ namespace swop.Controllers
 
                 List<Cycle> cycles = db.Cycles.Where(c => cycleIds.Contains(c.CycleId)).ToList();
                 //if theres a locked in cycle, differentiate it and remove it from the cycles list
+
+                //TO-ADD: SORT cycles BY AVERAGE RANKING
+
                 if (Session["LockedInCycleID"] != null && Session["LockedInCycleID"].ToString() != "") 
                 {
                     Cycle lockedCycle = db.Cycles.Find(Int32.Parse(Session["LockedInCycleID"].ToString()));
