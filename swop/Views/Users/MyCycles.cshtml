@@ -58,10 +58,18 @@
 
         <tr>
             <td>
-                @Html.DisplayFor(model => model.lockedCycle.Start)
+                @{
+                    string sDate = Model.lockedCycle.Start.ToShortDateString();
+                    @Html.DisplayFor(model => sDate);
+                }
+
             </td>
             <td>
-                @Html.DisplayFor(model => model.lockedCycle.End)
+                @{
+                     string eDate = Model.lockedCycle.End.ToShortDateString();
+                     @Html.DisplayFor(model => eDate);
+                }
+             
             </td>
             <td id="percentageBox_@Model.lockedCycle.CycleId">
                 <script> percentageComplete(@Model.lockedCycle.CycleId) </script>
@@ -91,12 +99,14 @@
 
     @foreach (var item in Model.cycles)
     {
+        string sDate = item.Start.ToShortDateString();
+        string eDate = item.End.ToShortDateString();
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Start)
+                @Html.DisplayFor(modelItem => sDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.End)
+                @Html.DisplayFor(modelItem => eDate)
             </td>
             <td id="percentageBox_@item.CycleId">
                 <script> percentageComplete(@item.CycleId) </script>

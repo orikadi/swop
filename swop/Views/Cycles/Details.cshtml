@@ -27,7 +27,7 @@
                 $("#percentageBox").text(data + "%");
             },
             error: function (xhr, status, error) {
-                return "cycleid is null" //temp
+                return "error while receiving percentage" 
             }
         });
     }
@@ -46,7 +46,7 @@
                 $("#totalCostBox").text(data);
             },
             error: function (xhr, status, error) {
-                return "cycleid is null" //temp
+                return "error while receiving total cost"
             }
         });
     }
@@ -75,7 +75,7 @@
 
                 },
                 error: function (xhr, status, error) {
-                    return "an error has occurred"
+                    return "an error has occurred while locking in"
                 }
             });
         }
@@ -96,7 +96,7 @@
                     setSessionLock("");
                 },
                 error: function (xhr, status, error) {
-                    return "an error has occurred"
+                    return "an error has occurred while locking out"
                 }
             });
     }
@@ -133,7 +133,11 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.cycle.Start)
+            @{
+              string sDate = Model.cycle.Start.ToShortDateString();
+              @Html.DisplayFor(model => sDate);
+            }
+           
         </dd>
 
         <dt>
@@ -141,7 +145,12 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.cycle.End)
+
+            @{
+              string eDate = Model.cycle.End.ToShortDateString();
+              @Html.DisplayFor(model => eDate);
+            }
+
         </dd>
         <dt>
             Completed

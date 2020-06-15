@@ -31,7 +31,10 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DateOfBirth)
+            @{
+             string dob = Model.DateOfBirth.ToShortDateString();
+             @Html.DisplayFor(model => dob);
+            }
         </dd>
 
         @if ((bool)Session["Logged"]) //only admin/same user can see balance
