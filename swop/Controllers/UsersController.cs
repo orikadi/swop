@@ -15,6 +15,8 @@ namespace swop.Controllers
     public class UsersController : Controller
     {
         private SwopContext db = new SwopContext();
+        
+        
         // GET: Users
         public ActionResult Index()
         {
@@ -315,6 +317,14 @@ namespace swop.Controllers
             {
                 int userId = (int)Session["UserId"];
                 User user = db.Users.Where(u => u.UserId == userId).Include(u => u.Requests).First();
+                //update session whether user still has an active request (request wasnt completed while logged in)
+                if ((bool)Session["HasActiveRequest"]) 
+                {
+                    if (!db.Requests.Where(r => (r.UserId == user.UserId && r.State == 0)).Any())
+                        Session["HasActiveRequest"] = false;
+                }
+
+
                 //go through usercycles, collect the cycle ids of the usercycles with same userid as this user
                 List<int> cycleIds;
                 cycleIds = db.UserCycles.Where(uc => uc.UserId == userId).Select(uc => uc.CycleId).ToList();
@@ -343,10 +353,23 @@ namespace swop.Controllers
         public ActionResult DeleteRequest(int? id)
         {
             int userId = (int)Session["UserId"];
+            User user = db.Users.Find(userId);
+            if (user == null)
+                HttpNotFound();
+           
+            CyclesController.mutex.WaitOne();
+            //check if request is still valid
+            if (!db.Requests.Where(r => (r.UserId == user.UserId && r.State == 0)).Any())
+            {
+                CyclesController.mutex.ReleaseMutex();
+                View("Error");
+            }
+
             //get an ongoing request
             Request req = db.Requests.Where(r => (r.UserId == userId && r.State == 0)).First();
             //delete request
             RequestHandler.Instance.DeleteRequest(req, false);
+            CyclesController.mutex.ReleaseMutex();
             Session["HasActiveRequest"] = false;
             return RedirectToAction("../HomePage/Index");
         }

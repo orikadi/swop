@@ -131,8 +131,8 @@
             RequestHandler.Instance.AddRequest(new Request { UserId = 66, From = "Japan-Tokyo", To = "Netherlands-Amsterdam", Start = new DateTime(2023, 7, 3), End = new DateTime(2023, 7, 17), State = 0 }, true);
             RequestHandler.Instance.AddRequest(new Request { UserId = 67, From = "Italy-Sardinia", To = "Japan-Kyoto", Start = new DateTime(2023, 7, 6), End = new DateTime(2023, 7, 14), State = 0 }, true);
 
-            Request req = context.Requests.Find(r1.UserId);
-            RequestHandler.Instance.DeleteRequest(r1, false);
+            //Request req = context.Requests.Find(r1.UserId);
+            //RequestHandler.Instance.DeleteRequest(r1, false);
             context.SaveChanges();
         }
         

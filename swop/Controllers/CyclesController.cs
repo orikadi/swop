@@ -4,9 +4,11 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using swop.Models;
+using swop.Requests;
 using swop.ViewModels;
 
 namespace swop.Controllers
@@ -14,6 +16,7 @@ namespace swop.Controllers
     public class CyclesController : Controller
     {
         private SwopContext db = new SwopContext();
+        public static Mutex mutex = new Mutex();
 
         // GET: Cycles
         public ActionResult Index()
@@ -41,7 +44,7 @@ namespace swop.Controllers
             string userResidence = user.Country + "-" + user.City;
           
             User host = new User(), guest = new User();
-            foreach (UserCycle uc in cycle.UserCycles) //might need to include usercycles through linq
+            foreach (UserCycle uc in cycle.UserCycles)
             {
                 User ucUser = db.Users.Find(uc.UserId); //uc.User is null so ucUser is utilized
                 Request req = db.Requests.Where(r => (r.UserId == ucUser.UserId && r.State == 0)).First();
@@ -174,8 +177,7 @@ namespace swop.Controllers
             User user = db.Users.Find(uid);
             if (user == null || cycle == null)
             {
-                //return 0?
-                //return Json(false, JsonRequestBehavior.AllowGet);
+                //return Json(-1, JsonRequestBehavior.AllowGet);
             }
             //check if user is already locked into a cycle
             if (db.UserCycles.Where(uc => uc.UserId == user.UserId && uc.IsLocked).Any())
@@ -202,15 +204,77 @@ namespace swop.Controllers
             User user = db.Users.Find(uid);
             if (user == null || cycle == null)
             {
-                //return 0?
-                //return Json(false, JsonRequestBehavior.AllowGet);
+                return Json(-1, JsonRequestBehavior.AllowGet);
             }
+
+            mutex.WaitOne();
+            //check if request is still valid
+            if (!db.Requests.Where(r => (r.UserId == user.UserId && r.State == 0)).Any()) 
+            {
+                mutex.ReleaseMutex();
+                return Json(-1, JsonRequestBehavior.AllowGet);
+            }
+
+
             //get user cycle and change lock state to false
             UserCycle userCycle = db.UserCycles.Where(uc => uc.CycleId == cycle.CycleId && uc.UserId == user.UserId).First();
             userCycle.IsLocked = false;
             db.Entry(userCycle).Property("IsLocked").IsModified = true;
             db.SaveChanges();
+            mutex.ReleaseMutex();
             return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        //passes funds to all cycle members, marks all requests as complete
+        public JsonResult CompleteCycle(int? cid)
+        {
+            Cycle cycle = db.Cycles.Find(cid);
+
+            mutex.WaitOne();
+
+            //check if all usercycles involved are still locked in   
+            List<UserCycle> ucs = db.UserCycles.Where(uc => uc.CycleId == cycle.CycleId).Include(uc => uc.User).ToList();
+            foreach(UserCycle uc in ucs)
+            {
+               if (!uc.IsLocked)
+                {
+                    mutex.ReleaseMutex();
+                    return Json(0, JsonRequestBehavior.AllowGet);
+                }   
+            }
+            //transfer funds from and to each user, and mark requests as complete
+            foreach(UserCycle uc in ucs)
+            {
+                User user = db.Users.Find(uc.UserId);
+                Request request = db.Requests.Where(r => (r.UserId == user.UserId && r.State == 0 && r.Start == cycle.Start && r.End == cycle.End)).First(); //user's current request
+                //find host (by comparing residence with destination) and transfer funds to him
+                string destCountry = request.To.Split('-')[0];
+                string destCity = request.To.Split('-')[1];
+
+                User host = ucs.Where(uc1 => (uc1.User.Country == destCountry && uc1.User.City == destCity)).First().User; //might need to userid and .Find
+
+                double fundsToTransfer = Convert.ToDouble(TotalCost(cycle.CycleId, user.ApartmentPrice).Data);
+                TransferFunds(user, host, fundsToTransfer);
+
+                RequestHandler.Instance.DeleteRequest(request, true); //mark request as complete
+            }
+
+            mutex.ReleaseMutex(); //release lock
+            Session["HasActiveRequest"] = false;
+            //added locking to this func, LockOut, DeleteRequest in userscontroller
+
+
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        //move funds from user1 to user2
+        private void TransferFunds(User u1, User u2, double funds)
+        {
+            u1.Balance -= funds;
+            u2.Balance += funds;
+            db.Entry(u1).Property("Balance").IsModified = true;
+            db.Entry(u2).Property("Balance").IsModified = true;
+            db.SaveChanges();
         }
 
         //calculates total cost by date range and price per night
@@ -224,6 +288,7 @@ namespace swop.Controllers
             double totalCost = ((cycle.End - cycle.Start).TotalDays+1) * ppn;
             return Json(totalCost.ToString(), JsonRequestBehavior.AllowGet);
         }
+
         //checks if all usercycles in cycle are locked in
         private bool IsCycleComplete(Cycle cycle)
         {

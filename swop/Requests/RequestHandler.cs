@@ -118,7 +118,7 @@ namespace swop.Requests
             }
             List<Cycle> cycles = new List<Cycle>(); //might change to set
             int userId = request.UserId;
-            foreach (UserCycle uc in db.UserCycles)
+            foreach (UserCycle uc in db.UserCycles.Include("Cycle"))
             {
                 if (uc.UserId == userId)
                 {
