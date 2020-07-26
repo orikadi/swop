@@ -2,103 +2,98 @@
 @{
     ViewBag.Title = "Home Page";
 }
+    <section class="section-1">
+        <div class="row" , style="margin-left: 15px; margin-top: 20px;">
+            <div class="col-md-4">
+                <h2>Welcome to SWoP!</h2>
+                <p>
+                    <text>SWoP is the new way to experience couch surfing while saving up on expenses with your own place!</text>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h2>Our Vision</h2>
+                <p>
+                    <text>as college students looking for a getaway once in a while, we were always on the lookout for deals on couch surfing. while looking for a resident for our apartment to save up on trip expenses. we founded SWoP to combine these two efforts into one simple website!</text>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h2>Log-In</h2>
+                @using (Html.BeginForm("Login", "Users"))
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email)
 
-<div class="jumbotron">
-    <h1>SWoP</h1>
-</div>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            @for (var i = 0; i < 40; i++)
-            {
-                <text>stuff n' things</text>
-            }
-        </p>
-    </div>
-    <div class="col-md-4">
-        <h2>
-            @Html.ActionLink("Sign-Up", "Create", "Users")
-        </h2>
-    </div>
-        <div class="col-md-4">
-            <h2>Log-In</h2>
-            @using (Html.BeginForm("Login", "Users"))
-            {
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-
-                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
-
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" class="btn btn-default" value="Login" />
                     </div>
-                </div>
-            }
-        </div>
-    </div>
-<!--TODO: if already signed in automaticly move to the next page (can use the "isLoged" method)-->
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password)
 
-<!--<script>
-    $(document).ready(() => {
-        checkIsLogged();
-       // $("#LogInBtn").click(() => LogIn());
-        //$("#LogInBtn").onclick = LogIn();
-        //$("#SignUpBtn").click(() => SignUp());
-    });
+                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
 
-    function LogIn() {
-        //get user input
-        var email = $("#UserNameInput").val();
-        var pass = $("#PasswordInput").val();
-        //use back end login method using ajax
-        $.ajax({
-            type: "GET",
-            url: "/Users/Login",
-            data: {
-                email: email,
-                password: pass
-            },
-            dataType: "json",
-            success: function (data) {
-                if (!data) {
-                    alert("problem with email or password");
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <input type="submit" class="btnGeneral btnGeneral:hover" style="margin-left: 5px" value="Login"/>
+                            @Html.ActionLink("Sign-Up", "Create", "Users", null,  new { @class = "btnGeneral btnGeneral", @style = "margin-left: 30px" })
+                        </div>
+                    </div>
                 }
-                checkIsLogged();
-            },
-
-            error: function (xhr, status, error) {
-                alert("problem with retreiving User Info");
-            }
+            </div>
+        </div>
+        </section>
+        <!--TODO: if already signed in automaticly move to the next page (can use the "isLoged" method)-->
+        <!--<script>
+        $(document).ready(() => {
+            checkIsLogged();
+           // $("#LogInBtn").click(() => LogIn());
+            //$("#LogInBtn").onclick = LogIn();
+            //$("#SignUpBtn").click(() => SignUp());
         });
-    }
 
-    function checkIsLogged() {
-        $.ajax({
-            type: "GET",
-            url: "/Users/IsLogged",
-            data: {},
-            dataType: "json",
-            success: function (data) {
-                $("#MoveToHome").trigger();
-                $(".LogIn").each((index, element) => {
-                    element.style.display = "none";
-                });
-                return data;
+        function LogIn() {
+            //get user input
+            var email = $("#UserNameInput").val();
+            var pass = $("#PasswordInput").val();
+            //use back end login method using ajax
+            $.ajax({
+                type: "GET",
+                url: "/Users/Login",
+                data: {
+                    email: email,
+                    password: pass
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (!data) {
+                        alert("problem with email or password");
+                    }
+                    checkIsLogged();
+                },
 
-            },
-            error: function (xhr, status, error) {
-                alert("problem with retreiving User Info");
-            }
-        });
-    }
-</script>-->
+                error: function (xhr, status, error) {
+                    alert("problem with retreiving User Info");
+                }
+            });
+        }
+
+        function checkIsLogged() {
+            $.ajax({
+                type: "GET",
+                url: "/Users/IsLogged",
+                data: {},
+                dataType: "json",
+                success: function (data) {
+                    $("#MoveToHome").trigger();
+                    $(".LogIn").each((index, element) => {
+                        element.style.display = "none";
+                    });
+                    return data;
+
+                },
+                error: function (xhr, status, error) {
+                    alert("problem with retreiving User Info");
+                }
+            });
+        }
+    </script>-->

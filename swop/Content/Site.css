@@ -1,12 +1,116 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿
+@font-face {
+    font-family: fonty;
+    font-style: normal;
+    font-weight: 300;
+    src: local('Lato Light'), local('Lato-Light'), url(https://fonts.gstatic.com/s/lato/v16/S6u9w4BMUTPHh7USSwiPGQ.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+@font-face {
+    font-family: fontyBold;
+    font-style: normal;
+    font-weight: 400;
+    src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v16/S6uyw4BMUTPHjx4wXg.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+* {
+    /*font-family: 'Lato', 'Arial', sans-serif;*/
+    font-family: fonty;
+    font-size: 20px;
+}
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+h1 {
+    font-family: fontyBold;
+    font-size: 200%;
+}
+
+.section-title:after {
+    display: block;
+    height: 2px;
+    background-color: #e67e22;
+    content: " ";
+    width: 100px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+label {
+    font-family: fonty;
+    font-weight: 400;
+}
+
+h2 {
+    font-family: fontyBold;
+    font-size: 160%;
+}
+
+.ScrollBtn {
+    cursor: pointer;
+}
+
+.icon {
+    display: inline-block;
+    color: crimson;
+    align-self: center;
+    font-size: 50px;
+}
+
+.container {
+    margin: 0 0;
+    /*increase width as per your need*/
+    width: 215vh;
+}
+
+.section-2 {
+    box-sizing: border-box;
+    width: 100vw;
+    height: 93vh;
+    position: relative;
+}
+
+.section-3 {
+    box-sizing: border-box;
+    padding-top: 20px;
+    background-color: #eaeaea;
+    height: 96vh;
+    width: 100vw;
+}
+
+    .section-3 .title {
+        display: block;
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+.section-4 .title {
+    display: block;
+    text-align: center;
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body {
+    padding-top: 30px;
+}
+
+#pizzaCanvas {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin: 0px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -16,9 +120,382 @@
     white-space: normal;
 }
 
+.flex-container-r {
+    display: flex;
+    width: 100vw;
+    justify-content: stretch;
+    flex-direction: row;
+
+}
+
+.flex-container-c {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.20);
+}
+.flex-item {
+    padding: 5px;
+    width: 24vw;
+    height: 500px;
+    margin-top: 20px;
+    line-height: 150px;
+    border-color: white;
+    font-size: large;
+    text-align: left;
+    border-left: solid;
+   
+}
+.flex-item2 {
+    width: 100vw;
+    padding: 5px;
+    width: 50vw;
+    height: 1px;
+    line-height: 10px;
+    color: white;
+    font-size: x-large;
+    text-align: left;
+
+   
+}
+.flex-item3 {
+    padding: 5px;
+    width: 24vw;
+    height: 500px;
+    margin-top: 20px;
+    line-height: 150px;
+    border-color: white;
+    font-size: large;
+    text-align: left;
+    
+    background-color: rgba(0, 0, 0, 0.20);
+}
+
+
+
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
 }
+
+.section-1 {
+    box-sizing: border-box;
+    align-content: stretch;
+    width: 100vw;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),url(Images/bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 93vh;
+    display: block;
+    color: white;
+}
+.section-2 {
+    box-sizing: border-box;
+    align-content: stretch;
+    width: 100vw;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),url(Images/bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    display: block;
+    color: white;
+}
+
+.landing_text {
+    margin-top: 10%;
+    margin-left: 20%;
+}
+/*-----------BUTTONS-------------*/
+.btnGeneral {
+    display: inline-block;
+    border: hidden;
+    padding: 10px 30px;
+    border-radius: 10px 10px;
+    text-decoration: none;
+    background-color: #1eb912;
+    border: 1px solid #1eb912;
+    color: #fff;
+}
+
+
+    .btnGeneral:hover,
+    .btnGeneral:active {
+        transition: background-color 0.2s, border 0.2s, color 0.2s;
+        cursor: pointer;
+        background-color: #19a10f;
+        border: 1px solid #19a10f;
+        color: #fff;
+    }
+
+.btn-Order {
+    margin-right: 15px;
+}
+
+.about-text {
+    margin-left: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.flavor-text-about {
+    display: block;
+    text-align: center;
+    background-color: crimson;
+}
+
+Order-Section {
+    margin: 0px;
+    height: 93vh;
+    width: 100vw;
+}
+
+
+#PopFilterArea {
+    background-color: #e0e0e0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.PopFilter {
+    margin-right: 15px;
+    margin-left: 5px;
+}
+
+.Favorite-Menu .favorite {
+    background-color: #eaeaea;
+    width: 20vw;
+    height: 80px;
+}
+
+.Favorite-Menu {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 0px;
+    background-color: #eaeaea;
+    height: 93vh;
+    width: 25vw;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+
+
+
+.filterArea {
+    margin-left: -20px;
+    list-style: none;
+}
+
+
+.PopItem {
+    transition: background-color 0.3s;
+    display: flex;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    margin-top: 3px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 5px;
+    height: 100px;
+}
+
+    .PopItem:hover,
+    .PopItem:active {
+        cursor: pointer;
+        transition: background-color 0.3s;
+        background-color: #575757;
+    }
+
+    .PopItem label {
+        cursor: pointer;
+    }
+
+.ingDescription {
+    margin-top: 20px;
+    margin-right: 20px;
+    width: 280px;
+    background-color: white;
+    border: outset;
+    border-color: #808080;
+    height: 20vh;
+    border-radius: 15px;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 0 0;
+    padding: 0;
+}
+
+.ingLabel {
+    padding: 0;
+    list-style: none;
+}
+
+.PopDesc {
+    font-family: fonty;
+    margin-left: 10px;
+    width: 400px;
+    color: white;
+    font-size: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+.PopDesc2 {
+    font-family: fonty;
+    margin-left: 10px;
+    width: 400px;
+    color: white;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+.ingLabel li {
+    display: block;
+    padding: 5px 20px;
+}
+
+.orderButtonContainer {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.addIngredient {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.LoginBar {
+    margin-top: 8px;
+    margin-left: 20px;
+}
+
+    .LoginBar label {
+        margin-right: 10px;
+        color: #808080;
+    }
+
+#ChosenIngredients {
+    display: flex;
+    height: 100%;
+    max-height: 100%;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.IngredientRow {
+    margin: 5px 5px;
+    border-color: #dedede;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+}
+
+.selectFilter {
+    width: 170px;
+    text-align-last: center;
+}
+
+.PopCanvas {
+    margin: 5px 5px;
+}
+
+.section-3 .about-text {
+    position: relative;
+    padding: 2%;
+    font-style: italic;
+    line-height: 145%;
+}
+
+    .section-3 .about-text:before {
+        display: block;
+        content: "\201C";
+        font-size: 300%;
+        position: absolute;
+        top: 10%;
+    }
+
+    .section-3 .about-text:after {
+        display: block;
+        content: "\201C";
+        font-size: 300%;
+        position: absolute;
+        left: 80%;
+        top: 85%;
+    }
+
+.customerPic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+/*----Admin Page------*/
+
+.mainAdminPage {
+    height: auto;
+    width: 100vw;
+    background-color: #e8e8e8;
+    margin: 0 0;
+    padding-bottom: 5vh;
+}
+
+.AdminBtnFlex {
+    padding-top: 5vh;
+    display: flex;
+    justify-content: space-around;
+}
+
+.AdminPageDiv {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5vh;
+    background-color: white;
+    width: 80vw;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+/*------------Contact Us Section--------------*/
+
+.section-4 {
+    box-sizing: border-box;
+    height: 87vh;
+    width: 100vw;
+}
+
+    .section-4 ul {
+        list-style: none;
+    }
+
+    .section-4 li {
+        margin-bottom: 10px;
+    }
+
+    .section-4 h2 {
+        margin-bottom: 30px;
+    }
+
+.ContactFb {
+    margin-left: 5vw;
+}
+
+.anotherAPI {
+    margin-top: 30px;
+    background-color: #eaeaea;
+    border-radius: 10px;
+    width: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
