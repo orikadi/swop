@@ -51,7 +51,7 @@
         });
     }
 
-    function lockIn() {
+    async function lockIn() { //changed to async
         //check if has enough funds to lock in
         var funds = @Model.user.Balance;
         var tc = document.getElementById("totalCostBox").textContent;
@@ -102,7 +102,7 @@
             });
     }
 
-    function completeCycle() {
+    async function completeCycle() { //changed to async
              $.ajax({
                 type: "GET",
                 url: "/Cycles/CompleteCycle",
@@ -113,6 +113,7 @@
                 success: function (data) {
                     if (data) {
                         //do something? alert via email?
+                        alert("Cycle Complete!")
                         window.location = '/HomePage';   
                     }
                 },
