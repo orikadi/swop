@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -68,19 +69,30 @@ namespace swop.Controllers
             //code from dominohut?
             user.Balance = 0;
             user.UserType = 0;
-
+           
             foreach(User _user in db.Users)
             {
                 if(_user.Email == user.Email)
                 {
-                    ViewBag.ErrorMassage = "email allready exist";
+                    ViewBag.ErrorMassage = "email already exists";
                     return View(user);
                 }
             }
             if (ModelState.IsValid)
             {
+                //upload pictures to db and change user's pic paths to server pic paths
+                //do it in edit too
+                //didnt check if ImageUpload is null, ok because form demands it?
+        
+                //try: 2) maybe binding doesnt work on HttpPosted because it needs a migration? 1) check if you can save picture in db through the filename alone
                 db.Users.Add(user);
                 db.SaveChanges();
+
+             
+               
+                //string fileName = "User" + user.UserId + Path.GetExtension(user.UserPicture);
+                
+
                 return RedirectToAction("../HomePage/Index");
             }
 
@@ -118,7 +130,7 @@ namespace swop.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Email,FirstName,LastName,DateOfBirth,Balance,Password,UserPicture,UserType,Country,City,Address,ApartmentPicture,ApartmentDescription,ApartmentPrice,UserId")] User user)
+        public ActionResult Edit([Bind(Include = "Email,FirstName,LastName,DateOfBirth,Password,UserType,Country,City,Address,ApartmentDescription,ApartmentPrice,UserId")] User user)
         {
             //might need to edit UserId's location in the func parameter
             //edited code from vgs
@@ -132,14 +144,22 @@ namespace swop.Controllers
                 }
             }
             if (!flag)
-            {
+            {   
+                User sameUser = db.Users.Find(user.UserId); //is used because otherwise elements that cant be changed will be null in db
+                user.Country = sameUser.Country;
+                user.City = sameUser.City;
+                user.Address = sameUser.Address;
+                user.Balance = sameUser.Balance;
+                user.UserPicture = sameUser.UserPicture;
+                user.ApartmentPicture = sameUser.ApartmentPicture;
+                
                 db.Entry(db.Users.Where(x => x.UserId == user.UserId).AsQueryable().FirstOrDefault()).CurrentValues.SetValues(user);
                 db.SaveChanges();
                 if (IsUserAdmin() && user.UserType == 0) //if user edited themselves from admin to regular
                 {
                     Login(user.Email, user.Password);
                 }
-                return RedirectToAction("Index", "Home"); //returns to index if edited successfully
+                return RedirectToAction("../HomePage"); //returns to index if edited successfully
             }
             return View(user);
             /*
@@ -166,18 +186,6 @@ namespace swop.Controllers
                 return View("Error");
             }
             return HttpNotFound();
-            /*
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-            */
         }
 
         // POST: Users/Delete/5
@@ -186,8 +194,21 @@ namespace swop.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             User user = db.Users.Find(id);
+            //delete pictures
+            string filePathUser = Server.MapPath("~/Uploads/UserPictures/" + user.UserPicture);
+            string filePathApartment = Server.MapPath("~/Uploads/ApartmentPictures/" + user.ApartmentPicture);
+            if (System.IO.File.Exists(filePathUser))
+            {
+                System.IO.File.Delete(filePathUser);
+            }
+            if (System.IO.File.Exists(filePathApartment))
+            {
+                System.IO.File.Delete(filePathApartment);
+            }
+            //delete user
             db.Users.Remove(user);
             db.SaveChanges();
+      
             if (id == (int)Session["UserId"])
                 return Logout();
             return RedirectToAction("Index");
@@ -264,6 +285,132 @@ namespace swop.Controllers
             }
             return Json(false, JsonRequestBehavior.AllowGet);
         }
+
+        
+        public ActionResult EditUserPicturePage()
+        {
+            if ((Session["Logged"].Equals(true)))
+            {
+                int userId = (int)Session["UserId"];
+                User user = db.Users.Find(userId);
+                return View(user);
+            }
+            return RedirectToAction("Error");
+        }
+
+        public JsonResult EditUserPicture()
+        {
+            // check if the user selected a file to upload
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    HttpFileCollectionBase files = Request.Files;
+                    HttpPostedFileBase file = files[0];
+                    //user id is passed as the file's name
+                    int userId = Int32.Parse(files.AllKeys[0]);
+                    User user = db.Users.Find(userId);
+                    if (user == null)
+                        return Json("bad user id");
+                    string fileName = "User" + userId + Path.GetExtension(file.FileName);
+                    string path = Path.Combine(Server.MapPath("~/Uploads/UserPictures/"), fileName);
+                    // save the file
+                    file.SaveAs(path);
+                    //change UserPicture path in db
+                    user.UserPicture = fileName; //might not be accurate
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return Json("File uploaded successfully");
+                }
+                catch (Exception e)
+                {
+                    return Json("error" + e.Message);
+                }
+            }
+            return Json("no files were selected !");
+        }
+
+        public JsonResult DeleteUserPicture(int userId)
+        {
+            if (IsAllowedToEdit(userId))
+            {
+                User user = db.Users.Find(userId);
+                //delete picture
+                string filePath = Server.MapPath("~/Uploads/UserPictures/" + user.UserPicture);
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+                user.UserPicture = ""; //overwrite image path in db
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(1);
+            }
+            return Json(0);
+        }
+
+        public ActionResult EditApartmentPicturePage()
+        {
+            if ((Session["Logged"].Equals(true)))
+            {
+                int userId = (int)Session["UserId"];
+                User user = db.Users.Find(userId);
+                return View(user);
+            }
+            return RedirectToAction("Error");
+        }
+
+        public JsonResult EditApartmentPicture()
+        {
+            // check if the user selected a file to upload
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    HttpFileCollectionBase files = Request.Files;
+                    HttpPostedFileBase file = files[0];
+                    //user id is passed as the file's name
+                    int userId = Int32.Parse(files.AllKeys[0]);
+                    User user = db.Users.Find(userId);
+                    if (user == null)
+                        return Json("bad user id");
+                    string fileName = "Apartment" + userId + Path.GetExtension(file.FileName);
+                    string path = Path.Combine(Server.MapPath("~/Uploads/ApartmentPictures/"), fileName);
+                    // save the file
+                    file.SaveAs(path);
+                    //change UserPicture path in db
+                    user.ApartmentPicture = fileName; //might not be accurate
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return Json("File uploaded successfully");
+                }
+                catch (Exception e)
+                {
+                    return Json("error" + e.Message);
+                }
+            }
+            return Json("no files were selected !");
+        }
+
+        public JsonResult DeleteApartmentPicture(int userId)
+        {
+            if (IsAllowedToEdit(userId))
+            {
+                User user = db.Users.Find(userId);
+                //delete picture
+                string filePath = Server.MapPath("~/Uploads/ApartmentPictures/" + user.ApartmentPicture);
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+                user.ApartmentPicture = ""; //overwrite image path in db
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(1);
+            }
+            return Json(0);
+        }
+
 
         public ActionResult SearchUser(string email = "", string fName = "", string lName = "")
         {

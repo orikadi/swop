@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -50,9 +51,10 @@ namespace swop.Models
 
         [Display(Name = "Apartment Picture")]
         [DataType(DataType.ImageUrl)]
-        [Required]
-        public string ApartmentPicture { get; set; }
+        //[Required]
+        public string ApartmentPicture { get; set; } // no longer [Required]
 
+       
         [Display(Name = "Apartment Description")]
         [Required]
         public string ApartmentDescription { get; set; }
@@ -61,6 +63,7 @@ namespace swop.Models
         [Required]
         public double ApartmentPrice { get; set; } //price per night
         
+
         //Requests and cycles
         public ICollection<Request> Requests { get; set; } //virtual??
         public virtual ICollection<UserCycle> UserCycles { get; set; } //many to many

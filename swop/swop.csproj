@@ -171,6 +171,14 @@
     <Compile Include="Migrations\202005101554182_AddModels.designer.cs">
       <DependentUpon>202005101554182_AddModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008091505134_imgUpload.cs" />
+    <Compile Include="Migrations\202008091505134_imgUpload.designer.cs">
+      <DependentUpon>202008091505134_imgUpload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008101449147_imgUpload2.cs" />
+    <Compile Include="Migrations\202008101449147_imgUpload2.designer.cs">
+      <DependentUpon>202008101449147_imgUpload2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cycle.cs" />
     <Compile Include="Models\Request.cs" />
@@ -244,6 +252,8 @@
     <Content Include="Views\Cycles\Edit.cshtml" />
     <Content Include="Views\Cycles\Index.cshtml" />
     <Content Include="Views\Users\AddFundsPage.cshtml" />
+    <Content Include="Views\Users\EditUserPicturePage.cshtml" />
+    <Content Include="Views\Users\EditApartmentPicturePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -270,6 +280,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005101554182_AddModels.resx">
       <DependentUpon>202005101554182_AddModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008091505134_imgUpload.resx">
+      <DependentUpon>202008091505134_imgUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008101449147_imgUpload2.resx">
+      <DependentUpon>202008101449147_imgUpload2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

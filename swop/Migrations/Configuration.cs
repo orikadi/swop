@@ -3,9 +3,7 @@
     using swop.Models;
     using swop.Requests;
     using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Data.Entity.Validation;
     using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<swop.Models.SwopContext>
@@ -152,7 +150,7 @@
                 Country = "Spain",
                 City = "Barcelona",
                 Address = "Barcelona St",
-                ApartmentPicture = "http://hadastal.art/wp-content/uploads/2017/06/Liors-Secret-Place11.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -169,7 +167,7 @@
                 Country = "Hungary",
                 City = "Budapest",
                 Address = "Budapest St",
-                ApartmentPicture = "http://hadastal.art/wp-content/uploads/2017/06/Liors-Secret-Place11.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -187,7 +185,7 @@
                 Country = "Canada",
                 City = "Toronto",
                 Address = "Toronto St",
-                ApartmentPicture = "http://hadastal.art/wp-content/uploads/2017/06/Liors-Secret-Place11.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -204,7 +202,7 @@
                 Country = "Israel",
                 City = "Petah Tikva",
                 Address = "Petah Tikva St",
-                ApartmentPicture = "https://media.discordapp.net/attachments/707248831779176528/709380556290523217/Z.png",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -221,7 +219,7 @@
                 Country = "Israel",
                 City = "Petah Tikva",
                 Address = "Petah Tikva St",
-                ApartmentPicture = "https://media.discordapp.net/attachments/707248831779176528/709380556290523217/Z.png",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -238,7 +236,7 @@
                 Country = "Israel",
                 City = "Jerusalem",
                 Address = "Jerusalem St",
-                ApartmentPicture = "https://r-cf.bstatic.com/images/hotel/max1024x768/156/156390531.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -256,7 +254,7 @@
                 Country = "England",
                 City = "London",
                 Address = "London St",
-                ApartmentPicture = "https://www.kimhi.co.il/Uploads/2019/08/apartment%20for%20an%20architect1.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -274,7 +272,7 @@
                 Country = "Italy",
                 City = "Sardinia",
                 Address = "Sardinia St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -292,7 +290,7 @@
                 Country = "China",
                 City = "Beijing",
                 Address = "Beijing St",
-                ApartmentPicture = "https://r-cf.bstatic.com/images/hotel/max1024x768/182/182567865.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -310,7 +308,7 @@
                 Country = "Japan",
                 City = "Kyoto",
                 Address = "Kyoto St",
-                ApartmentPicture = "https://res.cloudinary.com/madlan/image/upload/t_fotorama_mobile_strip/media/bulletin/hmaZ7xU3BTE/bdcAq6.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -328,7 +326,7 @@
                 Country = "Egypt",
                 City = "Luxor",
                 Address = "Luxor St",
-                ApartmentPicture = "https://q-cf.bstatic.com/images/hotel/max1024x768/197/197179243.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -346,7 +344,7 @@
                 Country = "Egypt",
                 City = "Cairo",
                 Address = "Cairo St",
-                ApartmentPicture = "https://r-cf.bstatic.com/images/hotel/max1024x768/156/156390531.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -364,7 +362,7 @@
                 Country = "India",
                 City = "New Delhi",
                 Address = "New Delhi St",
-                ApartmentPicture = "https://www.kimhi.co.il/Uploads/2019/08/apartment%20for%20an%20architect1.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -382,7 +380,7 @@
                 Country = "Israel",
                 City = "Tel Aviv",
                 Address = "Tel Aviv St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -400,7 +398,7 @@
                 Country = "Russia",
                 City = "Moscow",
                 Address = "Moscow St",
-                ApartmentPicture = "https://r-cf.bstatic.com/images/hotel/max1024x768/182/182567865.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -418,7 +416,7 @@
                 Country = "Usa",
                 City = "New York",
                 Address = "New York St",
-                ApartmentPicture = "https://res.cloudinary.com/madlan/image/upload/t_fotorama_mobile_strip/media/bulletin/hmaZ7xU3BTE/bdcAq6.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -436,7 +434,7 @@
                 Country = "Netherlands",
                 City = "Amsterdam",
                 Address = "Amsterdam St",
-                ApartmentPicture = "https://q-cf.bstatic.com/images/hotel/max1024x768/197/197179243.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -454,7 +452,7 @@
                 Country = "Japan",
                 City = "Tokyo",
                 Address = "Tokyo St",
-                ApartmentPicture = "https://r-cf.bstatic.com/images/hotel/max1024x768/156/156390531.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -472,7 +470,7 @@
                 Country = "Japan",
                 City = "Kyoto",
                 Address = "Kyoto St",
-                ApartmentPicture = "https://www.kimhi.co.il/Uploads/2019/08/apartment%20for%20an%20architect1.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -490,7 +488,7 @@
                 Country = "England",
                 City = "London",
                 Address = "London St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -508,7 +506,7 @@
                 Country = "Israel",
                 City = "Tel Aviv",
                 Address = "Tel Aviv St",
-                ApartmentPicture = "https://r-cf.bstatic.com/images/hotel/max1024x768/182/182567865.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -526,7 +524,7 @@
                 Country = "Bulgaria",
                 City = "Sofia",
                 Address = "Sofia St",
-                ApartmentPicture = "https://res.cloudinary.com/madlan/image/upload/t_fotorama_mobile_strip/media/bulletin/hmaZ7xU3BTE/bdcAq6.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -543,7 +541,7 @@
                 Country = "Israel",
                 City = "Jerusalem",
                 Address = "Jerusalem St",
-                ApartmentPicture = "https://res.cloudinary.com/madlan/image/upload/t_fotorama_mobile_strip/media/bulletin/hmaZ7xU3BTE/bdcAq6.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -560,7 +558,7 @@
                 Country = "Italy",
                 City = "Sardinia",
                 Address = "Sardinia St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -577,7 +575,7 @@
                 Country = "China",
                 City = "Beijing",
                 Address = "Beijing St",
-                ApartmentPicture = "https://r-cf.bstatic.com/images/hotel/max1024x768/182/182567865.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -594,7 +592,7 @@
                 Country = "Japan",
                 City = "Kyoto",
                 Address = "Kyoto St",
-                ApartmentPicture = "https://res.cloudinary.com/madlan/image/upload/t_fotorama_mobile_strip/media/bulletin/hmaZ7xU3BTE/bdcAq6.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -611,7 +609,7 @@
                 Country = "Japan",
                 City = "Kyoto",
                 Address = "Kyoto St",
-                ApartmentPicture = "https://res.cloudinary.com/madlan/image/upload/t_fotorama_mobile_strip/media/bulletin/hmaZ7xU3BTE/bdcAq6.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -628,7 +626,7 @@
                 Country = "England",
                 City = "London",
                 Address = "London St",
-                ApartmentPicture = "https://www.kimhi.co.il/Uploads/2019/08/apartment%20for%20an%20architect1.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -645,7 +643,7 @@
                 Country = "England",
                 City = "London",
                 Address = "London St",
-                ApartmentPicture = "https://www.kimhi.co.il/Uploads/2019/08/apartment%20for%20an%20architect1.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -662,7 +660,7 @@
                 Country = "Egypt",
                 City = "Luxor",
                 Address = "Luxor St",
-                ApartmentPicture = "https://q-cf.bstatic.com/images/hotel/max1024x768/197/197179243.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -679,7 +677,7 @@
                 Country = "Egypt",
                 City = "Cairo",
                 Address = "Cairo St",
-                ApartmentPicture = "https://r-cf.bstatic.com/images/hotel/max1024x768/156/156390531.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -696,7 +694,7 @@
                 Country = "India",
                 City = "New Delhi",
                 Address = "New Delhi St",
-                ApartmentPicture = "https://www.kimhi.co.il/Uploads/2019/08/apartment%20for%20an%20architect1.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -713,7 +711,7 @@
                 Country = "Israel",
                 City = "Tel Aviv",
                 Address = "Tel Aviv St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -730,7 +728,7 @@
                 Country = "Israel",
                 City = "Jerusalem",
                 Address = "Jerusalem St",
-                ApartmentPicture = "https://r-cf.bstatic.com/images/hotel/max1024x768/156/156390531.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -747,7 +745,7 @@
                 Country = "Egypt",
                 City = "Cairo",
                 Address = "Cairo St",
-                ApartmentPicture = "https://r-cf.bstatic.com/images/hotel/max1024x768/156/156390531.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -764,7 +762,7 @@
                 Country = "China",
                 City = "Beijing",
                 Address = "Beijing St",
-                ApartmentPicture = "https://r-cf.bstatic.com/images/hotel/max1024x768/182/182567865.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -781,7 +779,7 @@
                 Country = "Japan",
                 City = "Kyoto",
                 Address = "Kyoto St",
-                ApartmentPicture = "https://res.cloudinary.com/madlan/image/upload/t_fotorama_mobile_strip/media/bulletin/hmaZ7xU3BTE/bdcAq6.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -798,7 +796,7 @@
                 Country = "Japan",
                 City = "Kyoto",
                 Address = "Kyoto St",
-                ApartmentPicture = "https://res.cloudinary.com/madlan/image/upload/t_fotorama_mobile_strip/media/bulletin/hmaZ7xU3BTE/bdcAq6.jpg",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -815,7 +813,7 @@
                 Country = "Israel",
                 City = "Tel Aviv",
                 Address = "Tel Aviv St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -832,7 +830,7 @@
                 Country = "Israel",
                 City = "Tel Aviv",
                 Address = "Tel Aviv St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -849,7 +847,7 @@
                 Country = "Italy",
                 City = "Sardinia",
                 Address = "Sardinia St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -866,7 +864,7 @@
                 Country = "Egypt",
                 City = "Luxor",
                 Address = "Luxor St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -883,7 +881,7 @@
                 Country = "India",
                 City = "New Delhi",
                 Address = "New Delhi St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -900,7 +898,7 @@
                 Country = "England",
                 City = "London",
                 Address = "London St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -917,7 +915,7 @@
                 Country = "Israel",
                 City = "Jerusalem",
                 Address = "Jerusalem St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -934,7 +932,7 @@
                 Country = "Russia",
                 City = "Moscow",
                 Address = "Moscow St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -951,7 +949,7 @@
                 Country = "China",
                 City = "Beijing",
                 Address = "Beijing St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -968,7 +966,7 @@
                 Country = "Japan",
                 City = "Kyoto",
                 Address = "Kyoto St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -985,7 +983,7 @@
                 Country = "Japan",
                 City = "Kyoto",
                 Address = "Kyoto St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -1002,7 +1000,7 @@
                 Country = "Israel",
                 City = "Tel Aviv",
                 Address = "Tel Aviv St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -1019,7 +1017,7 @@
                 Country = "Israel",
                 City = "Tel Aviv",
                 Address = "Tel Aviv St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -1036,7 +1034,7 @@
                 Country = "Usa",
                 City = "New York",
                 Address = "New York St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -1053,7 +1051,7 @@
                 Country = "Egypt",
                 City = "Luxor",
                 Address = "Luxor St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -1070,7 +1068,7 @@
                 Country = "India",
                 City = "New Delhi",
                 Address = "New Delhi St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -1087,7 +1085,7 @@
                 Country = "England",
                 City = "London",
                 Address = "London St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -1104,7 +1102,7 @@
                 Country = "Bulgaria",
                 City = "Sofia",
                 Address = "Sofia St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -1121,7 +1119,7 @@
                 Country = "Russia",
                 City = "Moscow",
                 Address = "Moscow St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -1138,7 +1136,7 @@
                 Country = "China",
                 City = "Beijing",
                 Address = "Beijing St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -1155,7 +1153,7 @@
                 Country = "Japan",
                 City = "Kyoto",
                 Address = "Kyoto St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -1172,7 +1170,7 @@
                 Country = "Japan",
                 City = "Kyoto",
                 Address = "Kyoto St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -1189,7 +1187,7 @@
                 Country = "Israel",
                 City = "Tel Aviv",
                 Address = "Tel Aviv St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -1206,7 +1204,7 @@
                 Country = "Israel",
                 City = "Tel Aviv",
                 Address = "Tel Aviv St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -1223,7 +1221,7 @@
                 Country = "Italy",
                 City = "Sardinia",
                 Address = "Sardinia St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -1240,7 +1238,7 @@
                 Country = "Netherlands",
                 City = "Amsterdam",
                 Address = "Amsterdam St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -1257,7 +1255,7 @@
                 Country = "India",
                 City = "New Delhi",
                 Address = "New Delhi St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -1274,7 +1272,7 @@
                 Country = "Japan",
                 City = "Tokyo",
                 Address = "Tokyo St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });
@@ -1291,7 +1289,7 @@
                 Country = "Italy",
                 City = "Sardinia",
                 Address = "Sardinia St",
-                ApartmentPicture = "https://q-xx.bstatic.com/xdata/images/hotel/840x460/93012959.jpg?k=55cf3e284e2b32443ce82baeee4cb5123eece32837f9347bc882b88180391526&o=",
+                ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0
             });

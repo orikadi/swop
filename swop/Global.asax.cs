@@ -19,10 +19,18 @@ namespace swop
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            CreatePictureDirectories();
             Load_RequestHandler();
+
+
         }
-        
-        
+
+        private void CreatePictureDirectories()
+        {
+            System.IO.Directory.CreateDirectory(Server.MapPath("~/Uploads/UserPictures/"));
+            System.IO.Directory.CreateDirectory(Server.MapPath("~/Uploads/ApartmentPictures/"));
+        }
+
         protected void Session_Start(object sender, EventArgs e)
         {
             if (Session["Logged"] == null)
