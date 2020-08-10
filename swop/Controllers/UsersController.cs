@@ -344,9 +344,9 @@ namespace swop.Controllers
                 user.UserPicture = ""; //overwrite image path in db
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                return Json(1);
+                return Json(true, JsonRequestBehavior.AllowGet);
             }
-            return Json(0);
+            return Json(false, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult EditApartmentPicturePage()
@@ -406,9 +406,9 @@ namespace swop.Controllers
                 user.ApartmentPicture = ""; //overwrite image path in db
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                return Json(1);
+                return Json(true, JsonRequestBehavior.AllowGet);
             }
-            return Json(0);
+            return Json(false, JsonRequestBehavior.AllowGet);
         }
 
 

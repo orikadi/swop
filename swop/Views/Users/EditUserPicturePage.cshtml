@@ -38,7 +38,7 @@
                 data: fileData,
                 success: function (response) {
                     alert(response);
-                    window.location = "../../HomePage";
+                    window.location = ('@Url.Action("Details", "Users", new { id = Model.UserId })');
                 }
             });
         }
@@ -54,8 +54,10 @@
                  },
                  dataType: "json",
                  success: function (data) {
-                     if (data == 1)
-                        window.location = ('@Url.Action("Details", "Users", null)')
+                     if (data) {
+                         alert("picture deleted successfully")
+                         window.location = ('@Url.Action("Details", "Users", new { id = Model.UserId })')
+                     }
                      else alert("an error has occurred");
                  },
                  error: function (xhr, status, error) {
