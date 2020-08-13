@@ -60,6 +60,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -179,8 +182,13 @@
     <Compile Include="Migrations\202008101449147_imgUpload2.designer.cs">
       <DependentUpon>202008101449147_imgUpload2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008131005182_AddedHistory.cs" />
+    <Compile Include="Migrations\202008131005182_AddedHistory.designer.cs">
+      <DependentUpon>202008131005182_AddedHistory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cycle.cs" />
+    <Compile Include="Models\History.cs" />
     <Compile Include="Models\Request.cs" />
     <Compile Include="Models\SwopContext.cs" />
     <Compile Include="Models\User.cs" />
@@ -254,6 +262,7 @@
     <Content Include="Views\Users\AddFundsPage.cshtml" />
     <Content Include="Views\Users\EditUserPicturePage.cshtml" />
     <Content Include="Views\Users\EditApartmentPicturePage.cshtml" />
+    <Content Include="Views\Users\MyHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -286,6 +295,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008101449147_imgUpload2.resx">
       <DependentUpon>202008101449147_imgUpload2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008131005182_AddedHistory.resx">
+      <DependentUpon>202008131005182_AddedHistory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

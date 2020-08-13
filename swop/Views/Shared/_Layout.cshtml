@@ -30,6 +30,8 @@
                     <ul class="nav navbar-nav">
 
                         <li>@Html.ActionLink("My Profile", "Details", "Users", new { id = (int)Session["UserId"] }, null)</li>
+                        <li>@Html.ActionLink("My History", "MyHistory", "Users", new { id = (int)Session["UserId"] }, null)</li>
+
 
                         @if ((bool)Session["HasActiveRequest"])
                         {
