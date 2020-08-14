@@ -127,9 +127,9 @@
             {
                 if ((int)Session["userId"] == Model.UserId || (int)Session["UserType"] == 1)
                 {
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }, new { @class = "btnGeneral btnGeneral:hover" })
-                    @Html.ActionLink("Change User Picture", "EditUserPicturePage", new { id = Model.UserId }, new { @class = "btnGeneral btnGeneral:hover" })
-                    @Html.ActionLink("Change Apartment Picture", "EditApartmentPicturePage", new { id = Model.UserId }, new { @class = "btnGeneral btnGeneral:hover" })
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }, new { @class = "btnGeneral btnGeneral:hover", @style = "margin-right:1%" })
+                    @Html.ActionLink("Change User Picture", "EditUserPicturePage", new { id = Model.UserId }, new { @class = "btnGeneral btnGeneral:hover", @style = "margin-right:1%" })
+                    @Html.ActionLink("Change Apartment Picture", "EditApartmentPicturePage", new { id = Model.UserId }, new { @class = "btnGeneral btnGeneral:hover", @style = "margin-right:1%" })
                 }
             }
         </p>
