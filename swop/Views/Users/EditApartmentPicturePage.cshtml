@@ -3,18 +3,18 @@
 @{
     ViewBag.Title = "EditApartmentPicturePage";
 }
+    <section class="section-2">
+        <h1 style="margin-left:1%;">Edit apartment picture</h1>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
-<h2>Edit Apartment Picture</h2>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
+        <input type="file" id="fileToUpload" class="form-control" /> <br />
+        <button id="upload" name="upload" style="margin-left:1%" class="btnGeneral btnGeneral:hover">Upload Picture</button>
 
-<input type="file" id="fileToUpload" class="form-control" /> <br />
-<button id="upload" name="upload" class="btn btn-primary">Upload Picture</button>
-
-<br />
-<button id="delete" name="delete" class="btn btn-primary">Delete Picture</button>
-<!--add delete picture option with a button-->
-<script>
+        <br />
+        <button id="delete" name="delete" style="margin-top:1%; margin-left: 1% " class="btnGeneral btnGeneral:hover">Delete Picture</button>
+        <!--add delete picture option with a button-->
+        <script>
     $("#upload").click(function () {
 
         if (window.FormData == undefined)
@@ -58,7 +58,7 @@
                          alert("picture deleted successfully")
                          window.location = ('@Url.Action("Details", "Users", new { id = Model.UserId })')
                      }
-                        
+
                      else alert("an error has occurred");
                  },
                  error: function (xhr, status, error) {
@@ -68,4 +68,5 @@
     });
 
 
-</script>
+        </script>
+    </section>
