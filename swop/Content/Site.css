@@ -202,6 +202,17 @@ textarea {
     display: block;
     color: white;
 }
+.section-22 {
+    box-sizing: border-box;
+    align-content: stretch;
+    width: 100vw;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),url(Images/bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    display: block;
+    color: white;
+}
 
 .landing_text {
     margin-top: 10%;

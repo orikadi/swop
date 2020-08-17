@@ -1,303 +1,309 @@
 ﻿@model swop.ViewModels.CycleInfoForUser
-
-@{
-    ViewBag.Title = "Details";
-}
-
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-<script type="text/javascript">
-    function percentageComplete(cid) {
-        $.ajax({
-            type: "GET",
-            url: "/Cycles/PercentageComplete",
-            data: {
-                id: cid
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data <= 33) {
-                    document.getElementById("percentageBox").style.color = "red"
-                }
-                else if (data <= 66) {
-                    document.getElementById("percentageBox").style.color = "orange"
-                }
-                else {
-                    document.getElementById("percentageBox").style.color = "green"
-                }
-                $("#percentageBox").text(data + "%");
-            },
-            error: function (xhr, status, error) {
-                return "error while receiving percentage" 
+    <section class="section-2">
+        <div style="margin-left:1%">
+            @{
+                ViewBag.Title = "Details";
             }
-        });
-    }
 
-
-    function totalCost() {
-        $.ajax({
-            type: "GET",
-            url: "/Cycles/TotalCost",
-            data: {
-                cid: @Model.cycle.CycleId,
-                ppn: @Model.host.ApartmentPrice //price per night
-            },
-            dataType: "json",
-            success: function (data) {
-                $("#totalCostBox").text(data);
-            },
-            error: function (xhr, status, error) {
-                return "error while receiving total cost"
-            }
-        });
-    }
-
-    async function lockIn() { //changed to async
-        //check if has enough funds to lock in
-        var funds = @Model.user.Balance;
-        var tc = document.getElementById("totalCostBox").textContent;
-        if (funds >= tc) {
+            <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+            <script type="text/javascript">
+        function percentageComplete(cid) {
             $.ajax({
                 type: "GET",
-                url: "/Cycles/LockIn",
+                url: "/Cycles/PercentageComplete",
                 data: {
-                    cid: @Model.cycle.CycleId,
-                    uid: @Model.user.UserId
+                    id: cid
                 },
                 dataType: "json",
                 success: function (data) {
-                    if (data) { // 0-already locked in, 1-cycle complete, 2-normal lock in
-                        setSessionLock(@Model.cycle.CycleId.ToString());
-                        if (data == 1) { //cycle is now complete
-                            completeCycle();
-                        }
+                    if (data <= 33) {
+                        document.getElementById("percentageBox").style.color = "red"
                     }
-                    else alert("You are already locked into a cycle.")
-
+                    else if (data <= 66) {
+                        document.getElementById("percentageBox").style.color = "orange"
+                    }
+                    else {
+                        document.getElementById("percentageBox").style.color = "green"
+                    }
+                    $("#percentageBox").text(data + "%");
                 },
                 error: function (xhr, status, error) {
-                    return "an error has occurred while locking in"
+                    return "error while receiving percentage"
                 }
             });
         }
-        else alert("Not enough funds to lock in to this cycle");
-    }
 
-    function lockOut() {  
+
+        function totalCost() {
             $.ajax({
                 type: "GET",
-                url: "/Cycles/LockOut",
+                url: "/Cycles/TotalCost",
                 data: {
                     cid: @Model.cycle.CycleId,
-                    uid: @Model.user.UserId
+                    ppn: @Model.host.ApartmentPrice //price per night
                 },
                 dataType: "json",
                 success: function (data) {
-                    if (data != -1)
-                        setSessionLock("");
-                    else alert("an error has occured while locking out")
+                    $("#totalCostBox").text(data);
                 },
                 error: function (xhr, status, error) {
-                    return "an error has occurred while locking out"
+                    return "error while receiving total cost"
                 }
             });
-    }
+        }
 
-    async function completeCycle() { //changed to async
-             $.ajax({
-                type: "GET",
-                url: "/Cycles/CompleteCycle",
-                data: {
-                    cid: @Model.cycle.CycleId
-                },
-                dataType: "json",
-                success: function (data) {
-                    if (data) {
-                        //do something? alert via email?
-                        alert("Cycle Complete!")
-                        window.location = '/HomePage';   
+        async function lockIn() { //changed to async
+            //check if has enough funds to lock in
+            var funds = @Model.user.Balance;
+            var tc = document.getElementById("totalCostBox").textContent;
+            if (funds >= tc) {
+                $.ajax({
+                    type: "GET",
+                    url: "/Cycles/LockIn",
+                    data: {
+                        cid: @Model.cycle.CycleId,
+                        uid: @Model.user.UserId
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data) { // 0-already locked in, 1-cycle complete, 2-normal lock in
+                            setSessionLock(@Model.cycle.CycleId.ToString());
+                            if (data == 1) { //cycle is now complete
+                                completeCycle();
+                            }
+                        }
+                        else alert("You are already locked into a cycle.")
+
+                    },
+                    error: function (xhr, status, error) {
+                        return "an error has occurred while locking in"
                     }
+                });
+            }
+            else alert("Not enough funds to lock in to this cycle");
+        }
+
+        function lockOut() {
+                $.ajax({
+                    type: "GET",
+                    url: "/Cycles/LockOut",
+                    data: {
+                        cid: @Model.cycle.CycleId,
+                        uid: @Model.user.UserId
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data != -1)
+                            setSessionLock("");
+                        else alert("an error has occured while locking out")
+                    },
+                    error: function (xhr, status, error) {
+                        return "an error has occurred while locking out"
+                    }
+                });
+        }
+
+        async function completeCycle() { //changed to async
+                 $.ajax({
+                    type: "GET",
+                    url: "/Cycles/CompleteCycle",
+                    data: {
+                        cid: @Model.cycle.CycleId
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data) {
+                            //do something? alert via email?
+                            alert("Cycle Complete!")
+                            window.location = '/HomePage';
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        return "an error has occurred while completing cycle"
+                    }
+                });
+        }
+
+        //set server session to s (cid or empty string)
+        function setSessionLock(s) {
+            $.ajax({
+                type: "GET",
+                url: "/Cycles/SetSessionLock",
+                data: {
+                    cid: s
+                },
+                dataType: "json",
+                success: function (data) {
+                    location.reload() //reload page
                 },
                 error: function (xhr, status, error) {
-                    return "an error has occurred while completing cycle"
+                    return "error occurred while trying to set session lock state"
                 }
             });
-    }
+        }
 
-    //set server session to s (cid or empty string)
-    function setSessionLock(s) {
-        $.ajax({
-            type: "GET",
-            url: "/Cycles/SetSessionLock",
-            data: {
-                cid: s
-            },
-            dataType: "json",
-            success: function (data) {
-                location.reload() //reload page
-            },
-            error: function (xhr, status, error) {
-                return "error occurred while trying to set session lock state"
-            }
-        });
-    }
-
-    function MoveToHomepage() {
-        $.ajax({
-            type: "GET",
-            url: "/Cycles/SetSessionLock",
-            data: {
-                cid: s
-            },
-            dataType: "json",
-            success: function (data) {
-                location.reload() //reload page
-            },
-            error: function (xhr, status, error) {
-                return "error occurred while trying to set session lock state"
-            }
-        });
-    }
-
-    
-
-</script>
-
-
-<h2>Details</h2>
-<hr />
-<div>
-    <h4>Cycle Info</h4>
-
-    <dl class="dl-horizontal">
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cycle.CycleId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.cycle.CycleId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cycle.Start)
-        </dt>
-
-        <dd>
-            @{
-            string sDate = Model.cycle.Start.ToShortDateString();
-            @Html.DisplayFor(model => sDate);
-            }
-
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cycle.End)
-        </dt>
-
-        <dd>
-
-            @{
-            string eDate = Model.cycle.End.ToShortDateString();
-            @Html.DisplayFor(model => eDate);
-            }
-
-        </dd>
-        <dt>
-            Completed
-        </dt>
-        <dd id="percentageBox">
-            <script>percentageComplete(@Model.cycle.CycleId)</script>
-        </dd>
-    </dl>
-
-    <h4>Your Host</h4>
-
-    <dl class="dl-horizontal">
-        <dt>
-            Name
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.host.FirstName)  @Html.DisplayFor(model => model.host.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.host.Address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.host.Address)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.host.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.host.Email)
-        </dd>
-
-        <!-- add rating here -->
-
-        <dt>
-            Price per night
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.host.ApartmentPrice)
-        </dd>
-
-        <dt>
-            Total Cost
-        </dt>
-
-        <dd id="totalCostBox">
-            <script>totalCost()</script>
-        </dd>
-
-        @Html.ActionLink("View Profile", "Details", "Users", new { id = Model.host.UserId }, null)
-    </dl>
+        function MoveToHomepage() {
+            $.ajax({
+                type: "GET",
+                url: "/Cycles/SetSessionLock",
+                data: {
+                    cid: s
+                },
+                dataType: "json",
+                success: function (data) {
+                    location.reload() //reload page
+                },
+                error: function (xhr, status, error) {
+                    return "error occurred while trying to set session lock state"
+                }
+            });
+        }
 
 
 
-    <h4>Your Guest</h4>
+            </script>
 
-    <dl class="dl-horizontal">
-        <dt>
-            Name
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.guest.FirstName)  @Html.DisplayFor(model => model.guest.LastName)
-        </dd>
+            <h1>Details</h1>
+            <hr />
+            <div class="flex-container-r">
+                <div class="flex-item">
+                    <h4>Cycle Info:</h4>
 
-        @Html.ActionLink("View Profile", "Details", "Users", new { id = Model.guest.UserId }, null)
-    </dl>
+                    <dl class="dl-horizontal">
 
-    <!-- if is locked into a cycle: show lock out button, else show lock in button -->
-    @if ((string)Session["LockedInCycleID"] == Model.cycle.CycleId.ToString())
-    {
-        <form method="post">
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <div class="col-md-offset-1 col-md-10">
-                        <input style="color:red" type="button" value="Lock Out" class="btn btn-default" id="LockOutButton" onclick="lockOut()" />
-                    </div>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.cycle.CycleId) :
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.cycle.CycleId)
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.cycle.Start) :
+                        </dt>
+
+                        <dd>
+                            @{
+                                string sDate = Model.cycle.Start.ToShortDateString();
+                                @Html.DisplayFor(model => sDate);
+                            }
+
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.cycle.End) :
+                        </dt>
+
+                        <dd>
+
+                            @{
+                                string eDate = Model.cycle.End.ToShortDateString();
+                                @Html.DisplayFor(model => eDate);
+                            }
+
+                        </dd>
+                        <dt>
+                            Completed :
+                        </dt>
+                        <dd id="percentageBox">
+                            <script>percentageComplete(@Model.cycle.CycleId)</script>
+                        </dd>
+                    </dl>
                 </div>
-            </div>
-        </form>
-    }
-    else
-    {
-        <form method="post">
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <div class="col-md-offset-1 col-md-10">
-                        <input style="color:green" type="button" value="Lock In" class="btn btn-default" id="LockInButton" onclick="lockIn()" />
-                    </div>
+
+                <div class="flex-item">
+                    <h4>Your Host :</h4>
+
+                    <dl class="dl-horizontal">
+                        <dt>
+                            Name :
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.host.FirstName)  @Html.DisplayFor(model => model.host.LastName)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.host.Address) :
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.host.Address)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.host.Email) :
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.host.Email)
+                        </dd>
+
+                        <!-- add rating here -->
+
+                        <dt>
+                            Price per night :
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.host.ApartmentPrice)
+                        </dd>
+
+                        <dt>
+                            Total Cost :
+                        </dt>
+
+                        <dd id="totalCostBox">
+                            <script>totalCost()</script>
+                        </dd>
+
+                        @Html.ActionLink("View Profile", "Details", "Users", new { id = Model.host.UserId, }, new { @class = "btnGeneral btnGeneral:hover", @Style = "margin-left:14%" })
+                    </dl>
+
                 </div>
+
+                <div class="flex-item">
+                    <h4>Your Guest :</h4>
+
+                    <dl class="dl-horizontal">
+                        <dt>
+                            Name :
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.guest.FirstName)  @Html.DisplayFor(model => model.guest.LastName)
+                        </dd>
+
+                        @Html.ActionLink("View Profile", "Details", "Users", new { id = Model.guest.UserId }, new { @class = "btnGeneral btnGeneral:hover", @Style = "margin-left:14%" })
+                    </dl>
+
+                    <!-- if is locked into a cycle: show lock out button, else show lock in button -->
+                    @if ((string)Session["LockedInCycleID"] == Model.cycle.CycleId.ToString())
+                    {
+                        <form method="post">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-md-offset-1 col-md-10">
+                                        <input style="color:red" type="button" value="Lock Out" class="btn btn-default" id="LockOutButton" onclick="lockOut()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-md-offset-1 col-md-10">
+                                        <input style="color:green" type="button" value="Lock In" class="btn btn-default" id="LockInButton" onclick="lockIn()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    }
+                </div>
+                </div>
+
             </div>
-        </form>
-    }
-
-</div>
-
+    </section>

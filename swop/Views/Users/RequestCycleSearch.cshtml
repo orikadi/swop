@@ -57,7 +57,7 @@ Please write the country and city names accurately.
                 dataType: "json",
                 success: function (data) {
                     if (data)
-                        window.location = ('@Url.Action("About", "Home", null)') //homepage might be wrong
+                        window.location = ('@Url.Action("Index", "HomePage", null)') //homepage might be wrong
                     else alert("You already have an active request, cancel it if you want to input a new one");
                 },
                 error: function (xhr, status, error) {

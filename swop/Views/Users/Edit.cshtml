@@ -39,8 +39,8 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", @type = "date", @id = "start", @name = "trip-start", @min = "1900-01-01", @value = "1900-01-01" } })
+                    @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger"})
                 </div>
             </div>
 
@@ -93,7 +93,7 @@
     }
 
     <div>
-        @Html.ActionLink("Cancel", "Details", new { id = Model.UserId }, new { @class = "btnGeneral btnGeneral:hover" })
+        @Html.ActionLink("Cancel", "Details", new { id = Model.UserId }, new { @class = "btnGeneral btnGeneral:hover", style = "margin-left:1%" })
     </div>
 
     @section Scripts {
