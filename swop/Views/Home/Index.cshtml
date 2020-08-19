@@ -1,4 +1,13 @@
-﻿@model swop.Models.User
+﻿<head>
+    @if ((bool)Session["Logged"])
+    {
+        <meta http-equiv="refresh" content="0; url = http://localhost:54598/HomePage/Index" />
+
+    }
+
+</head>
+
+@model swop.Models.User
 @{
     ViewBag.Title = "Home Page";
 }

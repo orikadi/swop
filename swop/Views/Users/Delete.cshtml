@@ -1,4 +1,12 @@
-﻿@model swop.Models.User
+﻿<head>
+    @if ((bool)Session["Logged"] == false)
+    {
+        <meta http-equiv="refresh" content="0; url = http://localhost:54598/Home/Index" />
+    }
+</head>
+
+
+@model swop.Models.User
 
 @{
     ViewBag.Title = "Delete";
@@ -117,7 +125,8 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

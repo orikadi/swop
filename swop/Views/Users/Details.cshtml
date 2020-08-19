@@ -1,140 +1,148 @@
-﻿@model swop.Models.User
+﻿<head>
+    @if ((bool)Session["Logged"] == false)
+    {
+        <meta http-equiv="refresh" content="0; url = http://localhost:54598/Home/Index" />
+    }
+</head>
+
+
+@model swop.Models.User
 
 @{
     ViewBag.Title = "Details";
 }
 
-    <section class="section-2">
-        <h1 style="margin-left:1%;">My profile</h1>
+<section class="section-2">
+    <h1 style="margin-left:1%;">My profile</h1>
 
-        <hr/>
+    <hr />
 
-        <div class="flex-container-r" style="margin-left:1%">
+    <div class="flex-container-r" style="margin-left:1%">
 
-            <div class="flex-item flex-container-c">
-
-
-
-                <div class="flex-item2">
-                    @Html.DisplayNameFor(model => model.FirstName)
-
-                    @Html.DisplayFor(model => model.FirstName)
-                </div>
-
-                <div class="flex-item2">
-                    @Html.DisplayNameFor(model => model.LastName)
-
-                    @Html.DisplayFor(model => model.LastName)
-                </div>
-
-                <div class="flex-item2">
-                    @Html.DisplayNameFor(model => model.DateOfBirth)
+        <div class="flex-item flex-container-c">
 
 
-                    @{
-                        string dob = Model.DateOfBirth.ToShortDateString();
-                        @Html.DisplayFor(model => dob);
-                    }
-                </div>
 
-                <div class="flex-item2">
-                    @if ((bool)Session["Logged"]) //only admin/same user can see balance
+            <div class="flex-item2">
+                @Html.DisplayNameFor(model => model.FirstName)
+
+                @Html.DisplayFor(model => model.FirstName)
+            </div>
+
+            <div class="flex-item2">
+                @Html.DisplayNameFor(model => model.LastName)
+
+                @Html.DisplayFor(model => model.LastName)
+            </div>
+
+            <div class="flex-item2">
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+
+
+                @{
+                    string dob = Model.DateOfBirth.ToShortDateString();
+                    @Html.DisplayFor(model => dob);
+                }
+            </div>
+
+            <div class="flex-item2">
+                @if ((bool)Session["Logged"]) //only admin/same user can see balance
+                {
+                    if ((int)Session["userId"] == Model.UserId || (int)Session["UserType"] == 1)
                     {
-                        if ((int)Session["userId"] == Model.UserId || (int)Session["UserType"] == 1)
-                        {
 
-                            @Html.DisplayNameFor(model => model.Balance)
+                        @Html.DisplayNameFor(model => model.Balance)
 
-                            @Html.DisplayFor(model => model.Balance)
+                        @Html.DisplayFor(model => model.Balance)
 
-                        }
                     }
+                }
 
-                </div>
+            </div>
 
-                <div class="flex-item2">
-                    @if ((bool)Session["Logged"])
+            <div class="flex-item2">
+                @if ((bool)Session["Logged"])
+                {
+                    if ((int)Session["userId"] == Model.UserId || (int)Session["UserType"] == 1)
                     {
-                        if ((int)Session["userId"] == Model.UserId || (int)Session["UserType"] == 1)
-                        {
-                            <form method="post">
-                                <div class="form-horizontal">
-                                    <div class="form-group">
-                                        <div style="margin-left:2%;">
-                                            <input style="height: 50px" type="button" value="Add Funds" class="btnGeneral btnGeneral:hover" id="AddFundsButton" onclick=" MoveToAddFunds()" />
-                                        </div>
+                        <form method="post">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <div style="margin-left:2%;">
+                                        <input style="height: 50px" type="button" value="Add Funds" class="btnGeneral btnGeneral:hover" id="AddFundsButton" onclick=" MoveToAddFunds()" />
                                     </div>
                                 </div>
-                            </form>
-                        }
+                            </div>
+                        </form>
                     }
-                </div>
-            </div>
-            <div class="flex-item3" style="text-align:right; ">
-                <!--<img src="@Model.UserPicture" style="border:6px solid rgba(0, 7, 62, 0.50); border-style:double" height="250" width="250" onerror="this.src='https://www.pngitem.com/pimgs/m/508-5087336_person-man-user-account-profile-employee-profile-template.png'">-->
-                <canvas id="userCanvas" style="border:6px solid rgba(0, 7, 62, 0.50); border-style:double" height="250" width="250" onerror="this.src='https://www.pngitem.com/pimgs/m/508-5087336_person-man-user-account-profile-employee-profile-template.png'">></canvas>
-            </div>
-    
-               
-                <div class="flex-item flex-container-c">
-
-
-
-
-                    <div class="flex-item2">
-                        @Html.DisplayNameFor(model => model.Country)
-
-                        @Html.DisplayFor(model => model.Country)
-                    </div>
-
-                    <div class="flex-item2">
-                        @Html.DisplayNameFor(model => model.City)
-
-                        @Html.DisplayFor(model => model.City)
-                    </div>
-
-                    <div class="flex-item2">
-                        @Html.DisplayNameFor(model => model.Address)
-
-                        @Html.DisplayFor(model => model.Address)
-                    </div>
-
-                    <div class="flex-item2">
-                        @Html.DisplayNameFor(model => model.ApartmentDescription)
-
-                        @Html.DisplayFor(model => model.ApartmentDescription)
-                    </div>
-
-                    <div class="flex-item2">
-                        @Html.DisplayNameFor(model => model.ApartmentPrice)
-
-                        @Html.DisplayFor(model => model.ApartmentPrice)
-                    </div>
-
-
-
-                </div>
-
-                <div class="flex-item3" style="text-align:right">
-                    <!--<img src="@Model.ApartmentPicture" style="border:6px solid rgba(0, 7, 62, 0.50); border-style:double" height="250" width="250" onerror="this.src='https://cdn.clipart.email/4ae8243aed069cdabf0516fb35fefb88_house-outline-template-free-clipart-images-clipartandscrap_1266-1182.jpeg'"> -->
-                    <canvas id="apartmentCanvas" style="border:6px solid rgba(0, 7, 62, 0.50); border-style:double" height="250" width="250" onerror="this.src='https://www.pngitem.com/pimgs/m/508-5087336_person-man-user-account-profile-employee-profile-template.png'">></canvas>
-                </div>
-            </div>
-
-        
-        <p style="text-align:right; margin-right:2%; margin-top:1%;">
-            @if ((bool)Session["Logged"]) // show edit button if admin or personal profile
-            {
-                if ((int)Session["userId"] == Model.UserId || (int)Session["UserType"] == 1)
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }, new { @class = "btnGeneral btnGeneral:hover", @style = "margin-right:1%" })
-                    @Html.ActionLink("Change User Picture", "EditUserPicturePage", new { id = Model.UserId }, new { @class = "btnGeneral btnGeneral:hover", @style = "margin-right:1%" })
-                    @Html.ActionLink("Change Apartment Picture", "EditApartmentPicturePage", new { id = Model.UserId }, new { @class = "btnGeneral btnGeneral:hover", @style = "margin-right:1%" })
                 }
-            }
-        </p>
+            </div>
+        </div>
+        <div class="flex-item3" style="text-align:right; ">
+            <!--<img src="@Model.UserPicture" style="border:6px solid rgba(0, 7, 62, 0.50); border-style:double" height="250" width="250" onerror="this.src='https://www.pngitem.com/pimgs/m/508-5087336_person-man-user-account-profile-employee-profile-template.png'">-->
+            <canvas id="userCanvas" style="border:6px solid rgba(0, 7, 62, 0.50); border-style:double" height="250" width="250" onerror="this.src='https://www.pngitem.com/pimgs/m/508-5087336_person-man-user-account-profile-employee-profile-template.png'">></canvas>
+        </div>
 
-        <script type="text/javascript">
+
+        <div class="flex-item flex-container-c">
+
+
+
+
+            <div class="flex-item2">
+                @Html.DisplayNameFor(model => model.Country)
+
+                @Html.DisplayFor(model => model.Country)
+            </div>
+
+            <div class="flex-item2">
+                @Html.DisplayNameFor(model => model.City)
+
+                @Html.DisplayFor(model => model.City)
+            </div>
+
+            <div class="flex-item2">
+                @Html.DisplayNameFor(model => model.Address)
+
+                @Html.DisplayFor(model => model.Address)
+            </div>
+
+            <div class="flex-item2">
+                @Html.DisplayNameFor(model => model.ApartmentDescription)
+
+                @Html.DisplayFor(model => model.ApartmentDescription)
+            </div>
+
+            <div class="flex-item2">
+                @Html.DisplayNameFor(model => model.ApartmentPrice)
+
+                @Html.DisplayFor(model => model.ApartmentPrice)
+            </div>
+
+
+
+        </div>
+
+        <div class="flex-item3" style="text-align:right">
+            <!--<img src="@Model.ApartmentPicture" style="border:6px solid rgba(0, 7, 62, 0.50); border-style:double" height="250" width="250" onerror="this.src='https://cdn.clipart.email/4ae8243aed069cdabf0516fb35fefb88_house-outline-template-free-clipart-images-clipartandscrap_1266-1182.jpeg'"> -->
+            <canvas id="apartmentCanvas" style="border:6px solid rgba(0, 7, 62, 0.50); border-style:double" height="250" width="250" onerror="this.src='https://www.pngitem.com/pimgs/m/508-5087336_person-man-user-account-profile-employee-profile-template.png'">></canvas>
+        </div>
+    </div>
+
+
+    <p style="text-align:right; margin-right:2%; margin-top:1%;">
+        @if ((bool)Session["Logged"]) // show edit button if admin or personal profile
+        {
+            if ((int)Session["userId"] == Model.UserId || (int)Session["UserType"] == 1)
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }, new { @class = "btnGeneral btnGeneral:hover", @style = "margin-right:1%" })
+                @Html.ActionLink("Change User Picture", "EditUserPicturePage", new { id = Model.UserId }, new { @class = "btnGeneral btnGeneral:hover", @style = "margin-right:1%" })
+                @Html.ActionLink("Change Apartment Picture", "EditApartmentPicturePage", new { id = Model.UserId }, new { @class = "btnGeneral btnGeneral:hover", @style = "margin-right:1%" })
+            }
+        }
+    </p>
+
+    <script type="text/javascript">
             window.onload = function () {
                 //user picture
                 var userCanvas = document.getElementById("userCanvas");
@@ -148,9 +156,9 @@
                     img1.src = "/Uploads/UserPictures/" + pic1;
                     img1.onload = () => { context1.drawImage(img1, 0, 0, 250, 250) } //change size to fit
                 }
-              
 
-                
+
+
                 //apartment picture
                 var apartmentCanvas = document.getElementById("apartmentCanvas");
                 var context2 = apartmentCanvas.getContext("2d");
@@ -168,5 +176,5 @@
             function MoveToAddFunds(){
                 window.location = ('@Url.Action("AddFundsPage", "Users", null)');
             }
-        </script>
+    </script>
 
