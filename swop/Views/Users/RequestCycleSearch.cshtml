@@ -1,42 +1,49 @@
-﻿@model swop.Models.User
+﻿<head>
+    @if ((bool)Session["Logged"] == false)
+    {
+        <meta http-equiv="refresh" content="0; url = http://localhost:54598/Home/Index" />
+    }
+</head>
 
-@{
-    ViewBag.Title = "RequestCycleSearch";
-}
+@model swop.Models.User
+<section class="section-2">
+    @{
+        ViewBag.Title = "RequestCycleSearch";
+    }
+    <div style="margin-left:0.5%">
+        <h2>Cycle Search</h2>
+        Please write the country and city names accurately.
 
-<h2>Request Cycle Search</h2>
-Please write the country and city names accurately.
+        <form method="post">
+            <div class="form-horizontal" style="margin-left:3%">
+                <div class="form-group">
+                    <label> Country </label>
+                    <input type="text" id="CountryInput" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label> City </label>
+                    <input type="text" id="CityInput" class="form-control">
+                </div>
 
-<form method="post">
-    <div class="form-horizontal">
-        <div class="form-group">
-            <label> Country </label>
-            <input type="text" id="CountryInput">
-        </div>
-        <div class="form-group">
-            <label> City </label>
-            <input type="text" id="CityInput">
-        </div>
+                <div class="form-group">
+                    <label for="start">Start date:</label>
+                    <input type="date" id="start" name="trip-start" min="1900-01-01" value="1900-01-01" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="end">End date:</label>
+                    <input type="date" id="end" name="trip-end" min="1900-01-01" value="1900-01-01" class="form-control">
+                </div>
 
-        <div class="form-group">
-            <label for="start">Start date:</label>
-            <input type="date" id="start" name="trip-start" min="1900-01-01" value="1900-01-01">
-        </div>
-        <div class="form-group">
-            <label for="end">End date:</label>
-            <input type="date" id="end" name="trip-end" min="1900-01-01" value="1900-01-01">
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="button" value="Request Search" class="btn btn-default" id="RequestSearchButton" onclick="SendRequest()" />
+                <div class="form-group">
+                    <div>
+                        <input type="button" value="Request Search" class="btnGeneral btnGeneral:hover" id="RequestSearchButton" onclick="SendRequest()" />
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</form>
+        </form>
 
 
-<script>
+        <script>
     function SendRequest() {
         if ($("#CountryInput").val() == "" || $("#CityInput").val() == "") {
             alert("You must enter both the country and city names");
@@ -84,7 +91,8 @@ Please write the country and city names accurately.
     document.getElementById("end").setAttribute("min", today);
     document.getElementById("start").setAttribute("value", today);
     document.getElementById("end").setAttribute("value", today);
-</script>
+        </script>
 
 
-
+    </div>
+</section>

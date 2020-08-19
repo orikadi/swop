@@ -1,4 +1,11 @@
-﻿
+﻿<head>
+    @if ((bool)Session["Logged"] == false)
+    {
+        <meta http-equiv="refresh" content="0; url = http://localhost:54598/Home/Index" />
+    }
+</head>
+
+
 @model swop.ViewModels.CyclesForUser
     <section class="section-22">
         @{
@@ -40,7 +47,7 @@
             Destination: @Html.DisplayFor(model => model.user.Requests.Where(r => r.State == 0).First().To)
         </div>
 
-        @Html.ActionLink("Delete Search Request", "DeleteRequest", "Users",null,  new { @class = "btnGeneral btnGeneral:hover", @style = "margin-left:1%" } )
+        @Html.ActionLink("Delete Search Request", "DeleteRequest", "Users", null,  new { @class = "btnGeneral btnGeneral:hover", @style = "margin-left:1%" } )
 
 
         @if (Session["LockedInCycleID"] != null && Session["LockedInCycleID"].ToString() != "")
