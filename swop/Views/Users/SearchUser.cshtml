@@ -7,13 +7,13 @@
     <section class="section-22">
         <h1 style="margin-left:1%;">Search User</h1>
 
-        <label>Search by first name: <input type="text" id="SearchFirstName"></label>
+        <label style="margin-left:1%;">Search by first name: <input type="text" id="SearchFirstName"></label>
         <label>Search by last name: <input type="text" id="SearchLastName"></label>
         <label>Search by email: <input type="text" id="SearchEmail"></label>
-        @Html.ActionLink("Filter", "SearchUser", "Users", null, new { @class = "btn btn-warning", @onclick = "this.href += '?email=' + document.getElementById('SearchEmail').value + '&fName=' + document.getElementById('SearchFirstName').value + '&lName=' + document.getElementById('SearchLastName').value;" })
+        @Html.ActionLink("Filter", "SearchUser", "Users", null, new { @class = "btnGeneral btnGeneral:hover", @onclick = "this.href += '?email=' + document.getElementById('SearchEmail').value + '&fName=' + document.getElementById('SearchFirstName').value + '&lName=' + document.getElementById('SearchLastName').value;" })
         <table class="table">
             <tr>
-                <th>
+                <th  >
                     @Html.DisplayNameFor(model => model.Email)
                 </th>
                 <th>
@@ -74,7 +74,7 @@
                         @Html.DisplayFor(modelItem => item.ApartmentPrice)
                     </td>
                     <td>
-                        @Html.ActionLink("Details", "Details", new { id = item.UserId })
+                        @Html.ActionLink("Details", "Details", new { id = item.UserId }, new { @class = "btnGeneral btnGeneral:hover"})
                     </td>
                 </tr>
             }
