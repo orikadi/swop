@@ -54,6 +54,14 @@
             }
             context.Database.ExecuteSqlCommand("DBCC CHECKIDENT('UserCycles', RESEED, 0)");
 
+            //History ADDED
+            var histories = from o in context.History select o;
+            foreach (var history in histories)
+            {
+                context.History.Remove(history);
+            }
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT('Histories', RESEED, 0)");
+
             //SaveChanges
             context.SaveChanges();
         }
@@ -128,6 +136,10 @@
             RequestHandler.Instance.AddRequest(new Request { UserId = 65, From = "India- New Delhi", To = "England-London", Start = new DateTime(2023, 7, 4), End = new DateTime(2023, 7, 15), State = 0 }, true);
             RequestHandler.Instance.AddRequest(new Request { UserId = 66, From = "Japan-Tokyo", To = "Netherlands-Amsterdam", Start = new DateTime(2023, 7, 3), End = new DateTime(2023, 7, 17), State = 0 }, true);
             RequestHandler.Instance.AddRequest(new Request { UserId = 67, From = "Italy-Sardinia", To = "Japan-Kyoto", Start = new DateTime(2023, 7, 6), End = new DateTime(2023, 7, 14), State = 0 }, true);
+
+            RequestHandler.Instance.AddRequest(new Request { UserId = 68, From = "Italy-Sardinia", To = "Japan-Tokyo", Start = new DateTime(2023, 7, 6), End = new DateTime(2023, 7, 14), State = 0 }, true);
+            RequestHandler.Instance.AddRequest(new Request { UserId = 69, From = "Japan-Tokyo", To = "India- New Delhi", Start = new DateTime(2023, 7, 6), End = new DateTime(2023, 7, 14), State = 0 }, true);
+            RequestHandler.Instance.AddRequest(new Request { UserId = 70, From = "India- New Delhi", To = "Italy-Sardinia", Start = new DateTime(2023, 7, 6), End = new DateTime(2023, 7, 14), State = 0 }, true);
 
             //Request req = context.Requests.Find(r1.UserId);
             //RequestHandler.Instance.DeleteRequest(r1, false);
@@ -1289,6 +1301,57 @@
                 Country = "Italy",
                 City = "Sardinia",
                 Address = "Sardinia St",
+                ApartmentPicture = "",
+                ApartmentDescription = "its k i guess",
+                ApartmentPrice = 3.0
+            });
+            context.Users.AddOrUpdate(x => x.UserId, new User()//68
+            {
+                Email = "46@46.com",
+                FirstName = "46",
+                LastName = "46son",
+                DateOfBirth = new DateTime(1990, 1, 1),
+                Balance = 1000.0,
+                Password = "123",
+                UserPicture = "",
+                UserType = 0,
+                Country = "Italy",
+                City = "Sardinia",
+                Address = "Sardinia St",
+                ApartmentPicture = "",
+                ApartmentDescription = "its k i guess",
+                ApartmentPrice = 3.0
+            });
+            context.Users.AddOrUpdate(x => x.UserId, new User()//69
+            {
+                Email = "47@47.com",
+                FirstName = "47",
+                LastName = "47son",
+                DateOfBirth = new DateTime(1990, 1, 1),
+                Balance = 1000.0,
+                Password = "123",
+                UserPicture = "",
+                UserType = 0,
+                Country = "Japan",
+                City = "Tokyo",
+                Address = "Tokyo St",
+                ApartmentPicture = "",
+                ApartmentDescription = "its k i guess",
+                ApartmentPrice = 3.0
+            });
+            context.Users.AddOrUpdate(x => x.UserId, new User()//70
+            {
+                Email = "48@48.com",
+                FirstName = "48",
+                LastName = "48son",
+                DateOfBirth = new DateTime(1990, 1, 1),
+                Balance = 1000.0,
+                Password = "123",
+                UserPicture = "",
+                UserType = 0,
+                Country = "India",
+                City = "New Delhi",
+                Address = "New Delhi St",
                 ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
                 ApartmentPrice = 3.0

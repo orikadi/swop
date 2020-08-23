@@ -521,6 +521,27 @@ namespace swop.Controllers
             return RedirectToAction("../HomePage/Index");
         }
 
+        public ActionResult MyHistory(int? id)//ADDED
+        {
+            if ((Session["Logged"].Equals(true)))
+            {
+                int userId = (int)Session["UserId"];
+                User user = db.Users.Where(u => u.UserId == userId)
+                    .Include(x=>x.Histories.Select(o => o.Host))
+                    .Include(x=>x.Histories.Select(o=>o.Guest))
+                    .First();
+                return View(user);
+/*                if (db.History.Any())
+                {
+                     History history = db.History.Where(h => h.UserId == userId).First();
+                                    *//*if(history != null)
+                                        return View(history);*//*
+                     return View(history);
+                }*/
+               
+            }
+            return RedirectToAction("Error");
+        }
 
         //Permissions check functions
         private bool IsUserLogged()

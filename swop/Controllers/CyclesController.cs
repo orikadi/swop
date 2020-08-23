@@ -192,6 +192,50 @@ namespace swop.Controllers
             //check if cycle is now complete and return the right indicator
             if (IsCycleComplete(cycle))
             {
+                //ADDED ** -------------------------------------------------
+                foreach(UserCycle uc in cycle.UserCycles)
+                {
+                    int userId = uc.UserId;
+                    User userForSearch = uc.User;
+                    //finding guest and dest * //////////////////////////////
+                    Request userReq = db.Requests.Where(r => (r.UserId == userId && r.State == 0)).First();
+                    string userDest = userReq.To; //got user destination through an active request
+                    string userResidence = userForSearch.Country + "-" + userForSearch.City;
+
+                    User host = null;
+                    User guest = null;
+                    foreach (UserCycle uc2 in cycle.UserCycles)
+                    {
+                        User ucUser = db.Users.Find(uc2.UserId); //uc.User is null so ucUser is utilized
+                        Request req = db.Requests.Where(r => (r.UserId == ucUser.UserId && r.State == 0)).First();
+                        string dest = req.To;
+                        string residence = ucUser.Country + "-" + ucUser.City;
+                        if (residence == userDest)
+                            host = ucUser;
+                        if (userResidence == dest)
+                            guest = ucUser;
+                    }
+                    //* ////////////////////////////////////////////
+
+                    User use = db.Users.Where(u => u.UserId == userId).Include(a=>a.Histories).First();
+                    History h = new History
+                    {
+                        UserId = userId,
+                        User = use,
+                        StartDate = cycle.Start.Date,
+                        EndDate = cycle.End.Date,
+                        Host = host,
+                        Guest = guest
+                    };
+                    db.History.Add(h);
+                    if (use.Histories == null)
+                    {
+                        use.Histories = new List<History>();
+                    }
+                    use.Histories.Add(h);
+                    db.SaveChanges();
+                }
+                //** -------------------------------------------------------------------
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
             return Json(2, JsonRequestBehavior.AllowGet);

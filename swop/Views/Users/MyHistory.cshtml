@@ -1,0 +1,37 @@
+﻿@model swop.Models.User
+
+@{
+    ViewBag.Title = "MyHistory";
+}
+
+<h2>MyHistory</h2>
+
+<table>
+    <tr>
+        <td>Starting Date</td>
+        <td>Ending Date</td>
+        <td>Host</td>
+        <td>Guest</td>
+    </tr>
+    @foreach (var item in Model.Histories)
+    {
+        string sDate = item.StartDate.ToShortDateString();
+        string eDate = item.EndDate.ToShortDateString();
+        string host = item.Host.FirstName + " " + item.Host.LastName;
+        string guest = item.Guest.FirstName + " " + item.Guest.LastName;
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => sDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => eDate)
+        </td>
+        <td>
+            @Html.ActionLink(host, "Details", "Users", new { id = item.Host.UserId }, null)
+        </td>
+        <td>
+            @Html.ActionLink(guest, "Details", "Users", new { id = item.Guest.UserId }, null)
+        </td>
+    </tr>
+        }
+    </table>

@@ -67,5 +67,7 @@ namespace swop.Models
         //Requests and cycles
         public ICollection<Request> Requests { get; set; } //virtual??
         public virtual ICollection<UserCycle> UserCycles { get; set; } //many to many
+        //ADDED
+        public ICollection<History> Histories { get; set; }
     }
 }
