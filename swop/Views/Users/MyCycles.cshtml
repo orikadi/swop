@@ -7,124 +7,124 @@
 
 
 @model swop.ViewModels.CyclesForUser
-    <section class="section-22">
-        @{
-            ViewBag.Title = "My Cycles";
-        }
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-        <script type="text/javascript">
-            function percentageComplete(cid) {
-                $.ajax({
-                    type: "GET",
-                    url: "/Cycles/PercentageComplete",
-                    data: {
-                        id: cid
-                    },
-                    dataType: "json",
-                    success: function (data) {
-                        if (data <= 33) {
-                            document.getElementById("percentageBox_" + cid).style.color = "red"
-                        }
-                        else if (data <= 66) {
-                            document.getElementById("percentageBox_" + cid).style.color = "orange"
-                        }
-                        else {
-                            document.getElementById("percentageBox_" + cid).style.color = "green"
-                        }
-                        $("#percentageBox_" + cid).text(data + "%");
-                    },
-                    error: function (xhr, status, error) {
-                        return "error retrieving cycle id"
+<section class="section-22">
+    @{
+        ViewBag.Title = "My Cycles";
+    }
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript">
+        function percentageComplete(cid) {
+            $.ajax({
+                type: "GET",
+                url: "/Cycles/PercentageComplete",
+                data: {
+                    id: cid
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data <= 33) {
+                        document.getElementById("percentageBox_" + cid).style.color = "red"
                     }
-                });
-            }
-        </script>
-
-        <h1 style="margin-left:1%;">My Cycles</h1>
-     
-
-        <div style="margin-left:1%;">
-            Destination: @Html.DisplayFor(model => model.user.Requests.Where(r => r.State == 0).First().To)
-        </div>
-
-        @Html.ActionLink("Delete Search Request", "DeleteRequest", "Users", null,  new { @class = "btnGeneral btnGeneral:hover", @style = "margin-left:1%" } )
-
-
-        @if (Session["LockedInCycleID"] != null && Session["LockedInCycleID"].ToString() != "")
-        {
-            <h4>Currently Locked In Cycle</h4>
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.lockedCycle.Start)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.lockedCycle.End)
-                    </th>
-
-                    <th>Completed</th>
-                </tr>
-
-                <tr>
-                    <td>
-                        @{
-                            string sDate = Model.lockedCycle.Start.ToShortDateString();
-                            @Html.DisplayFor(model => sDate);
-                        }
-
-                    </td>
-                    <td>
-                        @{
-                            string eDate = Model.lockedCycle.End.ToShortDateString();
-                            @Html.DisplayFor(model => eDate);
-                        }
-
-                    </td>
-                    <td id="percentageBox_@Model.lockedCycle.CycleId">
-                        <script> percentageComplete(@Model.lockedCycle.CycleId) </script>
-                    </td>
-                    <td>
-                        @Html.ActionLink("Details", "Details", "Cycles", new {  cid = Model.lockedCycle.CycleId, uid = Model.user.UserId }, null)
-                    </td>
-
-                </tr>
-
-            </table>
+                    else if (data <= 66) {
+                        document.getElementById("percentageBox_" + cid).style.color = "orange"
+                    }
+                    else {
+                        document.getElementById("percentageBox_" + cid).style.color = "green"
+                    }
+                    $("#percentageBox_" + cid).text(data + "%");
+                },
+                error: function (xhr, status, error) {
+                    return "error retrieving cycle id"
+                }
+            });
         }
+    </script>
+
+    <h1 style="margin-left:1%;">My Cycles</h1>
 
 
+    <div style="margin-left:1%;">
+        Destination: @Html.DisplayFor(model => model.user.Requests.Where(r => r.State == 0).First().To)
+    </div>
+
+    @Html.ActionLink("Delete Search Request", "DeleteRequest", "Users", null, new { @class = "btnGeneral btnGeneral:hover", @style = "margin-left:1%" })
+    <!--put the line above in a function and call it through an html button. inside the function after calling the razor above call $("#buttonid").toggle(); to make it disappear-->
+    <!--<button class="btnGeneral btnGeneral:hover" style="margin-left:1%"> </button>-->
+    @if (Session["LockedInCycleID"] != null && Session["LockedInCycleID"].ToString() != "")
+    {
+        <h4>Currently Locked In Cycle</h4>
         <table class="table">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.cycles[0].Start)
+                    @Html.DisplayNameFor(model => model.lockedCycle.Start)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.cycles[0].End)
+                    @Html.DisplayNameFor(model => model.lockedCycle.End)
                 </th>
 
                 <th>Completed</th>
             </tr>
 
+            <tr>
+                <td>
+                    @{
+                        string sDate = Model.lockedCycle.Start.ToShortDateString();
+                        @Html.DisplayFor(model => sDate);
+                    }
 
-            @foreach (var item in Model.cycles)
-            {
-                string sDate = item.Start.ToShortDateString();
-                string eDate = item.End.ToShortDateString();
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => sDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => eDate)
-                    </td>
-                    <td id="percentageBox_@item.CycleId">
-                        <script> percentageComplete(@item.CycleId) </script>
-                    </td>
-                    <td>
-                        @Html.ActionLink("Details", "Details", "Cycles", new { cid = item.CycleId, uid = Model.user.UserId,  }, new { @class = "btnGeneral btnGeneral:hover" })
-                    </td>
+                </td>
+                <td>
+                    @{
+                        string eDate = Model.lockedCycle.End.ToShortDateString();
+                        @Html.DisplayFor(model => eDate);
+                    }
 
-                </tr>
-            }
+                </td>
+                <td id="percentageBox_@Model.lockedCycle.CycleId">
+                    <script> percentageComplete(@Model.lockedCycle.CycleId) </script>
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", "Cycles", new { cid = Model.lockedCycle.CycleId, uid = Model.user.UserId }, null)
+                </td>
+
+            </tr>
+
         </table>
-    </section>
+    }
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.cycles[0].Start)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cycles[0].End)
+            </th>
+
+            <th>Completed</th>
+        </tr>
+
+
+        @foreach (var item in Model.cycles)
+        {
+            string sDate = item.Start.ToShortDateString();
+            string eDate = item.End.ToShortDateString();
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => sDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => eDate)
+                </td>
+                <td id="percentageBox_@item.CycleId">
+                    <script> percentageComplete(@item.CycleId) </script>
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", "Cycles", new { cid = item.CycleId, uid = Model.user.UserId, }, new { @class = "btnGeneral btnGeneral:hover" })
+                </td>
+
+            </tr>
+        }
+    </table>
+</section>

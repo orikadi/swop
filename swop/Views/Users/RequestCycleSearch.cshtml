@@ -45,8 +45,11 @@
 
         <script>
     function SendRequest() {
-        if ($("#CountryInput").val() == "" || $("#CityInput").val() == "") {
+        if ($("#CountryInput").val() == "" || $("#CityInput").val() == "" || $("#CountryInput").val() == " " || $("#CityInput").val() == " ") {
             alert("You must enter both the country and city names");
+        }
+        else if ($("#CountryInput").val() + "-" + $("#CityInput").val() == "@Model.Country" + "-" + "@Model.City") {
+            alert("You must enter a location different from your own");
         }
         else {
             var destination = $("#CountryInput").val() + "-" + $("#CityInput").val();
