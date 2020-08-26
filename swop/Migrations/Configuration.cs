@@ -233,7 +233,7 @@
                 Address = "Petah Tikva St",
                 ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
-                ApartmentPrice = 3.0
+                ApartmentPrice = 5.0
             });
             context.Users.AddOrUpdate(x => x.UserId, new User()//6
             {
@@ -268,7 +268,7 @@
                 Address = "London St",
                 ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
-                ApartmentPrice = 3.0
+                ApartmentPrice = 7.0
             });
 
             context.Users.AddOrUpdate(x => x.UserId, new User()//8
@@ -304,7 +304,7 @@
                 Address = "Beijing St",
                 ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
-                ApartmentPrice = 3.0
+                ApartmentPrice = 2.0
             });
 
             context.Users.AddOrUpdate(x => x.UserId, new User()//10
@@ -358,7 +358,7 @@
                 Address = "Cairo St",
                 ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
-                ApartmentPrice = 3.0
+                ApartmentPrice = 10.0
             });
 
             context.Users.AddOrUpdate(x => x.UserId, new User()//13
@@ -394,7 +394,7 @@
                 Address = "Tel Aviv St",
                 ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
-                ApartmentPrice = 3.0
+                ApartmentPrice = 8.0
             });
 
             context.Users.AddOrUpdate(x => x.UserId, new User()//15
@@ -412,7 +412,7 @@
                 Address = "Moscow St",
                 ApartmentPicture = "",
                 ApartmentDescription = "its k i guess",
-                ApartmentPrice = 3.0
+                ApartmentPrice = 7.0
             });
 
             context.Users.AddOrUpdate(x => x.UserId, new User()//16

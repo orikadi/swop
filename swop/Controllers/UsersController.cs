@@ -412,14 +412,15 @@ namespace swop.Controllers
         }
 
 
-        public ActionResult SearchUser(string email = "", string fName = "", string lName = "")
+        public ActionResult SearchUser(string email = "", string country = "", string city = "", double price = int.MaxValue)
         {
             if (!IsUserLogged())
                 return RedirectToAction("Index", "Home");
             List<User> uList = new List<User>();
             foreach(User user in db.Users)
             {
-                if(user.Email.Contains(email) && user.FirstName.Contains(fName) && user.LastName.Contains(lName))
+                //user.Email.Contains(email)
+                if ((user.Email.IndexOf(email, StringComparison.OrdinalIgnoreCase) >=0) && (user.Country.IndexOf(country, StringComparison.OrdinalIgnoreCase) >= 0) && (user.City.IndexOf(city, StringComparison.OrdinalIgnoreCase) >= 0) && (user.ApartmentPrice <= price))
                 {
                     uList.Add(user);
                 }
