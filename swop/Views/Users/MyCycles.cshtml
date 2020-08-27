@@ -47,9 +47,8 @@
         Destination: @Html.DisplayFor(model => model.user.Requests.Where(r => r.State == 0).First().To)
     </div>
 
-    @Html.ActionLink("Delete Search Request", "DeleteRequest", "Users", null, new { @class = "btnGeneral btnGeneral:hover", @style = "margin-left:1%" })
-    <!--put the line above in a function and call it through an html button. inside the function after calling the razor above call $("#buttonid").toggle(); to make it disappear-->
-    <!--<button class="btnGeneral btnGeneral:hover" style="margin-left:1%"> </button>-->
+    @Html.ActionLink("Delete Search Request", "DeleteRequest", "Users", null, new { @id = "DeleteRequest", @class = "btnGeneral btnGeneral:hover", @style = "margin-left:1%", @onclick = "document.getElementById('DeleteRequest').style.display = 'none'" })
+
     @if (Session["LockedInCycleID"] != null && Session["LockedInCycleID"].ToString() != "")
     {
         <h4>Currently Locked In Cycle</h4>

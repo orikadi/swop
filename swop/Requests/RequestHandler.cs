@@ -64,6 +64,7 @@ namespace swop.Requests
                     End = r.End
                 };
                 db.Cycles.Add(c);
+                db.SaveChanges();
                 //save changes so added cycle gets an id? if so need to re-update the c object so it'll have its id
                 //List<UserCycle> userCycles = new List<UserCycle>(); //list to save in cycle
                 foreach (string userId in cycle) //add usercycle for every user in cycle
@@ -78,12 +79,8 @@ namespace swop.Requests
                         IsLocked = false
                     };
                     db.UserCycles.Add(uc);
-                    //userCycles.Add(uc);
+                   // db.SaveChanges();
                 }
-                //c.UserCycles = userCycles; //update cycle's usercycles
-                //might need to re-add uc
-                
-                //db.Entry(c).Property("UserCycles").IsModified = true; 
             }
             db.Requests.Add(r);
             db.SaveChanges();

@@ -10,7 +10,7 @@
         <label style="margin-left:1%;">Search by email: <input type="text" id="SearchEmail"></label>
         <label>Search by country: <input type="text" id="SearchCountry"></label> <!--change to Country-->
         <label>Search by city: <input type="text" id="SearchCity"></label> <!--Change To City-->
-        <label>Search by price: <input type="number" id="SearchPrice"></label>
+        <label>Search by price: <input type="number" min="0" id="SearchPrice"></label>
         
         @Html.ActionLink("Filter", "SearchUser", "Users", null, new { @class = "btnGeneral btnGeneral:hover", @onclick = "this.href += '?email=' + document.getElementById('SearchEmail').value + '&country=' + document.getElementById('SearchCountry').value + '&city=' + document.getElementById('SearchCity').value + '&price=' + document.getElementById('SearchPrice').value;" })
         <table class="table">
