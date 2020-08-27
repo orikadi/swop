@@ -186,7 +186,16 @@
     <Compile Include="Migrations\202008131005182_AddedHistory.designer.cs">
       <DependentUpon>202008131005182_AddedHistory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008261253288_AddApartmentScore.cs" />
+    <Compile Include="Migrations\202008261253288_AddApartmentScore.designer.cs">
+      <DependentUpon>202008261253288_AddApartmentScore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008261517452_FixToApartmentScore.cs" />
+    <Compile Include="Migrations\202008261517452_FixToApartmentScore.designer.cs">
+      <DependentUpon>202008261517452_FixToApartmentScore.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ApartmentScore.cs" />
     <Compile Include="Models\Cycle.cs" />
     <Compile Include="Models\History.cs" />
     <Compile Include="Models\Request.cs" />
@@ -263,6 +272,7 @@
     <Content Include="Views\Users\EditUserPicturePage.cshtml" />
     <Content Include="Views\Users\EditApartmentPicturePage.cshtml" />
     <Content Include="Views\Users\MyHistory.cshtml" />
+    <Content Include="Views\Users\AddScorePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -298,6 +308,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008131005182_AddedHistory.resx">
       <DependentUpon>202008131005182_AddedHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008261253288_AddApartmentScore.resx">
+      <DependentUpon>202008261253288_AddApartmentScore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008261517452_FixToApartmentScore.resx">
+      <DependentUpon>202008261517452_FixToApartmentScore.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

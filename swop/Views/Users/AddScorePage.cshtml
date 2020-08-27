@@ -1,0 +1,66 @@
+﻿<head>
+    @if ((bool)Session["Logged"] == false)
+    {
+        <meta http-equiv="refresh" content="0; url = http://localhost:54598/Home/Index" />
+
+    }
+
+</head>
+@model swop.Models.User
+
+@{
+    ViewBag.Title = "AddScorePage";
+}
+
+<section class="section-2">
+    <h2>AddScorePage</h2>
+    <div>
+        Apartment Score:
+        @if (Model.ApartmentScores.Count == 0)
+        {
+            @Html.Raw("Not rated yet");
+        }
+        else
+        {
+            @Html.DisplayFor(model => model.ApartmentScore)
+        }
+    </div>
+    <div>
+        be mindfull of your rating it cannot be changed later <!--maybe remove?-->
+        <form method="post">
+            <div class="form-group">
+                <input type="number" id="ScoreInput" name="Score" min="1" max="5">
+            </div>
+            <div class="form-group">
+                <div>
+                    <!--back here-->
+                    <input type="button" value="Rate" class="btnGeneral btnGeneral:hover" id="RateButton" onclick="RateApartment()" />
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+    function RateApartment() {
+        var score = $("#ScoreInput").val();
+        var scoredUserId = @Model.UserId;
+        $.ajax({
+            type: "GET",
+            url: "/Users/GiveScore",
+            data: {
+                toAdd: score,
+                scoredUserId: scoredUserId
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data)
+                    window.location = ('@Url.Action("AddScorePage", "Users", null)')
+                else alert("Input a number between 1 to 5");
+            },
+            error: function (xhr, status, error) {
+                alert("Problem adding rating");
+            }
+        });
+    }
+    </script>
+</section>

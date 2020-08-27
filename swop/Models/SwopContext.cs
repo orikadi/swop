@@ -14,5 +14,6 @@ namespace swop.Models
         public DbSet<UserCycle> UserCycles { get; set; }
         //ADDED
         public DbSet<History> History { get; set; }
+        public DbSet<ApartmentScore> ApartmentScore { get; set; }
     }
 }

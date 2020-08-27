@@ -35,7 +35,7 @@ namespace swop.Controllers
             {
                 if (UserExists(id.GetValueOrDefault(0)))
                 {
-                    User user = db.Users.Find(id);
+                    User user = db.Users.Where(u => u.UserId == id).Include(x => x.ApartmentScores).First();
                     return View(user);
                 }
                 return HttpNotFound();
@@ -528,7 +528,7 @@ namespace swop.Controllers
             {
                 int userId = (int)Session["UserId"];
                 User user = db.Users.Where(u => u.UserId == userId)
-                    .Include(x=>x.Histories.Select(o => o.Host))
+                    .Include(x=>x.Histories.Select(o => o.Host).Select(y => y.ApartmentScores))
                     .Include(x=>x.Histories.Select(o=>o.Guest))
                     .First();
                 return View(user);
@@ -542,6 +542,52 @@ namespace swop.Controllers
                
             }
             return RedirectToAction("Error");
+        }
+
+        public ActionResult AddScorePage(int? id)
+        {
+            if (!(Session["Logged"].Equals(true)))
+            {
+                return RedirectToAction("Error");
+            }
+            int userId = (int)Session["UserId"];
+            User userToScore = db.Users.Where(u => u.UserId == id).Include(u => u.ApartmentScores.Select(apS => apS.ScoreByUser)).First();
+            foreach(ApartmentScore apS in userToScore.ApartmentScores)
+            {
+                if(apS.ScoreByUser.UserId == userId)
+                    return RedirectToAction("MyHistory");
+            }
+            return View(userToScore);
+        }
+
+        public JsonResult GiveScore(double? toAdd, int? scoredUserId)
+        {
+            int? userId = (int)Session["UserId"];
+            User user = db.Users.Find(userId);
+            User scoredUser = db.Users.Where(u => u.UserId == scoredUserId).Include(x => x.ApartmentScores).First();
+            if (toAdd.HasValue)
+            {
+                if (toAdd.Value >= 1 && toAdd.Value <= 5)
+                {
+                    ApartmentScore ap = new ApartmentScore
+                    {
+                        ScoreByUser = user,
+                        Score = toAdd.Value,
+                        UserId = scoredUser.UserId,
+                        User = scoredUser
+                    };
+                    scoredUser.ApartmentScores.Add(ap);
+                    double sum = 0;
+                    foreach(ApartmentScore apartmentS in scoredUser.ApartmentScores)
+                    {
+                        sum += apartmentS.Score;
+                    }
+                    scoredUser.ApartmentScore = sum / scoredUser.ApartmentScores.Count;
+                    db.SaveChanges();
+                    return Json(true, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json(false, JsonRequestBehavior.AllowGet);
         }
 
         //Permissions check functions

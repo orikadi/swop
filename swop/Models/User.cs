@@ -62,6 +62,8 @@ namespace swop.Models
         [Display(Name = "Apartment Price Per Night")]
         [Required]
         public double ApartmentPrice { get; set; } //price per night
+        [Range(1,5)]
+        public double ApartmentScore { get; set; }
         
 
         //Requests and cycles
@@ -69,5 +71,6 @@ namespace swop.Models
         public virtual ICollection<UserCycle> UserCycles { get; set; } //many to many
         //ADDED
         public ICollection<History> Histories { get; set; }
+        public ICollection<ApartmentScore> ApartmentScores { get; set; }
     }
 }

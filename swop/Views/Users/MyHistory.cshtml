@@ -19,6 +19,7 @@
                 string eDate = item.EndDate.ToShortDateString();
                 string host = item.Host.FirstName + " " + item.Host.LastName;
                 string guest = item.Guest.FirstName + " " + item.Guest.LastName;
+                bool flag = false;
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => sDate)
@@ -31,6 +32,19 @@
                     </td>
                     <td>
                         @Html.ActionLink(guest, "Details", "Users", new { id = item.Guest.UserId }, null)
+                    </td>
+                    <td>
+                        @foreach (var apS in item.Host.ApartmentScores)
+                        {
+                            if (apS.ScoreByUser.UserId == item.UserId)
+                            {
+                                flag = true;
+                            }
+                        }
+                        @if (!flag)
+                        {
+                            @Html.ActionLink("Rate Host", "AddScorePage", "Users", new { id = item.Host.UserId }, null)
+                        }
                     </td>
                 </tr>
             }
