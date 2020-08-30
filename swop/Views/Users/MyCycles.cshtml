@@ -102,9 +102,6 @@
             </th>
 
             <th>Completed</th>
-            <th>
-                Host Rate
-            </th>
         </tr>
 
         @{ int i = 0;}
@@ -123,18 +120,6 @@
 
         <td id="percentageBox_@item.CycleId">
             <script> percentageComplete(@item.CycleId) </script>
-        </td>
-        <td>
-            @if (Model.hosts.ElementAt(i).ApartmentScores.Count == 0)
-            {
-                @Html.Raw("Not rated yet");
-                i++;
-            }
-            else
-            {
-                @Html.DisplayFor(model => model.hosts.ElementAt(i).ApartmentScore)
-                i++;
-            }
         </td>
         <td>
             @Html.ActionLink("Details", "Details", "Cycles", new { cid = item.CycleId, uid = Model.user.UserId, }, new { @class = "btnGeneral btnGeneral:hover" })

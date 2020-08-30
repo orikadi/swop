@@ -482,24 +482,18 @@ namespace swop.Controllers
 
                 List<Cycle> cycles = db.Cycles.Where(c => cycleIds.Contains(c.CycleId)).ToList();
                 List<User> hosts = new List<User>();
-                foreach(Cycle c in cycles)//-------------------------------------
-                {
-                    hosts.Add(GetHost(user, c));
-                }
-                //if theres a locked in cycle, differentiate it and remove it from the cycles list
-
-                //TO-ADD: SORT cycles BY AVERAGE RANKING
+                
 
                 if (Session["LockedInCycleID"] != null && Session["LockedInCycleID"].ToString() != "") 
                 {
                     Cycle lockedCycle = db.Cycles.Find(Int32.Parse(Session["LockedInCycleID"].ToString()));
                     cycles.Remove(lockedCycle);
-                    CyclesForUser userCycles = new CyclesForUser(user, cycles, lockedCycle, hosts);
+                    CyclesForUser userCycles = new CyclesForUser(user, cycles, lockedCycle);
                     return View(userCycles);
                 }
                 else
                 {
-                    CyclesForUser userCycles = new CyclesForUser(user, cycles, null, hosts);
+                    CyclesForUser userCycles = new CyclesForUser(user, cycles, null);
                     return View(userCycles);
                 }
             }
