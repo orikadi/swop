@@ -40,6 +40,10 @@
         }
     </script>
 
+    @if ((bool)Session["HasActiveRequest"])
+    {
+
+    
     <h1 style="margin-left:1%;">My Cycles</h1>
 
 
@@ -49,7 +53,7 @@
 
     @Html.ActionLink("Delete Search Request", "DeleteRequest", "Users", null, new { @id = "DeleteRequest", @class = "btnGeneral btnGeneral:hover", @style = "margin-left:1%", @onclick = "document.getElementById('DeleteRequest').style.display = 'none'" })
 
-    @if (Session["LockedInCycleID"] != null && Session["LockedInCycleID"].ToString() != "")
+    if (Session["LockedInCycleID"] != null && Session["LockedInCycleID"].ToString() != "")
     {
         <h4>Currently Locked In Cycle</h4>
         <table class="table">
@@ -83,7 +87,7 @@
                     <script> percentageComplete(@Model.lockedCycle.CycleId) </script>
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "Details", "Cycles", new { cid = Model.lockedCycle.CycleId, uid = Model.user.UserId }, null)
+                    @Html.ActionLink("Details", "Details", "Cycles", new { cid = Model.lockedCycle.CycleId, uid = Model.user.UserId }, new { @class = "btnGeneral btnGeneral:hover" })
                 </td>
 
             </tr>
@@ -128,4 +132,6 @@
     </tr>
         }
     </table>
+            }
+           
 </section>

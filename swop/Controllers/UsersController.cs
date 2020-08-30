@@ -76,7 +76,7 @@ namespace swop.Controllers
             {
                 if(_user.Email == user.Email)
                 {
-                    ViewBag.ErrorMassage = "email already exists";
+                    ViewBag.ErrorMessage = "email already exists";
                     return View(user);
                 }
             }
@@ -516,11 +516,11 @@ namespace swop.Controllers
             }
 
             //get an ongoing request
+            Session["HasActiveRequest"] = false;
             Request req = db.Requests.Where(r => (r.UserId == userId && r.State == 0)).First();
             //delete request
             RequestHandler.Instance.DeleteRequest(req, false);
             CyclesController.mutex.ReleaseMutex();
-            Session["HasActiveRequest"] = false;
             return RedirectToAction("../HomePage/Index");
         }
 

@@ -44,7 +44,12 @@
                 },
                 dataType: "json",
                 success: function (data) {
-                    $("#totalCostBox").text(data);
+                    if (data != "") {
+                        $("#totalCostBox").text(data);
+                    }
+                    else {
+                        window.location = "../HomePage"
+                    }     
                 },
                 error: function (xhr, status, error) {
                     return "error while receiving total cost"

@@ -328,7 +328,7 @@ namespace swop.Controllers
             Cycle cycle = db.Cycles.Find(cid);
             if (cycle == null)
             {
-                //do something
+                return Json("", JsonRequestBehavior.AllowGet);
             }
             double totalCost = ((cycle.End - cycle.Start).TotalDays+1) * ppn;
             return Json(totalCost.ToString(), JsonRequestBehavior.AllowGet);
