@@ -79,7 +79,6 @@
             </div>
         </div>
         <div class="flex-item3" style="text-align:right; ">
-            <!--<img src="@Model.UserPicture" style="border:6px solid rgba(0, 7, 62, 0.50); border-style:double" height="250" width="250" onerror="this.src='https://www.pngitem.com/pimgs/m/508-5087336_person-man-user-account-profile-employee-profile-template.png'">-->
             <canvas id="userCanvas" style="border:6px solid rgba(0, 7, 62, 0.50); border-style:double" height="250" width="250" onerror="this.src='https://www.pngitem.com/pimgs/m/508-5087336_person-man-user-account-profile-employee-profile-template.png'">></canvas>
         </div>
 
@@ -161,7 +160,6 @@
                 var img1 = new Image();
                 var pic1 = "@Model.UserPicture"
                 if (pic1 == "") {
-                    //put template picture here (either a url or the template picture's name in the folder)
                 }
                 else {
                     img1.src = "/Uploads/UserPictures/" + pic1;
@@ -176,7 +174,6 @@
                 var img2 = new Image();
                 var pic2 = "@Model.ApartmentPicture"
                 if (pic2 == "") {
-                    //put template picture here (either a url or the template picture's name in the folder)
                 }
                 else {
                     img2.src = "/Uploads/ApartmentPictures/" + pic2;

@@ -155,8 +155,7 @@ namespace swop.Controllers
         {
             if (id == null)
             {
-                //return -1?
-                //return Json(false, JsonRequestBehavior.AllowGet);
+                
             }
             //get all user cycles of this cycle
             List<UserCycle> ucs = db.UserCycles.Where(uc => uc.CycleId == id).ToList();
@@ -178,7 +177,7 @@ namespace swop.Controllers
             User user = db.Users.Find(uid);
             if (user == null || cycle == null)
             {
-                //return Json(-1, JsonRequestBehavior.AllowGet);
+                
             }
             //check if user is already locked into a cycle
             if (db.UserCycles.Where(uc => uc.UserId == user.UserId && uc.IsLocked).Any())
@@ -193,12 +192,12 @@ namespace swop.Controllers
             //check if cycle is now complete and return the right indicator
             if (IsCycleComplete(cycle))
             {
-                //ADDED ** -------------------------------------------------
+                
                 foreach(UserCycle uc in cycle.UserCycles)
                 {
                     int userId = uc.UserId;
                     User userForSearch = uc.User;
-                    //finding guest and dest * //////////////////////////////
+                    //finding guest and dest 
                     Request userReq = db.Requests.Where(r => (r.UserId == userId && r.State == 0)).First();
                     string userDest = userReq.To; //got user destination through an active request
                     string userResidence = userForSearch.Country + "-" + userForSearch.City;
@@ -216,7 +215,6 @@ namespace swop.Controllers
                         if (userResidence == dest)
                             guest = ucUser;
                     }
-                    //* ////////////////////////////////////////////
 
                     User use = db.Users.Where(u => u.UserId == userId).Include(a=>a.Histories).First();
                     History h = new History
@@ -236,7 +234,6 @@ namespace swop.Controllers
                     use.Histories.Add(h);
                     db.SaveChanges();
                 }
-                //** -------------------------------------------------------------------
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
             return Json(2, JsonRequestBehavior.AllowGet);

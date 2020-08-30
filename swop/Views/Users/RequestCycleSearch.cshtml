@@ -67,7 +67,7 @@
                 dataType: "json",
                 success: function (data) {
                     if (data)
-                        window.location = ('@Url.Action("Index", "HomePage", null)') //homepage might be wrong
+                        window.location = ('@Url.Action("Index", "HomePage", null)')
                     else alert("You already have an active request, cancel it if you want to input a new one");
                 },
                 error: function (xhr, status, error) {
@@ -77,7 +77,6 @@
         }
     }
 
-    //set min date possible
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!

@@ -9,7 +9,6 @@ namespace swop.Models
 {
     public class User
     {
-        //add rating
         [Key]
         public int UserId { get; set; }
 
@@ -51,8 +50,7 @@ namespace swop.Models
 
         [Display(Name = "Apartment Picture")]
         [DataType(DataType.ImageUrl)]
-        //[Required]
-        public string ApartmentPicture { get; set; } // no longer [Required]
+        public string ApartmentPicture { get; set; }
 
        
         [Display(Name = "Apartment Description")]
@@ -68,9 +66,8 @@ namespace swop.Models
         
 
         //Requests and cycles
-        public ICollection<Request> Requests { get; set; } //virtual??
+        public ICollection<Request> Requests { get; set; }
         public virtual ICollection<UserCycle> UserCycles { get; set; } //many to many
-        //ADDED
         public ICollection<History> Histories { get; set; }
         public ICollection<ApartmentScore> ApartmentScores { get; set; }
     }

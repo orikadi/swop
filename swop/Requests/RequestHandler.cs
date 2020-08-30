@@ -44,7 +44,7 @@ namespace swop.Requests
             //Add the request to all applicable dates
             foreach (Request r in reqList)
             {
-                GetGraph(Get_DateRange_String(r)).AddVertex(r.UserId.ToString(), r.From, r.To); //changed r.user.userid to r.userid
+                GetGraph(Get_DateRange_String(r)).AddVertex(r.UserId.ToString(), r.From, r.To);
                 if (updateDb)
                 {
                     addRequestToDb(r);
@@ -65,36 +65,28 @@ namespace swop.Requests
                 };
                 db.Cycles.Add(c);
                 db.SaveChanges();
-                //save changes so added cycle gets an id? if so need to re-update the c object so it'll have its id
-                //List<UserCycle> userCycles = new List<UserCycle>(); //list to save in cycle
                 foreach (string userId in cycle) //add usercycle for every user in cycle
                 {
                     int userIdInt = Int32.Parse(userId);
                     UserCycle uc = new UserCycle()
                     {
                         UserId = userIdInt,
-                        User = db.Users.Find(userIdInt), //needed?
+                        User = db.Users.Find(userIdInt),
                         CycleId = c.CycleId,
-                        Cycle = db.Cycles.Find(c.CycleId), //needed?
+                        Cycle = db.Cycles.Find(c.CycleId),
                         IsLocked = false
                     };
                     db.UserCycles.Add(uc);
-                   // db.SaveChanges();
                 }
             }
             db.Requests.Add(r);
             db.SaveChanges();
-            /*
-             for each cycle in cycles create the relevant cycle model and usercycles and update the db
-             after foreach add request to db
-             remember to saveChanges()
-             * */
         }
 
         //filter cycles for user in request parameter
         private List<List<string>> filterCyclesForUser(List<List<string>> cycles, Request r)
         {
-            string userIdS = r.UserId.ToString(); //changed r.user.userid to r.userid
+            string userIdS = r.UserId.ToString();
             return (from cycle in cycles where cycle.Contains(userIdS) select cycle).ToList();
         }
 
@@ -113,7 +105,7 @@ namespace swop.Requests
             {
                 GetGraph(Get_DateRange_String(r)).DeleteVertex(r.UserId.ToString(), r.From, r.To);
             }
-            List<Cycle> cycles = new List<Cycle>(); //might change to set
+            List<Cycle> cycles = new List<Cycle>();
             int userId = request.UserId;
             foreach (UserCycle uc in db.UserCycles.Include("Cycle"))
             {
@@ -157,7 +149,6 @@ namespace swop.Requests
     
 
         //finds all relative requests in a range of 2 days
-        //add boolean thats marks if we should consider today
         public List<Request> Get_All_CoRequests(Request req, bool compareToday)
         {
             List<Request> reqList = new List<Request>();

@@ -76,7 +76,6 @@
 
         public void AddRequests(SwopContext context)
         {
-            //adding user object to new request doesnt work
             RequestHandler.Instance.AddRequest(new Request { UserId = 1, From = "Spain-Barcelona", To = "Hungary-Budapest", Start = new DateTime(2020, 10, 1), End = new DateTime(2020, 10, 1), State = 0 }, true);
             RequestHandler.Instance.AddRequest(new Request { UserId = 2, From = "Hungary-Budapest", To = "Canada-Toronto", Start = new DateTime(2020, 10, 1), End = new DateTime(2020, 10, 1), State = 0 }, true);
             RequestHandler.Instance.AddRequest(new Request { UserId = 3, From = "Canada-Toronto", To = "Israel-Petah Tikva", Start = new DateTime(2020, 10, 1), End = new DateTime(2020, 10, 1), State = 0 }, true);
@@ -90,8 +89,6 @@
             RequestHandler.Instance.AddRequest(new Request { UserId = 9, From = "China-Beijing", To = "Japan-Kyoto", Start = new DateTime(2021, 8, 14), End = new DateTime(2021, 8, 15), State = 0 }, true);
             RequestHandler.Instance.AddRequest(new Request { UserId = 10, From = "Japan-Kyoto", To = "England-London", Start = new DateTime(2021, 8, 14), End = new DateTime(2021, 8, 17), State = 0 }, true);
             RequestHandler.Instance.AddRequest(new Request { UserId = 19, From = "Japan-Kyoto", To = "England-London", Start = new DateTime(2021, 8, 15), End = new DateTime(2021, 8, 15), State = 0 }, true);
-            /**//* RequestHandler.Instance.AddRequest(new Request { UserId = 7, From = "England-London", To = "Israel-Jerusalem", Start = new DateTime(2021, 8, 14), End = new DateTime(2021, 8, 19), State = 0 }, true);
-            *//**//* RequestHandler.Instance.AddRequest(new Request { UserId = 20, From = "England-London", To = "Israel-Jerusalem", Start = new DateTime(2021, 8, 12), End = new DateTime(2021, 8, 19), State = 0 }, true);*/
             RequestHandler.Instance.AddRequest(new Request { UserId = 12, From = "Egypt-Cairo", To = "Japan-Kyoto", Start = new DateTime(2021, 8, 14), End = new DateTime(2021, 8, 17), State = 0 }, true);
             RequestHandler.Instance.AddRequest(new Request { UserId = 11, From = "Egypt-Luxor", To = "Egypt-Cairo", Start = new DateTime(2021, 8, 15), End = new DateTime(2021, 8, 17), State = 0 }, true);
             RequestHandler.Instance.AddRequest(new Request { UserId = 13, From = "India- New Delhi", To = "Egypt-Luxor", Start = new DateTime(2021, 8, 14), End = new DateTime(2021, 8, 17), State = 0 }, true);
@@ -149,8 +146,6 @@
             RequestHandler.Instance.AddRequest(new Request { UserId = 69, From = "Japan-Tokyo", To = "India- New Delhi", Start = new DateTime(2023, 7, 6), End = new DateTime(2023, 7, 14), State = 0 }, true);
             RequestHandler.Instance.AddRequest(new Request { UserId = 70, From = "India- New Delhi", To = "Italy-Sardinia", Start = new DateTime(2023, 7, 6), End = new DateTime(2023, 7, 14), State = 0 }, true);
 
-            //Request req = context.Requests.Find(r1.UserId);
-            //RequestHandler.Instance.DeleteRequest(r1, false);
             context.SaveChanges();
         }
         

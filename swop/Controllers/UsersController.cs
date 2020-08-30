@@ -41,17 +41,6 @@ namespace swop.Controllers
                 return HttpNotFound();
             }
             return View("Error");
-            /*    if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                User user = db.Users.Find(id);
-                if (user == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(user);
-                */
         }
 
         // GET: Users/Create
@@ -65,8 +54,6 @@ namespace swop.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Email,FirstName,LastName,DateOfBirth,Balance,Password,UserPicture,UserType,Country,City,Address,ApartmentPicture,ApartmentDescription,ApartmentPrice,UserId")] User user)
         {
-            //might need to edit UserId's location in the func parameter
-            //code from dominohut?
             user.Balance = 0;
             user.UserType = 0;
             ModelState.Remove("ApartmentScore");
@@ -84,17 +71,8 @@ namespace swop.Controllers
             if (ModelState.IsValid)
             {
                 //upload pictures to db and change user's pic paths to server pic paths
-                //do it in edit too
-                //didnt check if ImageUpload is null, ok because form demands it?
-        
-                //try: 2) maybe binding doesnt work on HttpPosted because it needs a migration? 1) check if you can save picture in db through the filename alone
                 db.Users.Add(user);
                 db.SaveChanges();
-
-             
-               
-                //string fileName = "User" + user.UserId + Path.GetExtension(user.UserPicture);
-                
 
                 return RedirectToAction("../HomePage/Index");
             }
@@ -115,18 +93,6 @@ namespace swop.Controllers
                 return View("Error");
             }
             return HttpNotFound();
-            /*
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-            */
         }
 
         // POST: Users/Edit/5
@@ -135,8 +101,6 @@ namespace swop.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Email,FirstName,LastName,DateOfBirth,Password,UserType,Country,City,Address,ApartmentDescription,ApartmentPrice,UserId")] User user)
         {
-            //might need to edit UserId's location in the func parameter
-            //edited code from vgs
             bool flag = false;
             foreach (User item in db.Users)
             {
@@ -165,15 +129,6 @@ namespace swop.Controllers
                 return RedirectToAction("../HomePage"); //returns to index if edited successfully
             }
             return View(user);
-            /*
-            if (ModelState.IsValid)
-            {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(user);
-            */
         }
 
         // GET: Users/Delete/5
@@ -236,8 +191,6 @@ namespace swop.Controllers
                     Session["UserEmail"] = email;
                     Session["UserType"] = user.UserType;
                     Session["HasActiveRequest"] = false;
-                    //Session["LockedIn"] = false;  // scrapped infavor of LockedInCycleID
-                    //check if has an active request
                     if (db.Requests.Where(r => (r.UserId == user.UserId && r.State == 0)).Any())
                     {
                         Session["HasActiveRequest"] = true;
@@ -320,7 +273,6 @@ namespace swop.Controllers
                     // save the file
                     file.SaveAs(path);
                     //change UserPicture path in db
-                    user.UserPicture = fileName; //might not be accurate
                     db.Entry(user).State = EntityState.Modified;
                     db.SaveChanges();
                     return Json("File uploaded successfully");
@@ -382,7 +334,6 @@ namespace swop.Controllers
                     // save the file
                     file.SaveAs(path);
                     //change UserPicture path in db
-                    user.ApartmentPicture = fileName; //might not be accurate
                     db.Entry(user).State = EntityState.Modified;
                     db.SaveChanges();
                     return Json("File uploaded successfully");
@@ -422,7 +373,6 @@ namespace swop.Controllers
             List<User> uList = new List<User>();
             foreach(User user in db.Users)
             {
-                //user.Email.Contains(email)
                 if ((user.Email.IndexOf(email, StringComparison.OrdinalIgnoreCase) >=0) && (user.Country.IndexOf(country, StringComparison.OrdinalIgnoreCase) >= 0) && (user.City.IndexOf(city, StringComparison.OrdinalIgnoreCase) >= 0) && (user.ApartmentPrice <= price))
                 {
                     uList.Add(user);
@@ -454,8 +404,6 @@ namespace swop.Controllers
                 int[] eDate = Array.ConvertAll(end.Split('-'), s => int.Parse(s));
                 Request r = new Request{ UserId = user.UserId, From = user.Country + "-" + user.City, To = dest, Start = new DateTime(sDate[0], sDate[1], sDate[2]), End = new DateTime(eDate[0], eDate[1], eDate[2]), State = 0 };
                 RequestHandler.Instance.AddRequest(r, true);
-                //RequestHandler.Instance.FindCycles(r.Start, r.End);
-                //db.SaveChanges();//check
                 Session["HasActiveRequest"] = true;
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
@@ -474,8 +422,6 @@ namespace swop.Controllers
                     if (!db.Requests.Where(r => (r.UserId == user.UserId && r.State == 0)).Any())
                         Session["HasActiveRequest"] = false;
                 }
-
-
                 //go through usercycles, collect the cycle ids of the usercycles with same userid as this user
                 List<int> cycleIds;
                 cycleIds = db.UserCycles.Where(uc => uc.UserId == userId).Select(uc => uc.CycleId).ToList();
@@ -534,14 +480,6 @@ namespace swop.Controllers
                     .Include(x=>x.Histories.Select(o=>o.Guest))
                     .First();
                 return View(user);
-/*                if (db.History.Any())
-                {
-                     History history = db.History.Where(h => h.UserId == userId).First();
-                                    *//*if(history != null)
-                                        return View(history);*//*
-                     return View(history);
-                }*/
-               
             }
             return RedirectToAction("Error");
         }
@@ -649,20 +587,5 @@ namespace swop.Controllers
         {
             return View();
         }
-
-            /*      
-             *      public JsonResult IsLogged()
-                    {
-                        if (Session["Logged"] == null || (bool)Session["Logged"] == false)
-                            return Json(false, JsonRequestBehavior.AllowGet);
-
-                        var logInfo = new
-                        {
-                            UserEmail= Session["UserEmail"],
-                            //IsAdmin = Session["IsAdmin"]
-                        };
-                        return Json(logInfo, JsonRequestBehavior.AllowGet);
-                    }
-                    */
-        }
+    }
 }

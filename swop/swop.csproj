@@ -211,8 +211,6 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserCycle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Requests\DateRangeFormer.cs" />
-    <Compile Include="Requests\RequestFormer.cs" />
     <Compile Include="Requests\RequestHandler.cs" />
     <Compile Include="ViewModels\CycleInfoForUser.cs" />
     <Compile Include="ViewModels\CyclesForUser.cs" />
