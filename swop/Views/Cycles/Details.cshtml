@@ -269,7 +269,7 @@
                             <script>totalCost()</script>
                         </dd>
 
-                        @Html.ActionLink("View Profile", "Details", "Users", new { id = Model.host.UserId, }, new { @class = "btnGeneral btnGeneral:hover", @Style = "margin-left:14%" })
+
                     </dl>
 
                 </div>
@@ -286,8 +286,10 @@
                             @Html.DisplayFor(model => model.guest.FirstName)  @Html.DisplayFor(model => model.guest.LastName)
                         </dd>
 
-                        @Html.ActionLink("View Profile", "Details", "Users", new { id = Model.guest.UserId }, new { @class = "btnGeneral btnGeneral:hover", @Style = "margin-left:14%" })
+
+
                     </dl>
+
 
                     <!-- if is locked into a cycle: show lock out button, else show lock in button -->
                     @if ((string)Session["LockedInCycleID"] == Model.cycle.CycleId.ToString())
@@ -315,7 +317,9 @@
                         </form>
                     }
                 </div>
-                </div>
-
             </div>
+
+        </div>
+        @Html.ActionLink("View Profile", "Details", "Users", new { id = Model.host.UserId, }, new { @class = "btnGeneral btnGeneral:hover", @Style = "margin-left:27%" })
+        @Html.ActionLink("View Profile", "Details", "Users", new { id = Model.guest.UserId }, new { @class = "btnGeneral btnGeneral:hover", @Style = "margin-left:13%" })
     </section>

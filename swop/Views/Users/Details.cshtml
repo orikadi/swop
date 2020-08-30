@@ -24,19 +24,19 @@
 
 
             <div class="flex-item2">
-                @Html.DisplayNameFor(model => model.FirstName)
+                @Html.DisplayNameFor(model => model.FirstName) :
 
                 @Html.DisplayFor(model => model.FirstName)
             </div>
 
             <div class="flex-item2">
-                @Html.DisplayNameFor(model => model.LastName)
+                @Html.DisplayNameFor(model => model.LastName) :
 
                 @Html.DisplayFor(model => model.LastName)
             </div>
 
             <div class="flex-item2">
-                @Html.DisplayNameFor(model => model.DateOfBirth)
+                @Html.DisplayNameFor(model => model.DateOfBirth) :
 
 
                 @{
@@ -52,7 +52,7 @@
                     {
 
                         @Html.DisplayNameFor(model => model.Balance)
-
+                        @Html.Raw(":")
                         @Html.DisplayFor(model => model.Balance)
 
                     }
@@ -90,36 +90,36 @@
 
 
             <div class="flex-item2">
-                @Html.DisplayNameFor(model => model.Country)
+                @Html.DisplayNameFor(model => model.Country) :
 
                 @Html.DisplayFor(model => model.Country)
             </div>
 
             <div class="flex-item2">
-                @Html.DisplayNameFor(model => model.City)
+                @Html.DisplayNameFor(model => model.City) :
 
                 @Html.DisplayFor(model => model.City)
             </div>
 
             <div class="flex-item2">
-                @Html.DisplayNameFor(model => model.Address)
+                @Html.DisplayNameFor(model => model.Address) :
 
                 @Html.DisplayFor(model => model.Address)
             </div>
 
             <div class="flex-item2">
-                @Html.DisplayNameFor(model => model.ApartmentDescription)
+                @Html.DisplayNameFor(model => model.ApartmentDescription) :
 
                 @Html.DisplayFor(model => model.ApartmentDescription)
             </div>
 
             <div class="flex-item2">
-                @Html.DisplayNameFor(model => model.ApartmentPrice)
+                @Html.DisplayNameFor(model => model.ApartmentPrice) :
 
                 @Html.DisplayFor(model => model.ApartmentPrice)
             </div>
             <div class="flex-item2">
-                Apartment Score:
+                Apartment Score :
                 @if (Model.ApartmentScores.Count == 0)
                 {
                     @Html.Raw("Not rated yet");

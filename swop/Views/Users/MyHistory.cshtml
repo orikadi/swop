@@ -6,7 +6,7 @@
     <section class="section-2">
         <h1 style="margin-left:1%;">My History</h1>
 
-        <table style="margin-left:1%">
+        <table style="margin-left:1%" class="table">
             <tr>
                 <td>Starting Date</td>
                 <td>Ending Date</td>
@@ -43,7 +43,7 @@
                         }
                         @if (!flag)
                         {
-                            @Html.ActionLink("Rate Host", "AddScorePage", "Users", new { id = item.Host.UserId }, null)
+                            @Html.ActionLink("Rate Host", "AddScorePage", "Users", new { id = item.Host.UserId }, new { @class = "btnGeneral btnGeneral:hover"})
                         }
                     </td>
                 </tr>

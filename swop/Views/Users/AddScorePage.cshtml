@@ -12,34 +12,35 @@
     ViewBag.Title = "AddScorePage";
 }
 
-<section class="section-2">
-    <h2>AddScorePage</h2>
-    <div>
-        Apartment Score:
-        @if (Model.ApartmentScores.Count == 0)
-        {
-            @Html.Raw("Not rated yet");
-        }
-        else
-        {
-            @Html.DisplayFor(model => model.ApartmentScore)
-        }
-    </div>
-    <div>
-        be mindfull of your rating it cannot be changed later <!--maybe remove?-->
-        <form method="post">
-            <div class="form-group">
-                <input type="number" id="ScoreInput" name="Score" min="1" max="5">
-            </div>
-            <div class="form-group">
-                <div>
-                    <!--back here-->
-                    <input type="button" value="Rate" class="btnGeneral btnGeneral:hover" id="RateButton" onclick="RateApartment()" />
+<section class="section-2" >
+    <h1 style="margin-left:1%;">Rate an apartment</h1>
+    <div style="margin-left:1%">
+        <div>
+            Apartment Score:
+            @if (Model.ApartmentScores.Count == 0)
+            {
+                @Html.Raw("Not rated yet");
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.ApartmentScore)
+            }
+        </div>
+        <div>
+            be mindfull of your rating it cannot be changed later <!--maybe remove?-->
+            <form method="post">
+                <div class="form-group">
+                    <input type="number" id="ScoreInput" name="Score" min="1" max="5">
                 </div>
-            </div>
-        </form>
+                <div class="form-group">
+                    <div>
+                        <!--back here-->
+                        <input type="button" value="Rate" class="btnGeneral btnGeneral:hover" id="RateButton" onclick="RateApartment()" />
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-
     <script>
     function RateApartment() {
         var score = $("#ScoreInput").val();

@@ -59,6 +59,7 @@ namespace swop.Models
         [Required]
         public string ApartmentDescription { get; set; }
 
+        [DataType(DataType.Currency)]
         [Display(Name = "Apartment Price Per Night")]
         [Required]
         public double ApartmentPrice { get; set; } //price per night

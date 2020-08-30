@@ -120,6 +120,12 @@ body {
     white-space: normal;
 }
 
+.limiter {
+    
+    height: 10vh;
+    
+    
+}
 .flex-container-r {
     display: flex;
     width: 100vw;
