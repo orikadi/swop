@@ -645,20 +645,24 @@ namespace swop.Controllers
             return host;
         }
 
+        public ActionResult Error(int? id)
+        {
+            return View();
+        }
 
-        /*      
-         *      public JsonResult IsLogged()
-                {
-                    if (Session["Logged"] == null || (bool)Session["Logged"] == false)
-                        return Json(false, JsonRequestBehavior.AllowGet);
-
-                    var logInfo = new
+            /*      
+             *      public JsonResult IsLogged()
                     {
-                        UserEmail= Session["UserEmail"],
-                        //IsAdmin = Session["IsAdmin"]
-                    };
-                    return Json(logInfo, JsonRequestBehavior.AllowGet);
-                }
-                */
-    }
+                        if (Session["Logged"] == null || (bool)Session["Logged"] == false)
+                            return Json(false, JsonRequestBehavior.AllowGet);
+
+                        var logInfo = new
+                        {
+                            UserEmail= Session["UserEmail"],
+                            //IsAdmin = Session["IsAdmin"]
+                        };
+                        return Json(logInfo, JsonRequestBehavior.AllowGet);
+                    }
+                    */
+        }
 }
