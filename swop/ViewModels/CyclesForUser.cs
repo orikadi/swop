@@ -12,11 +12,13 @@ namespace swop.ViewModels
         public User user { get; set; }
         public List<Cycle> cycles { get; set; }
         public Cycle lockedCycle { get; set; }
-        public CyclesForUser(User user, List<Cycle> cycles, Cycle lockedCycle)
+        public List<User> hosts { get; set; }
+        public CyclesForUser(User user, List<Cycle> cycles, Cycle lockedCycle, List<User> hosts)
         {
             this.user = user;
             this.cycles = cycles;
             this.lockedCycle = lockedCycle;
+            this.hosts = hosts;
         }
     }
 }

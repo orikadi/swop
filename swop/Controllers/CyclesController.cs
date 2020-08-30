@@ -46,7 +46,8 @@ namespace swop.Controllers
             User host = new User(), guest = new User();
             foreach (UserCycle uc in cycle.UserCycles)
             {
-                User ucUser = db.Users.Find(uc.UserId); //uc.User is null so ucUser is utilized
+                //User ucUser = db.Users.Find(uc.UserId); //uc.User is null so ucUser is utilized
+                User ucUser = db.Users.Where(u => u.UserId == uc.UserId).Include(x => x.ApartmentScores).First();
                 Request req = db.Requests.Where(r => (r.UserId == ucUser.UserId && r.State == 0)).First();
                 string dest = req.To;
                 string residence = ucUser.Country + "-" + ucUser.City;

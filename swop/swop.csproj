@@ -194,6 +194,10 @@
     <Compile Include="Migrations\202008261517452_FixToApartmentScore.designer.cs">
       <DependentUpon>202008261517452_FixToApartmentScore.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008301230180_FixToUser.cs" />
+    <Compile Include="Migrations\202008301230180_FixToUser.designer.cs">
+      <DependentUpon>202008301230180_FixToUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApartmentScore.cs" />
     <Compile Include="Models\Cycle.cs" />
@@ -314,6 +318,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008261517452_FixToApartmentScore.resx">
       <DependentUpon>202008261517452_FixToApartmentScore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008301230180_FixToUser.resx">
+      <DependentUpon>202008301230180_FixToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

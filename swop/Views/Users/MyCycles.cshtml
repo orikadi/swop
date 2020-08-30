@@ -102,28 +102,45 @@
             </th>
 
             <th>Completed</th>
+            <th>
+                Host Rate
+            </th>
         </tr>
 
-
+        @{ int i = 0;}
         @foreach (var item in Model.cycles)
         {
             string sDate = item.Start.ToShortDateString();
             string eDate = item.End.ToShortDateString();
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => sDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => eDate)
-                </td>
-                <td id="percentageBox_@item.CycleId">
-                    <script> percentageComplete(@item.CycleId) </script>
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "Details", "Cycles", new { cid = item.CycleId, uid = Model.user.UserId, }, new { @class = "btnGeneral btnGeneral:hover" })
-                </td>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => sDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => eDate)
+        </td>
 
-            </tr>
+
+        <td id="percentageBox_@item.CycleId">
+            <script> percentageComplete(@item.CycleId) </script>
+        </td>
+        <td>
+            @if (Model.hosts.ElementAt(i).ApartmentScores.Count == 0)
+            {
+                @Html.Raw("Not rated yet");
+                i++;
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.hosts.ElementAt(i).ApartmentScore)
+                i++;
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", "Cycles", new { cid = item.CycleId, uid = Model.user.UserId, }, new { @class = "btnGeneral btnGeneral:hover" })
+        </td>
+
+    </tr>
         }
     </table>
 </section>

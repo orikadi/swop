@@ -238,7 +238,19 @@
                         <dd>
                             @Html.DisplayFor(model => model.host.Email)
                         </dd>
-
+                        <dt>
+                            Rating:
+                        </dt>
+                        <dd>
+                            @if (Model.host.ApartmentScores.Count == 0)
+                            {
+                                @Html.Raw("Not rated yet");
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => model.host.ApartmentScore)
+                            }
+                        </dd>
                         <!-- add rating here -->
 
                         <dt>

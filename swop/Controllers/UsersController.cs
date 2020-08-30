@@ -69,6 +69,8 @@ namespace swop.Controllers
             //code from dominohut?
             user.Balance = 0;
             user.UserType = 0;
+            ModelState.Remove("ApartmentScore");
+            user.ApartmentScore = 1;
            
             foreach(User _user in db.Users)
             {
@@ -78,6 +80,7 @@ namespace swop.Controllers
                     return View(user);
                 }
             }
+            
             if (ModelState.IsValid)
             {
                 //upload pictures to db and change user's pic paths to server pic paths
@@ -478,6 +481,11 @@ namespace swop.Controllers
                 cycleIds = db.UserCycles.Where(uc => uc.UserId == userId).Select(uc => uc.CycleId).ToList();
 
                 List<Cycle> cycles = db.Cycles.Where(c => cycleIds.Contains(c.CycleId)).ToList();
+                List<User> hosts = new List<User>();
+                foreach(Cycle c in cycles)//-------------------------------------
+                {
+                    hosts.Add(GetHost(user, c));
+                }
                 //if theres a locked in cycle, differentiate it and remove it from the cycles list
 
                 //TO-ADD: SORT cycles BY AVERAGE RANKING
@@ -486,12 +494,12 @@ namespace swop.Controllers
                 {
                     Cycle lockedCycle = db.Cycles.Find(Int32.Parse(Session["LockedInCycleID"].ToString()));
                     cycles.Remove(lockedCycle);
-                    CyclesForUser userCycles = new CyclesForUser(user, cycles, lockedCycle);
+                    CyclesForUser userCycles = new CyclesForUser(user, cycles, lockedCycle, hosts);
                     return View(userCycles);
                 }
                 else
                 {
-                    CyclesForUser userCycles = new CyclesForUser(user, cycles, null);
+                    CyclesForUser userCycles = new CyclesForUser(user, cycles, null, hosts);
                     return View(userCycles);
                 }
             }
@@ -624,6 +632,24 @@ namespace swop.Controllers
             return true;
         }
 
+        private User GetHost(User user, Cycle cycle)
+        {
+            Request userReq = db.Requests.Where(r => (r.UserId == user.UserId && r.State == 0)).First();
+            string userDest = userReq.To; //got user destination through an active request
+
+            User host = new User();
+            foreach (UserCycle uc in cycle.UserCycles)
+            {
+                //User ucUser = db.Users.Find(uc.UserId); //uc.User is null so ucUser is utilized
+                User ucUser = db.Users.Where(u => u.UserId == uc.UserId).Include(x => x.ApartmentScores).First();
+                Request req = db.Requests.Where(r => (r.UserId == ucUser.UserId && r.State == 0)).First();
+                string dest = req.To;
+                string residence = ucUser.Country + "-" + ucUser.City;
+                if (residence == userDest)
+                    host = ucUser;
+            }
+            return host;
+        }
 
 
         /*      
