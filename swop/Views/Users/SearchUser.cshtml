@@ -1,4 +1,10 @@
-﻿@model IEnumerable<swop.Models.User>
+﻿<head>
+    @if ((bool)Session["Logged"] == false)
+    {
+        <meta http-equiv="refresh" content="0; url = http://localhost:54598/Home/Index" />
+    }
+</head>
+@model IEnumerable<swop.Models.User>
 
 @{
     ViewBag.Title = "SearchUser";

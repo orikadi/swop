@@ -1,4 +1,15 @@
-﻿@{
+﻿<head>
+    @if ((bool)Session["Logged"] == false)
+    {
+        <meta http-equiv="refresh" content="0; url = http://localhost:54598/Home/Index" />
+    }
+    else
+    {
+        <meta http-equiv="refresh" content="0; url = http://localhost:54598/HomePage/Index" />
+
+    }
+</head>
+@{
     ViewBag.Title = "Contact";
 }
 <h2>@ViewBag.Title.</h2>
