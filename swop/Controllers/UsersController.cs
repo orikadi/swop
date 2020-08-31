@@ -273,6 +273,7 @@ namespace swop.Controllers
                     // save the file
                     file.SaveAs(path);
                     //change UserPicture path in db
+                    user.UserPicture = fileName; //might not be accurate
                     db.Entry(user).State = EntityState.Modified;
                     db.SaveChanges();
                     return Json("File uploaded successfully");
@@ -334,6 +335,7 @@ namespace swop.Controllers
                     // save the file
                     file.SaveAs(path);
                     //change UserPicture path in db
+                    user.ApartmentPicture = fileName; //might not be accurate
                     db.Entry(user).State = EntityState.Modified;
                     db.SaveChanges();
                     return Json("File uploaded successfully");
